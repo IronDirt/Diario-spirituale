@@ -229,6 +229,36 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 16px;
+  /* rimuove l'aspetto nativo del menu a tendina (freccia) per poterlo personalizzare */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23666' d='M6 8L0 0h12z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+  padding-right: 40px; /* spazio per la freccia personalizzata */
+}
+
+/* se vogliamo eliminare completamente la freccia in un elemento specifico */
+select.no-arrow {
+  background-image: none;
+  padding-right: 14px; /* spazio normale senza freccia */
+}
+
+/* rimuove la freccia nativa nei browser Edge/IE */
+select::-ms-expand {
+  display: none;
+}
+
+/* feedback visivo per l'utente quando passa o seleziona la tendina */
+select:hover {
+  border-color: #ccc;
+}
+select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  outline: none;
 }
 
 .btn {
@@ -246,6 +276,48 @@ textarea {
 .btn-close {
   background: #ccc; /* light grey */
   color: #333; /* darker text for contrast */
+}
+
+/* layout per il form principale aggiungi meta */
+.main-meta-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.main-meta-form input {
+  flex: 1;
+}
+.main-meta-form select {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/* mobile: input, select e + in colonna verticale */
+@media (max-width: 600px) {
+  .main-meta-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .main-meta-form input {
+    flex: 0 0 100% !important;
+    width: 100%;
+    margin-bottom: 0;
+    order: 1;
+  }
+  .main-meta-form select {
+    flex: 1;
+    width: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    order: 2;
+  }
+  .main-meta-form .btn-plus {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    margin-left: 10px;
+    order: 3;
+  }
 }
 
 .btn-close:hover {
@@ -1516,9 +1588,21 @@ a.btn-email-link-small:hover {
   background: #4a90e2;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
   width: 35px;
+  height: 35px;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: center;
   cursor: pointer;
+  padding: 0;
+}
+
+/* mantiene le dimensioni del bottone per il form delle sottomete */
+.sub-container form button.btn-plus {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 
 /* Stile per il sottomenu e i suoi componenti */

@@ -308,14 +308,14 @@ if ($total_main_goals > 0) {
     Completate: <span id="progress-percentage"><?php echo $perc; ?>%</span>
     </p>
 
-    <form method="post" style="margin-bottom: 20px;">
-        <input type="text" name="testo_meta" placeholder="Nuova meta..." required>
-        <select name="categoria">
+    <form method="post" class="main-meta-form" style="margin-bottom: 20px; display:flex; gap:10px; align-items:center;">
+        <input type="text" name="testo_meta" placeholder="Nuova meta..." required style="flex:1;">
+        <select name="categoria" class="no-arrow">
             <option>Breve termine</option>
             <option>Medio termine</option>
             <option>Lungo termine</option>
         </select>
-        <button type="submit" name="aggiungi_meta" class="btn">Aggiungi</button>
+        <button type="submit" name="aggiungi_meta" class="btn-plus">+</button>
     </form>
 
     <?php foreach ($mete as $m): 
