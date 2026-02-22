@@ -84,5 +84,6 @@ if (isset($_POST['aggiorna'])) {
         <div class="msg"><?php echo $messaggio; ?></div>
         <a href="home.php" class="back">← Torna alla Home</a>
     </div>
+    <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
 </body>
 </html>

@@ -447,6 +447,8 @@ if ($total_main_goals > 0) {
     </div>
 </div>
 
+<div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
+
 <div id="customConfirm" class="modal-overlay">
     <div class="modal-content">
         <h3 id="modalTitle">Conferma</h3>

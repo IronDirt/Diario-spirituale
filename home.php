@@ -321,6 +321,7 @@ if (file_exists($mete_file)) {
             </div>
         </div>
     </div>
+    <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>

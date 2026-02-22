@@ -491,6 +491,8 @@ function formattaDataPerTabella($data_ita) {
             </div>
         </div>
 
+    <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
+
     <script src="script.js"></script>
     <div id="customConfirm" class="modal-overlay" style="display:none;">
         <div class="modal-content">
