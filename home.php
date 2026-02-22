@@ -39,7 +39,7 @@ if (!is_dir($path)) {
 
 $path = $_SESSION['user_dir'] . '/';
 $config_file = $path . 'config.json';
-$default_config = ['servizio' => true, 'visite' => true, 'lettura' => true, 'mete' => true];
+$default_config = ['servizio' => true, 'visite' => false, 'lettura' => false, 'mete' => true];
 $config = file_exists($config_file) ? json_decode(file_get_contents($config_file), true) : $default_config;
 $config = array_merge($default_config, (array)$config);
 
@@ -219,13 +219,7 @@ if (file_exists($mete_file)) {
             </a>
         <?php endif; ?>
             
-            <?php if ($config['visite']): ?>
-                <a href="visite.php" class="widget">📖<br>Visite</a>
-            <?php endif; ?>
-            
-            <?php if ($config['lettura']): ?>
-                <a href="https://www.jw.org/it/biblioteca-digitale/bibbia/nwt/programma-lettura-bibbia/" target="_blank" class="widget">📅<br>Lettura</a>
-            <?php endif; ?>
+            <!-- Visite e Lettura widget rimossi -->
             
             <?php if ($config['mete']): ?>
                 <a href="mete.php" class="widget">
@@ -268,15 +262,7 @@ if (file_exists($mete_file)) {
                         <span>Registro Ore</span>
                     </label>
                     
-                    <label class="settings-option">
-                        <input type="checkbox" name="w_visite" <?php echo $config['visite'] ? 'checked' : ''; ?>> 
-                        <span>Visite</span>
-                    </label>
-                    
-                    <label class="settings-option">
-                        <input type="checkbox" name="w_lettura" <?php echo $config['lettura'] ? 'checked' : ''; ?>> 
-                        <span>Lettura</span>
-                    </label>
+                    <!-- opzioni Visite e Lettura rimosse dalle impostazioni -->
                     
                     <label class="settings-option">
                         <input type="checkbox" name="w_mete" <?php echo $config['mete'] ? 'checked' : ''; ?>> 
