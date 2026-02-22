@@ -80,6 +80,12 @@ function toggleSubAjax(id, elemento) {
   // 1. Cambiamo l'aspetto visivo IMMEDIATAMENTE (Feedback immediato)
   riga.classList.toggle("completed");
   elemento.classList.toggle("checked");
+  // aggiungi o rimuovi la spunta proprio nel checkbox
+  if (elemento.classList.contains("checked")) {
+    elemento.innerText = "✓";
+  } else {
+    elemento.innerText = "";
+  }
 
   // 2. Gestiamo gli stili del testo
   if (elemento.classList.contains("checked")) {
