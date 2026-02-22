@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^php -l /Users/loris/Documents/GitHub/Diario-spirituale/home\\.php$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}

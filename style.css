@@ -1032,16 +1032,53 @@ table tbody tr:last-child td {
 .info-line-text {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75em;
+  font-size: 0.65em; /* font più piccolo per le righe delle mete */
   color: #444; /* Grigio scuro che hai chiesto */
   margin-bottom: 4px;
   font-weight: 300;
+}
+
+/* evita la rottura dei numeri nei widget mete */
+.info-line-text .info-line-value {
+  white-space: nowrap;
+}
+
+/* etichette e valori delle righe info */
+.info-line-label {
+  font-weight: 300;
+}
+
+/* barre di progresso sottili per Mete/Sotto‑Mete */
+.info-progress-bar-bg {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 20px; /* più sottile ancora */
+  margin-top: 3px; /* spazio leggermente maggiore per separare dal testo */
+  margin-bottom: 4px;
+}
+
+.info-progress-bar {
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+/* dimensione ancora più ridotta se vuoi */
+.info-small-bar {
+  height: 1px;
 }
 
 .info-line-separator {
   height: 1px; /* Sottilissima */
   background-color: #ddd; /* Grigio chiaro */
   width: 100%;
+  margin: 4px 0; /* spazio verticale generale */
+}
+
+/* quando la linea segue la riga Mete aggiunge un po' di respiro prima della riga successiva */
+.info-line-text + .info-line-separator {
+  margin-bottom: 8px;
 }
 
 .footer-home {

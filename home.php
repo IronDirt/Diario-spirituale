@@ -106,10 +106,18 @@ if (file_exists($mete_file)) {
     $mete_data = json_decode(file_get_contents($mete_file), true);
     $mete_array = (array)$mete_data;
     $total_main_goals = count($mete_array);
+    $completed_main_goals = 0;
+    $total_sub_goals = 0;
+    $completed_sub_goals = 0;
     $total_progress = 0;
 
     if ($total_main_goals > 0) {
         foreach ($mete_array as $m) {
+            // conti per display
+            if (isset($m['completata']) && $m['completata'] == true) {
+                $completed_main_goals++;
+            }
+
             $goal_val = 0;
             
             // 1. Valore della Meta Principale (pesa 1/3)
@@ -120,9 +128,13 @@ if (file_exists($mete_file)) {
             // 2. Valore delle Sotto-mete (pesano 2/3 in totale)
             if (isset($m['sotto_mete']) && !empty($m['sotto_mete'])) {
                 $sub_count = count($m['sotto_mete']);
+                $total_sub_goals += $sub_count;
                 $sub_completed = 0;
                 foreach ($m['sotto_mete'] as $sm) {
-                    if (isset($sm['completata']) && $sm['completata'] == true) $sub_completed++;
+                    if (isset($sm['completata']) && $sm['completata'] == true) {
+                        $sub_completed++;
+                        $completed_sub_goals++;
+                    }
                 }
                 $goal_val += ($sub_completed / $sub_count) * (2 / 3);
             } elseif (isset($m['completata']) && $m['completata'] == true) {
@@ -133,8 +145,12 @@ if (file_exists($mete_file)) {
             $total_progress += $goal_val;
         }
         $perc_mete = round(($total_progress / $total_main_goals) * 100);
+    
+    // percentuali per le righe aggiuntive
+    $main_pct = $total_main_goals > 0 ? round(($completed_main_goals / $total_main_goals) * 100) : 0;
+    $sub_pct = $total_sub_goals > 0 ? round(($completed_sub_goals / $total_sub_goals) * 100) : 0;
     }
-}
+} 
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -235,6 +251,25 @@ if (file_exists($mete_file)) {
                             <div class="progress-bar" style="width: <?php echo $perc_mete; ?>%; background-color: #2ecc71;"></div>
                         </div>
                     </div>
+
+                    <?php if ($total_main_goals > 0): ?>
+                        <div class="info-line-wrapper">
+                            <div class="info-line-text">
+                                <span class="info-line-label">Mete</span>
+                                <span class="info-line-value"><?= $completed_main_goals ?>/<?= $total_main_goals ?></span>
+                            </div>
+                            <div class="info-progress-bar-bg info-small-bar">
+                                <div class="info-progress-bar" style="width: <?= $main_pct ?>%; background-color: <?= $main_pct>0 ? '#2b86c9' : '#ddd' ?>;"></div>
+                            </div>
+                            <div class="info-line-text">
+                                <span class="info-line-label">Sotto&nbsp;Mete</span>
+                                <span class="info-line-value"><?= $completed_sub_goals ?>/<?= $total_sub_goals ?></span>
+                            </div>
+                            <div class="info-progress-bar-bg info-small-bar">
+                                <div class="info-progress-bar" style="width: <?= $sub_pct ?>%; background-color: <?= $sub_pct>0 ? '#2b86c9' : '#ddd' ?>;"></div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </a>
             <?php endif; ?>
         </div>
