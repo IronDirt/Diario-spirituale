@@ -19,11 +19,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // permetti di toccare/cliccare sul testo della meta per leggere il contenuto intero
     const texts = document.querySelectorAll(".meta-text");
+    const modal = document.getElementById("customConfirm");
+    const btnOk = document.getElementById("confirmOk");
+    const btnCancel = document.getElementById("confirmCancel");
+
+    const isTextTruncated = (element) =>
+      element.scrollWidth > element.clientWidth;
+
+    const showMetaPopup = (fullText) => {
+      if (!fullText) return false;
+      if (
+        typeof window.chiediConferma !== "function" ||
+        !modal ||
+        !btnOk ||
+        !btnCancel
+      ) {
+        return false;
+      }
+
+      const originalOkText = btnOk.textContent;
+      const originalCancelDisplay = btnCancel.style.display;
+
+      const restoreModal = () => {
+        btnCancel.style.display = originalCancelDisplay || "";
+        btnOk.textContent = originalOkText;
+        modal.removeEventListener("click", onOverlayClick);
+        btnOk.removeEventListener("click", restoreModal);
+      };
+      const onOverlayClick = (event) => {
+        if (event.target === modal) restoreModal();
+      };
+
+      btnCancel.style.display = "none";
+      btnOk.textContent = "Chiudi";
+      modal.addEventListener("click", onOverlayClick);
+      btnOk.addEventListener("click", restoreModal, { once: true });
+
+      window.chiediConferma("Meta", fullText, () => {});
+      return true;
+    };
+
     texts.forEach((el) => {
       el.style.cursor = "pointer"; // suggerisce che è interattivo
       el.addEventListener("click", () => {
-        // fallback semplice: alert con il testo completo
-        alert(el.textContent.trim());
+        const fullText = el.textContent.trim();
+        if (!fullText || !isTextTruncated(el)) return;
+
+        if (showMetaPopup(fullText)) return;
+        alert(fullText);
       });
     });
   }
