@@ -104,7 +104,7 @@ if (isset($_POST['register'])) {
                         <li>⏰ Registrare le tue ore di servizio</li>
                     </ul>
                     <p>Accedi al tuo account per iniziare:</p>
-                    <a href='http://localhost/Diario-spirituale/index.php' class='button'>Accedi Ora</a>
+                    <a href='http://Diario-spirituale' class='button'>Accedi Ora</a>
                     <p>Grazie per esserti unito a noi!</p>
                 </div>
                 <div class='footer'>
