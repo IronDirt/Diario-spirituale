@@ -269,7 +269,7 @@ if ($total_main_goals > 0) {
             </div>
 
             <div style="flex: 1; text-align: left;">
-                <div style="margin-bottom: 4px; font-size: 1.05em; <?php echo $m['completata'] ? 'text-decoration:line-through;color:#888;' : ''; ?>">
+                <div class="meta-text" style="margin-bottom: 4px; font-size: 1.05em; <?php echo $m['completata'] ? 'text-decoration:line-through;color:#888;' : ''; ?>">
                     <?php echo $m['testo']; ?>
                 </div>
                 
@@ -277,6 +277,27 @@ if ($total_main_goals > 0) {
                     <img src="img/clock-line-icon.svg" alt="Orologio" class="icona-orologio-meta">
                     <?php echo $m['categoria']; ?>
                 </span>
+                <?php
+                    // Calcolo percentuale della singola meta (0-100)
+                    $meta_percent = 0;
+                    if (!empty($m['completata'])) {
+                        $meta_percent = 100;
+                    } elseif (!empty($m['sotto_mete'])) {
+                        $sub_count = count($m['sotto_mete']);
+                        $sub_completed = 0;
+                        foreach ($m['sotto_mete'] as $sm) {
+                            if (!empty($sm['completata'])) $sub_completed++;
+                        }
+                        // i sotto-mete pesano per il 90%, il restante 10% è "riservato" al check della meta principale
+                        $meta_percent = round(($sub_completed / $sub_count) * 90);
+                    }
+                ?>
+                <div class="meta-progress-container">
+                    <span class="meta-progress-text"><?php echo $meta_percent; ?>%</span>
+                    <div class="meta-progress-track">
+                        <div class="meta-progress-bar" style="width:<?php echo $meta_percent; ?>%;"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="actions" style="display: flex; gap: 12px; align-items: center;">

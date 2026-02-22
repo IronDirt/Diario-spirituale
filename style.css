@@ -1,1449 +1,1560 @@
 /* --- RESET E CENTRATURA TOTALE --- */
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-body { 
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-    background: #f4f7f9; 
-    margin: 0; 
-    padding: 20px 10px; 
-    display: flex; 
-    flex-direction: column;
-    align-items: center; /* Centra orizzontalmente */
-    min-height: 100vh; 
-    color: #333;
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f4f7f9;
+  margin: 0;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra orizzontalmente */
+  min-height: 100vh;
+  color: #333;
 }
 
 /* Rimuove il contorno blu e l'evidenziazione al tocco su mobile */
-.btn-expand, 
-.btn-check, 
+.btn-expand,
+.btn-check,
 .btn-check-small,
-button, 
+button,
 a {
-    outline: none !important; /* Rimuove il bordo blu di selezione */
-    -webkit-tap-highlight-color: transparent; /* Rimuove l'alone grigio/blu al tocco su Chrome/Safari mobile */
+  outline: none !important; /* Rimuove il bordo blu di selezione */
+  -webkit-tap-highlight-color: transparent; /* Rimuove l'alone grigio/blu al tocco su Chrome/Safari mobile */
 }
 
 /* --- CONTENITORE UNIFICATO --- */
-.container, .box, .auth-card { 
-    background: white; 
-    padding: 25px; 
-    border-radius: 20px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
-    width: 95%; 
-    max-width: 500px;
-    margin: 10px auto; 
-    text-align: center; 
-    position: relative;
+.container,
+.box,
+.auth-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  width: 95%;
+  max-width: 500px;
+  margin: 10px auto;
+  text-align: center;
+  position: relative;
 }
 
 /* --- SEZIONE HOME (GRID) --- */
 /* Se vuoi che SOLO la Home rimanga larga 800px per i widget */
 .home-container {
-    max-width: 800px !important;
+  max-width: 800px !important;
 }
 
 /* --- HOME: GRIGLIA WIDGET --- */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colonne su mobile */
-    gap: 15px;
-    width: 100%;
-    margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colonne su mobile */
+  gap: 15px;
+  width: 100%;
+  margin-top: 25px;
 }
 
 /* --- OTTIMIZZAZIONE HOME PER PC --- */
 /* --- Stili Base (Mobile First) --- */
 .widget {
-    background: #ffffff;
-    padding: 20px 15px;
-    border-radius: 15px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    border: 1px solid #eee;
-    transition: all 0.2s;
-    min-height: 140px; /* Assicura che tutti i widget siano alti uguali */
+  background: #ffffff;
+  padding: 20px 15px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+  min-height: 140px; /* Assicura che tutti i widget siano alti uguali */
 }
 
-.widget:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+.widget:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Limita la dimensione dell'icona SVG */
 .icona-svg-widget {
-    width: 30px;  /* Regola questa misura a tuo piacimento */
-    height: 30px;
-    margin-bottom: 10px;
-    display: block;
+  width: 30px; /* Regola questa misura a tuo piacimento */
+  height: 30px;
+  margin-bottom: 10px;
+  display: block;
 }
 
 .titolo-centrato {
-    display: flex;
-    align-items: center;     /* Allinea verticalmente icona e testo */
-    justify-content: center;  /* Centra orizzontalmente tutto il gruppo */
-    gap: 12px;                /* Spazio tra icona e testo */
-    width: 100%;              /* Occupa tutta la larghezza per centrare rispetto al contenitore */
-    margin: 20px 0;           /* Margine sopra e sotto */
+  display: flex;
+  align-items: center; /* Allinea verticalmente icona e testo */
+  justify-content: center; /* Centra orizzontalmente tutto il gruppo */
+  gap: 12px; /* Spazio tra icona e testo */
+  width: 100%; /* Occupa tutta la larghezza per centrare rispetto al contenitore */
+  margin: 20px 0; /* Margine sopra e sotto */
 }
 
 .titolo-centrato img {
-    width: 30px !important;   /* Dimensione dell'icona */
-    height: 30px !important;
-    display: block;
+  width: 30px !important; /* Dimensione dell'icona */
+  height: 30px !important;
+  display: block;
 }
 
 /* --- Desktop (min-width: 768px) --- */
 @media (min-width: 768px) {
-    .grid { 
-        display: grid; /* Assicurati che sia definito come grid */
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 25px; 
-        max-width: 900px;
-        margin: 0 auto;
-    }
-    
-    .widget {
-        padding: 45px 20px; /* Sovrascrive il padding base */
-        font-size: 1.3em;   
-        min-height: 120px;  
-        border-radius: 20px; /* Sovrascrive il border-radius base */
-    }
+  .grid {
+    display: grid; /* Assicurati che sia definito come grid */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-    /* Limita la dimensione dell'icona SVG */
-    .icona-svg-widget {
-        width: 35px;  /* Regola questa misura a tuo piacimento */
-        height: 35px;
-        margin-bottom: 10px;
-        display: block;
-    }
+  .widget {
+    padding: 45px 20px; /* Sovrascrive il padding base */
+    font-size: 1.3em;
+    min-height: 120px;
+    border-radius: 20px; /* Sovrascrive il border-radius base */
+  }
 
-    .icona-widget {
-        width: 28px;  
-        height: 28px;
-        margin-bottom: 5px;
-        display: block;
-    }
+  /* Limita la dimensione dell'icona SVG */
+  .icona-svg-widget {
+    width: 35px; /* Regola questa misura a tuo piacimento */
+    height: 35px;
+    margin-bottom: 10px;
+    display: block;
+  }
 
-    .container.home-container { 
-        max-width: 950px; 
-        padding: 50px;
-    }
+  .icona-widget {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .container.home-container {
+    max-width: 950px;
+    padding: 50px;
+  }
 }
 /* --- IMPOSTAZIONI RUOTA SPOSTATE IN BASSO A DESTRA --- */
 .settings-icon {
-    bottom: 20px; /* Spostata in basso */
-    right: 25px;  /* Rimane a destra */
-    cursor: pointer;
-    color: #929494; /* Grigio simile a "Disconnetti" */
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  bottom: 20px; /* Spostata in basso */
+  right: 25px; /* Rimane a destra */
+  cursor: pointer;
+  color: #929494; /* Grigio simile a "Disconnetti" */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .settings-icon:hover {
-    color: #4a90e2; /* Cambia colore al passaggio */
-    transform: rotate(45deg) scale(1.1);
+  color: #4a90e2; /* Cambia colore al passaggio */
+  transform: rotate(45deg) scale(1.1);
 }
 
 #overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none; /* Nasconde di default */
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* Nasconde di default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .modal {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 400px;
-    text-align: left;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
 }
 
 /* --- NAVIGAZIONE MESI --- */
-.nav-mesi { 
-    display: flex; 
-    gap: 8px; 
-    margin-bottom: 20px; 
-    width: 100%; 
-    justify-content: center;
+.nav-mesi {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: center;
 }
 
 .nav-mesi a.btn-mese {
-    flex: 1;
-    padding: 12px 5px;
-    background-color: #f8f9fa;
-    color: #666;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.9em;
-    border: 1px solid #eee;
+  flex: 1;
+  padding: 12px 5px;
+  background-color: #f8f9fa;
+  color: #666;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9em;
+  border: 1px solid #eee;
 }
 
 .nav-mesi a.btn-mese.attivo {
-    background-color: #e9ecef !important;
-    color: #000 !important;
-    border-color: #ddd;
+  background-color: #e9ecef !important;
+  color: #000 !important;
+  border-color: #ddd;
 }
 
 /* --- ELEMENTI UI --- */
-.totale-box { 
-    background: #4a90e2; 
-    color: white; 
-    padding: 30px; 
-    border-radius: 15px; 
-    margin-bottom: 25px; 
+.totale-box {
+  background: #4a90e2;
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 25px;
 }
 
-.input-group { display: flex; gap: 10px; margin-bottom: 10px; }
-
-input, select, textarea { 
-    width: 100%; padding: 14px; margin: 8px 0; 
-    border: 1px solid #ddd; border-radius: 10px; font-size: 16px;
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.btn { 
-    background: #4a90e2; color: white; border: none; padding: 15px; 
-    border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%;
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
 }
 
 /* --- TABELLE --- */
-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-
-th, td { 
-    border-bottom: 1px solid #eee; 
-    padding: 12px 8px; /* Unificato qui */
-    text-align: left; 
-    font-size: 0.95em;
-    text-transform: none !important;
-    color: #555;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
+th,
+td {
+  border-bottom: 1px solid #eee;
+  padding: 12px 8px; /* Unificato qui */
+  text-align: left;
+  font-size: 0.95em;
+  text-transform: none !important;
+  color: #555;
+}
 
 /* Rende la prima colonna (la data) più evidente */
 table td:first-child {
-    font-weight: 500;
-    color: #2c3e50;
-    white-space: nowrap; /* Evita che la data vada a capo */
+  font-weight: 500;
+  color: #2c3e50;
+  white-space: nowrap; /* Evita che la data vada a capo */
 }
 
 .del-btn:hover {
-    color: #e74c3c; /* Rosso quando ci passi sopra */
-    transform: scale(1.1); /* Si ingrandisce leggermente */
+  color: #e74c3c; /* Rosso quando ci passi sopra */
+  transform: scale(1.1); /* Si ingrandisce leggermente */
 }
 /* --- METE --- */
 .meta-card {
-    background: #fdfdfd;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #f0f0f0;
+  background: #fdfdfd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #f0f0f0;
+}
+
+/* barre progressione delle singole mete */
+.meta-progress-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* occuperà tutta la larghezza disponibile */
+  background: transparent; /* nessun sfondo, solo la traccia interna sarà grigia */
+  margin-top: 4px;
+}
+
+.meta-progress-track {
+  width: 100%;
+  background: #eee; /* track grigio visibile solo sotto la barra verde */
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.meta-progress-bar {
+  height: 4px;
+  background: #2ecc71;
+  transition: width 0.4s;
+  border-radius: 2px; /* punte arrotondate */
+}
+
+.meta-progress-text {
+  font-size: 0.75em;
+  color: #888;
+  align-self: flex-end; /* posiziona a destra */
+  margin-bottom: 2px;
 }
 
 /* --- STILE PULSANTE TORNA ALLA DASHBOARD --- */
 .back {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 25px;
-    background: #eee;
-    color: #555;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.9em;
-    transition: background 0.2s;
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: #eee;
+  color: #555;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9em;
+  transition: background 0.2s;
 }
 
 .back:hover {
-    background: #e0e0e0;
-    color: #333;
+  background: #e0e0e0;
+  color: #333;
 }
 
 /* --- SPECIFICO PER INDEX (LOGIN/REGISTRAZIONE) --- */
 /* Restringe la card solo nella pagina di accesso su PC */
 .auth-container {
-    max-width: 400px !important; 
+  max-width: 400px !important;
 }
 
 /* Sistemazione dell'occhio (posizionamento assoluto nel campo password) */
 .password-wrapper {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .toggle-password {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
-    z-index: 10;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  z-index: 10;
 }
 
 .toggle-password:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Rimuove margini extra dagli input per non sfasare l'occhio */
 .password-wrapper input {
-    margin: 8px 0;
-    padding-right: 45px; /* Spazio per non sovrapporre testo e icona */
+  margin: 8px 0;
+  padding-right: 45px; /* Spazio per non sovrapporre testo e icona */
 }
 
 /* Contenitore della barra (grigio chiaro) */
 /* Stile base per il contenitore (sfondo grigio) */
 .progress-container {
-    background-color: #eee;
-    border-radius: 12px;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
+  background-color: #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
 /* Stile per la barra (verde e animata) */
 .progress-bar {
-    background-color: #2ecc71;
-    height: 100%;
-    transition: width 0.5s ease-in-out;
+  background-color: #2ecc71;
+  height: 100%;
+  transition: width 0.5s ease-in-out;
 }
 
 .citazione {
-    color: #777;          /* Grigio medio-chiaro elegante */
-    font-size: 0.95em;    /* Leggermente più piccolo del testo standard */
-    margin-top: -10px;    /* Avvicina la frase al titolo H1 */
-    margin-bottom: 20px;
-    line-height: 1.4;
+  color: #777; /* Grigio medio-chiaro elegante */
+  font-size: 0.95em; /* Leggermente più piccolo del testo standard */
+  margin-top: -10px; /* Avvicina la frase al titolo H1 */
+  margin-bottom: 20px;
+  line-height: 1.4;
 }
 
 .citazione i {
-    display: block;       /* Mette la frase su una riga e il riferimento sotto, oppure toglilo per tenerli uniti */
-    margin-bottom: 5px;
+  display: block; /* Mette la frase su una riga e il riferimento sotto, oppure toglilo per tenerli uniti */
+  margin-bottom: 5px;
 }
 
 .citazione span {
-    font-weight: 600;     /* Rende il riferimento biblico un po' più marcato */
-    font-size: 0.85em;    /* Riferimento leggermente più piccolo della frase */
-    text-transform: uppercase; /* (Opzionale) Rende "PROVERBI 21:5" molto professionale */
-    letter-spacing: 1px;
+  font-weight: 600; /* Rende il riferimento biblico un po' più marcato */
+  font-size: 0.85em; /* Riferimento leggermente più piccolo della frase */
+  text-transform: uppercase; /* (Opzionale) Rende "PROVERBI 21:5" molto professionale */
+  letter-spacing: 1px;
 }
-
 
 /* --- METE: AZIONI FLAT --- */
 .meta-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px; /* Più respiro alla card */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px; /* Più respiro alla card */
 }
 
 .actions {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Più spazio tra checkbox e cestino */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Più spazio tra checkbox e cestino */
 }
 
 /* Checkbox Flat */
 .btn-check {
-    width: 28px;
-    height: 28px;
-    border: 2px solid #ddd;
-    border-radius: 8px; /* Arrotondato moderno */
-    display: flex;
-    min-width: 28px; /* Evita che si restringa se il testo è lungo */
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: all 0.2s;
-    background: white;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #ddd;
+  border-radius: 8px; /* Arrotondato moderno */
+  display: flex;
+  min-width: 28px; /* Evita che si restringa se il testo è lungo */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: all 0.2s;
+  background: white;
 }
 
 .btn-check:hover {
-    border-color: #2ecc71;
-    transform: scale(1.05);
+  border-color: #2ecc71;
+  transform: scale(1.05);
 }
 
 /* Cestino migliorato */
 .btn-delete {
-    text-decoration: none;
-    font-size: 1.4em; /* Leggermente più grande */
-    opacity: 0.4;
-    transition: all 0.2s;
-    display: inline-block;
+  text-decoration: none;
+  font-size: 1.4em; /* Leggermente più grande */
+  opacity: 0.4;
+  transition: all 0.2s;
+  display: inline-block;
 }
 
 .btn-delete:hover {
-    opacity: 1;
-    transform: scale(1.1);
+  opacity: 1;
+  transform: scale(1.1);
 }
-
-
 
 /* --- BADGES METE STYLE PILLOLA AVANZATO --- */
 .badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px; /* Arrotondate */
-    font-size: 0.75em;
-    font-weight: 500;
-    text-transform: capitalize; /* Solo iniziale maiuscola */
-    border: none;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px; /* Arrotondate */
+  font-size: 0.75em;
+  font-weight: 500;
+  text-transform: capitalize; /* Solo iniziale maiuscola */
+  border: none;
 }
 
-.badge-breve { background-color: #d4edda; color: #155724; } /* Verde */
-.badge-medio { background-color: #d1ecf1; color: #0c5460; } /* Blu */
-.badge-lungo { background-color: #f3e5f5; color: #4a148c; } /* Viola */
+.badge-breve {
+  background-color: #d4edda;
+  color: #155724;
+} /* Verde */
+.badge-medio {
+  background-color: #d1ecf1;
+  color: #0c5460;
+} /* Blu */
+.badge-lungo {
+  background-color: #f3e5f5;
+  color: #4a148c;
+} /* Viola */
 
 .btn-check {
-    width: 28px;
-    height: 28px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background: white;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: white;
 }
 
 .btn-check.checked {
-    background-color: #2ecc71 !important; /* Forza il verde */
-    border-color: #2ecc71 !important;
-    display: flex;
-    box-shadow: 0 2px 6px rgba(46, 204, 113, 0.3); /* Ombra leggera moderna */
-    align-items: center;
-    position: relative;
-    justify-content: center;
+  background-color: #2ecc71 !important; /* Forza il verde */
+  border-color: #2ecc71 !important;
+  display: flex;
+  box-shadow: 0 2px 6px rgba(46, 204, 113, 0.3); /* Ombra leggera moderna */
+  align-items: center;
+  position: relative;
+  justify-content: center;
 }
 
 /* Stile base per la targhetta elegante */
 .badge-meta-elegante {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 8px 3px 0px;
-    color: #777; /* Testo grigio scuro ma delicato */
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: lowercase; /* Rende il testo meno impattante visivamente */
-    opacity: 0.8;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 0px;
+  color: #777; /* Testo grigio scuro ma delicato */
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: lowercase; /* Rende il testo meno impattante visivamente */
+  opacity: 0.8;
 }
-
 
 /* Dimensioni dell'icona orologio nelle mete */
 .icona-orologio-meta {
-    width: 12px;
-    height: 12px;
-    opacity: 0.6; /* Rende l'icona discreta */
-    filter: grayscale(100%); /* Assicura che non abbia colori propri */
+  width: 12px;
+  height: 12px;
+  opacity: 0.6; /* Rende l'icona discreta */
+  filter: grayscale(100%); /* Assicura che non abbia colori propri */
 }
 
 .btn-check.checked::after {
-    content: '✔';
-    color: white;
-    /* Font arrotondato e molto marcato */
-    font-family: "Quicksand", "Arial Rounded MT Bold", "Segoe UI Variable", sans-serif;
-    font-weight: 900; 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Dimensione dinamica */
-    font-size: 15px;
+  content: "✔";
+  color: white;
+  /* Font arrotondato e molto marcato */
+  font-family:
+    "Quicksand", "Arial Rounded MT Bold", "Segoe UI Variable", sans-serif;
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Dimensione dinamica */
+  font-size: 15px;
 }
 
 /* Rende le mete completate meno appariscenti nella lista */
 .meta-wrapper:has(.btn-check.checked) {
-    opacity: 0.7;
-    filter: grayscale(30%);
-    transition: all 0.3s ease;
+  opacity: 0.7;
+  filter: grayscale(30%);
+  transition: all 0.3s ease;
 }
 
 /* Opzionale: se vuoi che al passaggio del mouse tornino nitide */
 .meta-wrapper:has(.btn-check.checked):hover {
-    opacity: 1;
-    filter: grayscale(0%);
+  opacity: 1;
+  filter: grayscale(0%);
 }
 
 /* Container della checkbox - Allineamento migliorato */
 .custom-checkbox-container {
-    display: flex;
-    align-items: center; /* Centra verticalmente gli elementi */
-    position: relative;
-    padding-left: 30px;
-    margin: 15px 0;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: #666;
-    user-select: none;
-    text-align: left;
-    min-height: 20px; /* Altezza pari al quadratino */
-    line-height: 20px; /* Allinea il testo all'altezza del quadratino */
+  display: flex;
+  align-items: center; /* Centra verticalmente gli elementi */
+  position: relative;
+  padding-left: 30px;
+  margin: 15px 0;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #666;
+  user-select: none;
+  text-align: left;
+  min-height: 20px; /* Altezza pari al quadratino */
+  line-height: 20px; /* Allinea il testo all'altezza del quadratino */
 }
 
 /* Nascondi la checkbox originale */
 .custom-checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 /* Il quadratino (Checkmark) */
 .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 /* Colore quando selezionata */
 .custom-checkbox-container input:checked ~ .checkmark {
-    background-color: #4a90e2;
+  background-color: #4a90e2;
 }
 
 /* Simbolo del check (V) */
 .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+  content: "";
+  position: absolute;
+  display: none;
 }
 
 .custom-checkbox-container input:checked ~ .checkmark:after {
-    display: block;
+  display: block;
 }
 
 .custom-checkbox-container .checkmark:after {
-    left: 7px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
-
 
 /* Container per ogni riga delle impostazioni */
 .settings-option {
-    display: flex;
-    align-items: center; /* Centra il quadratino rispetto al testo */
-    gap: 12px;           /* Spazio tra quadratino e parola */
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
+  display: flex;
+  align-items: center; /* Centra il quadratino rispetto al testo */
+  gap: 12px; /* Spazio tra quadratino e parola */
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Rendi i quadratini più belli e moderni */
 .settings-option input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #4a90e2;
-    border-radius: 5px; /* Angoli arrotondati */
-    cursor: pointer;
-    position: relative;
-    transition: 0.2s;
-    background: #fff;
-    margin: 0; /* Rimuove margini strani che sballano l'allineamento */
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4a90e2;
+  border-radius: 5px; /* Angoli arrotondati */
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+  background: #fff;
+  margin: 0; /* Rimuove margini strani che sballano l'allineamento */
 }
 
 /* Colore quando selezionato */
 .settings-option input[type="checkbox"]:checked {
-    background-color: #4a90e2;
+  background-color: #4a90e2;
 }
 
 /* La spunta bianca interna */
 .settings-option input[type="checkbox"]:checked::after {
-    content: '✔';
-    position: absolute;
-    color: white;
-    font-size: 14px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  content: "✔";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-
 
 /* Link profilo minimale */
 .edit-profile-minimal {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #4a90e2;
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 600;
-    margin-bottom: 20px;
-    padding: 5px 0;
-    transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #4a90e2;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 5px 0;
+  transition: opacity 0.2s;
 }
 
 .edit-profile-minimal:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 /* Icona utente circolare e discreta */
 .user-icon-circle {
-    background: #eef5ff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: #eef5ff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Link Profilo Minimale ed Elegante */
 .profile-link-new {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #555;
-    text-decoration: none;
-    font-size: 0.95em;
-    font-weight: 500;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    background: #f8f9fa;
-    border: 1px solid #eee;
-    transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  transition: all 0.2s;
 }
 
 .profile-link-new:hover {
-    background: #fff;
-    border-color: #4a90e2;
-    color: #4a90e2;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+  background: #fff;
+  border-color: #4a90e2;
+  color: #4a90e2;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
 }
 
 .profile-link-new svg {
-    color: #4a90e2; /* Colore blu dell'icona */
+  color: #4a90e2; /* Colore blu dell'icona */
 }
 
 /* Timer servizio */
 #timer-container {
-    background: #ffffff;
-    padding: 10px 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 #timer-container #display {
-    font-size: 1.6em;
-    font-weight: 400;
-    color: #2c3e50;
-    /* Usa il carattere del sistema che è più arrotondato rispetto al Courier */
-    font-family: inherit; 
-    /* Mantiene i numeri allineati anche se il carattere è proporzionale */
-    font-variant-numeric: tabular-nums; 
-    letter-spacing: 0.5px;
+  font-size: 1.6em;
+  font-weight: 400;
+  color: #2c3e50;
+  /* Usa il carattere del sistema che è più arrotondato rispetto al Courier */
+  font-family: inherit;
+  /* Mantiene i numeri allineati anche se il carattere è proporzionale */
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
 }
 
 #timer-container .timer-controls {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 #timer-container .btn {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px; /* Angoli del pulsante */
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.2s ease;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px; /* Angoli del pulsante */
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
 }
 
 /* --- TIMER: SIMBOLI SPESSI E ROTONDI --- */
 /* --- TIMER: SIMBOLI BILANCIATI E ARROTONDATI --- */
 
 #timer-container .btn svg.icon {
-    fill: white;
-    stroke: white;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    display: block;
+  fill: white;
+  stroke: white;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  display: block;
 }
 
 /* START: Spessore deciso e centratura ottica */
 #timer-container #startBtn svg.icon {
-    width: 25px; 
-    height: 25px;
-    stroke-width: 80px;
-    transform: translateX(2px) scale(1.1);
+  width: 25px;
+  height: 25px;
+  stroke-width: 80px;
+  transform: translateX(2px) scale(1.1);
 }
 
 /* PAUSA: Ingrandita per pareggiare la massa visiva degli altri */
 #timer-container #pauseBtn svg.icon {
-    width: 32px; /* Più grande per non sembrare piccola */
-    height: 32px;
-    stroke-width: 45px;
+  width: 32px; /* Più grande per non sembrare piccola */
+  height: 32px;
+  stroke-width: 45px;
 }
 
 /* STOP: Leggermente ridotto perché il quadrato pieno è molto pesante */
 #timer-container #stopBtn svg.icon {
-    width: 25px;
-    height: 25px;
-    stroke-width: 60px;
+  width: 25px;
+  height: 25px;
+  stroke-width: 60px;
 }
 
 /* Pulsanti contenitori */
 #timer-container .btn {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.1s;
-    padding: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s;
+  padding: 0;
 }
 
 /* Colori dei pulsanti */
-#timer-container #startBtn { background: #2ecc71; }
-#timer-container #pauseBtn { background: #f1c40f; }
-#timer-container #stopBtn  { background: #e74c3c; }
+#timer-container #startBtn {
+  background: #2ecc71;
+}
+#timer-container #pauseBtn {
+  background: #f1c40f;
+}
+#timer-container #stopBtn {
+  background: #e74c3c;
+}
 
 #timer-container .btn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 /* --- FOOTER SERVIZIO: DASHBOARD + INGRANAGGIO --- */
 .footer-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    width: calc(100% + 50px); 
-    margin-left: -25px;       
-    margin-right: -25px;      
-    margin-bottom: -25px; 
-    margin-top: 20px;
-    padding: 15px 25px;
-    
-    position: sticky;
-    bottom: 0; 
-    background: white; 
-    border-top: 1px solid #f0f0f0;
-    
-    /* Forza l'arrotondamento */
-    border-radius: 0 0 20px 20px; 
-    z-index: 10;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    /* AGGIUNGI QUESTO: Un'ombra leggera aiuta a mascherare lo stacco visivo */
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.03);
+  width: calc(100% + 50px);
+  margin-left: -25px;
+  margin-right: -25px;
+  margin-bottom: -25px;
+  margin-top: 20px;
+  padding: 15px 25px;
 
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+  position: sticky;
+  bottom: 0;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+
+  /* Forza l'arrotondamento */
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  box-sizing: border-box;
+
+  /* AGGIUNGI QUESTO: Un'ombra leggera aiuta a mascherare lo stacco visivo */
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.03);
+
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .settings-icon-inline {
-    cursor: pointer;
-    color: #7f8c8d;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
+  cursor: pointer;
+  color: #7f8c8d;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
 .settings-icon-inline svg {
-    fill: currentColor;
-    width: 30px;
-    height: 30px;
+  fill: currentColor;
+  width: 30px;
+  height: 30px;
 }
 
 .settings-icon-inline:hover {
-    transform: rotate(45deg);
-    color: #2c3e50;
+  transform: rotate(45deg);
+  color: #2c3e50;
 }
 
 /* Stile Overlay (se non già presente) */
 .overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
 }
 
 .settings-card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Rimuove la linea grigia sotto l'ultima riga della tabella */
 table tbody tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* Container degli obiettivi sotto il rettangolo blu */
 .obiettivi-container {
-    width: 100%;
-    margin: 15px 0 25px 0;
-    text-align: left;
+  width: 100%;
+  margin: 15px 0 25px 0;
+  text-align: left;
 }
 
 .obiettivo-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8em;
-    margin-bottom: 5px;
-    color: #666;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  color: #666;
 }
 
 /* Altezza specifica per le barre degli obiettivi */
 .obiettivi-container .progress-container {
-    height: 10px;
-    margin-bottom: 15px;
+  height: 10px;
+  margin-bottom: 15px;
 }
 
 /* Colore specifico per la barra annuale (Azzurro) */
-.progress-bar-annuale, .progress-bar-anno {
-    background-color: #9b59b6 !important;
+.progress-bar-annuale,
+.progress-bar-anno {
+  background-color: #9b59b6 !important;
 }
 
 /* Colore specifico per la barra mensile (Viola) */
 .progress-bar-mensile {
-    background-color: #3498db !important;
+  background-color: #3498db !important;
 }
 
 /* Spaziatura per gli input di tipo number nell'overlay */
 .settings-card input[type="number"] {
-    width: 120px; /* Larghezza ridotta */
-    padding: 8px;
-    margin: 10px 0 20px 45px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: block; /* Li mette su una riga separata */
+  width: 120px; /* Larghezza ridotta */
+  padding: 8px;
+  margin: 10px 0 20px 45px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: block; /* Li mette su una riga separata */
 }
 
 .settings-footer {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 /* Uniforma i margini superiori */
 .home-obj-wrapper {
-    width: 100%;
-    margin-top: 12px; /* Aumentato leggermente */
+  width: 100%;
+  margin-top: 12px; /* Aumentato leggermente */
 }
 
 .info-line-wrapper {
-    width: 100%;
-    margin-top: 12px; /* Uguale a sopra */
+  width: 100%;
+  margin-top: 12px; /* Uguale a sopra */
 }
 
 /* Trova .home-obj-info e cambia il font-size */
 .home-obj-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75em; /* Uguale a .info-line-text */
-    margin-bottom: 3px;
-    color: #555;
-    font-weight: 300;  /* Metti 300 per farlo fine come l'altro */
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em; /* Uguale a .info-line-text */
+  margin-bottom: 3px;
+  color: #555;
+  font-weight: 300; /* Metti 300 per farlo fine come l'altro */
 }
 
 /* Contenitore grigio della barra */
 .home-progress-bar-bg {
-    height: 100%; /* Riempie l'altezza del contenitore genitore (6px) */
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
-    height: 6px;
-    background-color: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 100%;
+  height: 100%; /* Riempie l'altezza del contenitore genitore (6px) */
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+  height: 6px;
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
 }
 
 /* Spaziatura tra le due barre se presenti entrambe */
-.mg-top-8 { 
-    margin-top: 8px; 
+.mg-top-8 {
+  margin-top: 8px;
 }
 
 .mg-top-10 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .ore-widget {
-    display: block;
-    font-size: 1.25em;      /* Dimensione leggibile ma non eccessiva */
-    font-weight: 300;       /* Tratto fine (Light) */
-    color: #444;            /* Grigio scuro elegante */
-    margin-top: 4px;        /* Piccolo distacco dal titolo */
-    letter-spacing: 0.3px;  /* Leggera spaziatura per la pulizia */
+  display: block;
+  font-size: 1.25em; /* Dimensione leggibile ma non eccessiva */
+  font-weight: 300; /* Tratto fine (Light) */
+  color: #444; /* Grigio scuro elegante */
+  margin-top: 4px; /* Piccolo distacco dal titolo */
+  letter-spacing: 0.3px; /* Leggera spaziatura per la pulizia */
 }
 
 .info-line-text {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75em;
-    color: #444; /* Grigio scuro che hai chiesto */
-    margin-bottom: 4px;
-    font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+  color: #444; /* Grigio scuro che hai chiesto */
+  margin-bottom: 4px;
+  font-weight: 300;
 }
 
 .info-line-separator {
-    height: 1px;        /* Sottilissima */
-    background-color: #ddd; /* Grigio chiaro */
-    width: 100%;
+  height: 1px; /* Sottilissima */
+  background-color: #ddd; /* Grigio chiaro */
+  width: 100%;
 }
 
 .footer-home {
-    margin-top: 30px;
-    display: flex;
-    /* Centra perfettamente gli elementi sulla linea mediana */
-    align-items: center; 
-    justify-content: space-between;
-    gap: 15px;
-    width: 100%;
-    padding: 0 10px;
+  margin-top: 30px;
+  display: flex;
+  /* Centra perfettamente gli elementi sulla linea mediana */
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 /* Link di logout (la porta) */
 .logout-link {
-    display: flex;
-    align-items: center;
-    color: #929494;
-    justify-content: center;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin-right: auto; /* Forza il posizionamento tutto a sinistra */
+  display: flex;
+  align-items: center;
+  color: #929494;
+  justify-content: center;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-right: auto; /* Forza il posizionamento tutto a sinistra */
 }
 
 .logout-link:hover .exit-icon {
-    opacity: 1; /* Blu al passaggio, come la ruota */
-    transform: scale(1.1);
+  opacity: 1; /* Blu al passaggio, come la ruota */
+  transform: scale(1.1);
 }
 
 .exit-icon {
-    width: 24px; /* Dimensione identica alla ruota */
-    height: 24px;
-    display: block;
-    transition: all 0.3s ease;
+  width: 24px; /* Dimensione identica alla ruota */
+  height: 24px;
+  display: block;
+  transition: all 0.3s ease;
 }
 
 .exit-icon:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
-
 .settings-icon {
-    bottom: 20px; /* Spostata in basso */
-    right: 25px;  /* Rimane a destra */
-    cursor: pointer;
-    color: #929494; /* Grigio simile a "Disconnetti" */
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    margin-left: auto;
+  bottom: 20px; /* Spostata in basso */
+  right: 25px; /* Rimane a destra */
+  cursor: pointer;
+  color: #929494; /* Grigio simile a "Disconnetti" */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-left: auto;
 }
 
 .settings-icon svg {
-    width: 24px;
-    height: 24px;
-    display: block; /* Evita spazi bianchi sotto l'SVG */
-    fill: currentColor;
+  width: 24px;
+  height: 24px;
+  display: block; /* Evita spazi bianchi sotto l'SVG */
+  fill: currentColor;
 }
 
 /* Layout Impostazioni Obiettivi */
 .setting-group-block {
-    text-align: left;
-    margin-bottom: 15px;
+  text-align: left;
+  margin-bottom: 15px;
 }
 
 .setting-title {
-    font-weight: bold;
-    font-size: 0.9em;
-    margin-bottom: 10px;
-    color: #333;
-    display: block;
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  color: #333;
+  display: block;
 }
 
 .setting-inline-row {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Spazio tra checkbox, input e testo */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Spazio tra checkbox, input e testo */
 }
 
 /* Sovrascrive i margini degli input numerici che avevamo prima */
 .settings-card input[type="number"] {
-    width: 80px !important;
-    margin: 0 !important; /* Rimuove il margine sinistro di 45px */
-    padding: 8px;
+  width: 80px !important;
+  margin: 0 !important; /* Rimuove il margine sinistro di 45px */
+  padding: 8px;
 }
 
 .setting-inline-row span {
-    font-size: 0.9em;
-    color: #666;
+  font-size: 0.9em;
+  color: #666;
 }
 
 /* Stile per la checkbox nel nuovo layout */
 .setting-inline-row input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 22px;
-    height: 22px;
-    border: 2px solid #4a90e2;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    background: #fff;
-    flex-shrink: 0; /* Impedisce alla checkbox di rimpicciolirsi */
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #4a90e2;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  background: #fff;
+  flex-shrink: 0; /* Impedisce alla checkbox di rimpicciolirsi */
 }
 
 .setting-inline-row input[type="checkbox"]:checked {
-    background-color: #4a90e2;
+  background-color: #4a90e2;
 }
 
 .setting-inline-row input[type="checkbox"]:checked::after {
-    content: '✔';
-    position: absolute;
-    color: white;
-    font-size: 14px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  content: "✔";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .setting-group-block a:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  text-decoration: underline;
+  opacity: 0.8;
 }
 
 .btn-email-link {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #3498db;
-    color: #3498db;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.85em;
-    font-weight: bold;
-    transition: 0.3s;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #3498db;
+  color: #3498db;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 .btn-email-link:hover {
-    background-color: #3498db;
-    color: white;
+  background-color: #3498db;
+  color: white;
 }
-
 
 /* --- PULSANTE INVIO DEFINITIVO --- */
 .setting-group-block a.btn-email-link-small,
 a.btn-email-link-small .btn-email-link-small {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background-color: #4a90e2 !important; 
-    color: #ffffff !important; /* Forza il bianco */
-    text-decoration: none !important; /* Rimuove sottolineatura */
-    border-radius: 10px;
-    font-size: 0.9em;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
-    cursor: pointer;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: #4a90e2 !important;
+  color: #ffffff !important; /* Forza il bianco */
+  text-decoration: none !important; /* Rimuove sottolineatura */
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+  cursor: pointer;
 }
 
 /* Hover senza sottolineatura e con testo bianco */
 .setting-group-block a.btn-email-link-small:hover,
 a.btn-email-link-small:hover {
-    background-color: #357abd !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    transform: translateY(-2px);
+  background-color: #357abd !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
 }
 
 /* Stato durante l'invio */
 .btn-sending {
-    background-color: #95a5a6 !important;
-    pointer-events: none;
-    opacity: 0.8;
+  background-color: #95a5a6 !important;
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 /* Animazione rotazione icona */
 .spin {
-    display: inline-block;
-    animation: spinner 1s linear infinite;
+  display: inline-block;
+  animation: spinner 1s linear infinite;
 }
 
 @keyframes spinner {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Rimuove margini extra per l'allineamento perfetto nella riga */
 .setting-inline-row select {
-    min-width: 0; /* Permette al select di restringersi se necessario */
+  min-width: 0; /* Permette al select di restringersi se necessario */
 }
 
 /* Forza il colore bianco usando l'ID per massima priorità */
 #btnInviaRapporto.btn-email-link-small {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background-color: #4a90e2 !important; 
-    color: #ffffff !important; /* Bianco assoluto */
-    text-decoration: none !important; /* No sottolineatura */
-    border-radius: 10px;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: none;
-    box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
-    cursor: pointer;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: #4a90e2 !important;
+  color: #ffffff !important; /* Bianco assoluto */
+  text-decoration: none !important; /* No sottolineatura */
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+  cursor: pointer;
 }
 
 #btnInviaRapporto.btn-email-link-small:hover {
-    background-color: #357abd !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    transform: translateY(-2px);
+  background-color: #357abd !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
 }
 
 /* Rimuove il colore blu dell'icona se è un emoji */
 #btnInviaRapporto span {
-    color: inherit; 
+  color: inherit;
 }
 
 /* Badge di successo */
 .status-msg-ok {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background-color: #d4edda;
-    color: #155724;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: 600;
-    margin-top: 12px;
-    border: 1px solid #c3e6cb;
-    animation: fadeInScale 0.4s ease-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-top: 12px;
+  border: 1px solid #c3e6cb;
+  animation: fadeInScale 0.4s ease-out;
 }
 
 /* Animazione apparizione */
 @keyframes fadeInScale {
-    0% { opacity: 0; transform: scale(0.9); }
-    100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-
 
 /* --- SOTTO-METE --- */
 .meta-wrapper {
-    margin-bottom: 10px;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #f0f0f0;
-    overflow: hidden;
+  margin-bottom: 10px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
 }
 
-.meta-card { 
-    border: none !important; 
-    margin: 0 !important; 
-    display: flex;
-    align-items: center; /* Centra verticalmente tutti gli elementi nella riga */
+.meta-card {
+  border: none !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center; /* Centra verticalmente tutti gli elementi nella riga */
 }
 
 /* Trasforma la freccetta in un tasto grigio */
 .btn-expand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;          /* Larghezza del tasto */
-    height: 40px;         /* Altezza del tasto */
-    background-color: #f0f0f0; /* Grigio chiaro */
-    color: #666;          /* Colore della freccia */
-    border-radius: 20px;   /* Angoli arrotondati */
-    font-size: 14px;      /* Freccia leggermente più grande */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid #e0e0e0; /* Bordo leggero */
-    user-select: none;    /* Evita che il testo venga selezionato al click */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Larghezza del tasto */
+  height: 40px; /* Altezza del tasto */
+  background-color: #f0f0f0; /* Grigio chiaro */
+  color: #666; /* Colore della freccia */
+  border-radius: 20px; /* Angoli arrotondati */
+  font-size: 14px; /* Freccia leggermente più grande */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0; /* Bordo leggero */
+  user-select: none; /* Evita che il testo venga selezionato al click */
 }
 
 /* Effetto al passaggio del mouse */
 .btn-expand:hover {
-    background-color: #e5e5e5;
-    color: #333;
-    transform: scale(1.05); /* Effetto leggero ingrandimento */
+  background-color: #e5e5e5;
+  color: #333;
+  transform: scale(1.05); /* Effetto leggero ingrandimento */
 }
 
 /* Stile dell'SVG interno */
 .btn-expand svg {
-    width: 16px;   /* Dimensione della freccia */
-    height: 16px;
-    transition: transform 0.3s ease; /* Gestisce la rotazione della freccia */
+  width: 16px; /* Dimensione della freccia */
+  height: 16px;
+  transition: transform 0.3s ease; /* Gestisce la rotazione della freccia */
 }
 
 /* Classe che viene aggiunta tramite JS quando il menu è aperto */
 /* Se il tuo script aggiunge la classe .active al tasto o alla freccia */
 .btn-expand.active svg {
-    transform: rotate(180deg); /* Fa ruotare la freccia verso l'alto */
+  transform: rotate(180deg); /* Fa ruotare la freccia verso l'alto */
 }
 
 /* Effetto quando cliccato */
 .btn-expand:active {
-    background-color: #ddd;
-    transform: scale(0.95);
+  background-color: #ddd;
+  transform: scale(0.95);
 }
 
 /* Se nel tuo script JS ruoti la freccia, questo assicura che il tasto rimanga fermo e ruoti solo il simbolo */
 .btn-expand.active {
-    background-color: #e5e5e5;
+  background-color: #e5e5e5;
 }
 
 .sub-mete-container {
-    background: rgb(238 238 238);
-    padding: 0 15px 15px 40px;
-    border-top: 1px dashed #eee;
+  background: rgb(238 238 238);
+  padding: 0 15px 15px 40px;
+  border-top: 1px dashed #eee;
 }
 
 .sub-meta-item {
-    display: flex;
-    align-items: flex-start; /* Allinea verticalmente check, testo e cestino */
-    padding: 10px 0;
-    gap: 12px;           /* Spazio tra gli elementi */
-    border-bottom: 1px solid #f0f0f0;
-    width: 100%;         /* Occupa tutta la larghezza */
-    transition: all 0.4s ease; /* Anima tutti i cambiamenti per mezzo secondo */
-    margin-left: 0;
-    position: relative;
-    background: transparent !important; /* Rimuove eventuali bianchi ereditati */
+  display: flex;
+  align-items: flex-start; /* Allinea verticalmente check, testo e cestino */
+  padding: 10px 0;
+  gap: 12px; /* Spazio tra gli elementi */
+  border-bottom: 1px solid #f0f0f0;
+  width: 100%; /* Occupa tutta la larghezza */
+  transition: all 0.4s ease; /* Anima tutti i cambiamenti per mezzo secondo */
+  margin-left: 0;
+  position: relative;
+  background: transparent !important; /* Rimuove eventuali bianchi ereditati */
 }
 
 .actions-small {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .btn-check-small {
-    width: 24px;   /* Più grande */
-    height: 24px;  /* Più grande */
-    border: 2px solid #ddd; /* Bordo più spesso */
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 0.9em; /* Spunta interna più grande */
-    font-weight: bold; /* Spunta più grossa */
-    color: white;
-    flex-shrink: 0; /* Impedisce che si rimpicciolisca */
-    order: -1; /* Forza la posizione a sinistra */
-    margin-top: 2px;
-    margin-left: 0;
-    background: white;
+  width: 24px; /* Più grande */
+  height: 24px; /* Più grande */
+  border: 2px solid #ddd; /* Bordo più spesso */
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.9em; /* Spunta interna più grande */
+  font-weight: bold; /* Spunta più grossa */
+  color: white;
+  flex-shrink: 0; /* Impedisce che si rimpicciolisca */
+  order: -1; /* Forza la posizione a sinistra */
+  margin-top: 2px;
+  margin-left: 0;
+  background: white;
 }
 
 .btn-check-small.checked {
-    background-color: #2ecc71;
-    border-color: #27ae60;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #2ecc71;
+  border-color: #27ae60;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sub-meta-text {
-    flex: 1;             /* Occupa tutto lo spazio disponibile tra check e cestino */
-    text-align: left;    /* Forza il testo a iniziare da sinistra */
-    margin: 0;
-    line-height: 1.4;       /* Migliora la leggibilità se il testo va a capo */
-    word-break: break-word; /* Evita che il testo lungo rompa il layout */
-    padding-left: 5px;   /* Un po' di respiro dal check */
-    border-bottom: 0.5px solid #ccc;
+  flex: 1; /* Occupa tutto lo spazio disponibile tra check e cestino */
+  text-align: left; /* Forza il testo a iniziare da sinistra */
+  margin: 0;
+  line-height: 1.4; /* Migliora la leggibilità se il testo va a capo */
+  word-break: break-word; /* Evita che il testo lungo rompa il layout */
+  padding-left: 5px; /* Un po' di respiro dal check */
+  border-bottom: 0.5px solid #ccc;
 }
 
 /* IL CESTINO: Rimane bloccato a destra */
 .btn-delete-small {
-    flex-shrink: 0;      /* Impedisce al cestino di rimpicciolirsi */
-    margin-left: auto;   /* Ulteriore sicurezza per spingerlo a destra */
-    text-decoration: none;
-    margin-top: 2px;
-    margin-right: 50px;
+  flex-shrink: 0; /* Impedisce al cestino di rimpicciolirsi */
+  margin-left: auto; /* Ulteriore sicurezza per spingerlo a destra */
+  text-decoration: none;
+  margin-top: 2px;
+  margin-right: 50px;
 }
 
 .sub-meta-form {
-    display: flex;
-    gap: 5px;
-    margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
 }
 
 .sub-meta-form input {
-    font-size: 0.85em;
-    margin: 0;
+  font-size: 0.85em;
+  margin: 0;
 }
 
 .btn-plus {
-    background: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    width: 35px;
-    cursor: pointer;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 35px;
+  cursor: pointer;
 }
-
 
 /* Stile per il sottomenu e i suoi componenti */
 .sub-container form input[type="text"] {
-    flex: 1; /* Fa sì che il campo di testo occupi tutto lo spazio */
-    height: 35px;
+  flex: 1; /* Fa sì che il campo di testo occupi tutto lo spazio */
+  height: 35px;
 }
 
 .sub-container form button {
-    height: 35px;
-    width: 40px;
+  height: 35px;
+  width: 40px;
 }
 
 /* Rimuove l'ultimo bordo della lista per pulizia visiva */
 .sub-container div:last-of-type {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 /* Opzionale: aggiunge un margine quando l'ancora viene attivata */
 .meta-wrapper:target {
-    border-color: #eee !important; /* Mantiene il colore originale */
-    outline: none;
-    scroll-margin-top: 20px;
+  border-color: #eee !important; /* Mantiene il colore originale */
+  outline: none;
+  scroll-margin-top: 20px;
 }
 
 /* Sbiadisce l'intera riga della sotto-meta se completata */
 .sub-meta-item.completed {
-    opacity: 0.7; /* Rende la riga semi-trasparente */
-    transition: opacity 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.02); /* Leggerissimo scurimento extra */}
+  opacity: 0.7; /* Rende la riga semi-trasparente */
+  transition: opacity 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.02); /* Leggerissimo scurimento extra */
+}
 
 /* Il contenitore che racchiude tutte le sotto-mete */
-.sub-mete-container, .sub-container {
-background-color: rgb(243, 243, 243) !important; /* Aggiunte virgole e !important */    margin: 0;
-    padding: 10px 15px;    border-top: 1px solid #e0e0e0; /* Una linea sottile per separare dalla meta principale */
-    border-bottom-left-radius: 15px; /* Arrotonda gli angoli inferiori per seguire la card */
-    border-bottom-right-radius: 15px;
-box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); /* Ombra leggermente più scura */    display: block; 
-    width: 100%;
+.sub-mete-container,
+.sub-container {
+  background-color: rgb(
+    243,
+    243,
+    243
+  ) !important; /* Aggiunte virgole e !important */
+  margin: 0;
+  padding: 10px 15px;
+  border-top: 1px solid #e0e0e0; /* Una linea sottile per separare dalla meta principale */
+  border-bottom-left-radius: 15px; /* Arrotonda gli angoli inferiori per seguire la card */
+  border-bottom-right-radius: 15px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombra leggermente più scura */
+  display: block;
+  width: 100%;
 }
 
 /* Rimuove l'ultimo bordo per pulizia visiva */
 .sub-meta-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* Quando la riga è completata, barra il testo */
 .sub-meta-item.completed .sub-meta-text {
-    text-decoration: line-through;
-    color: #888;
+  text-decoration: line-through;
+  color: #888;
 }
-
 
 /* Quando la riga è completata, barra il testo e sbiadisci */
 .sub-meta-item.completed .sub-meta-text {
-    text-decoration: line-through !important;
-    color: #888 !important;
+  text-decoration: line-through !important;
+  color: #888 !important;
 }
-
 
 /* Overlay che copre tutto lo schermo */
 .modal-overlay {
-    display: none; /* Nascosto di default */
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(3px); /* Effetto sfocato elegante */
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
+  display: none; /* Nascosto di default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px); /* Effetto sfocato elegante */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
 }
 
 /* La scatola del messaggio */
 .modal-content {
-    background: white;
-    padding: 25px;
-    border-radius: 20px; /* Coerente con il tuo stile */
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  background: white;
+  padding: 25px;
+  border-radius: 20px; /* Coerente con il tuo stile */
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content h3 { margin-top: 0; color: #333; }
-.modal-content p { color: #666; font-size: 0.9em; margin-bottom: 20px; }
+.modal-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+.modal-content p {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
 
 /* Bottoni del modal */
-.modal-buttons { display: flex; gap: 10px; justify-content: center; }
-
-.btn-modal-primary, .btn-modal-secondary {
-    border: none;
-    padding: 8px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
-.btn-modal-primary { background: #4a90e2; color: white; } /* Blu */
-.btn-modal-secondary { background: #eee; color: #555; } /* Grigio */
+.btn-modal-primary,
+.btn-modal-secondary {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-modal-primary {
+  background: #4a90e2;
+  color: white;
+} /* Blu */
+.btn-modal-secondary {
+  background: #eee;
+  color: #555;
+} /* Grigio */
 
 /* Stile base dei bottoni modal già fatto, aggiungi queste varianti se vuoi */
-.btn-modal-primary.danger { background: #e74c3c; } /* Rosso per eliminare */
-.btn-modal-primary.success { background: #2ecc71; } /* Verde per salvare */
+.btn-modal-primary.danger {
+  background: #e74c3c;
+} /* Rosso per eliminare */
+.btn-modal-primary.success {
+  background: #2ecc71;
+} /* Verde per salvare */
 
-.meta-item, li {
-    transition: opacity 0.3s ease, transform 0.3s ease;
+.meta-item,
+li {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
