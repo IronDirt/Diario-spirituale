@@ -244,22 +244,22 @@ textarea {
 
 /* close button should be grey instead of default blue */
 .btn-close {
-  background: #ccc;             /* light grey */
-  color: #333;                 /* darker text for contrast */
+  background: #ccc; /* light grey */
+  color: #333; /* darker text for contrast */
 }
 
 .btn-close:hover {
-  background: #bbb;             /* slightly darker on hover */
+  background: #bbb; /* slightly darker on hover */
 }
 
 /* save button styled green */
 .btn-save {
-  background: #2ecc71;          /* green */
+  background: #2ecc71; /* green */
   color: white;
 }
 
 .btn-save:hover {
-  background: #27ae60;          /* darker green on hover */
+  background: #27ae60; /* darker green on hover */
 }
 
 /* --- TABELLE --- */
