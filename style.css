@@ -1332,7 +1332,7 @@ a.btn-email-link-small:hover {
 .sub-meta-item {
   display: flex;
   align-items: flex-start; /* Allinea verticalmente check, testo e cestino */
-  padding: 10px 0;
+  padding: 10px 15px; /* aggiunto padding destro e sinistro per sfruttare tutto lo spazio */
   gap: 12px; /* Spazio tra gli elementi */
   border-bottom: 1px solid #f0f0f0;
   width: 100%; /* Occupa tutta la larghezza */
@@ -1389,10 +1389,10 @@ a.btn-email-link-small:hover {
 /* IL CESTINO: Rimane bloccato a destra */
 .btn-delete-small {
   flex-shrink: 0; /* Impedisce al cestino di rimpicciolirsi */
-  margin-left: auto; /* Ulteriore sicurezza per spingerlo a destra */
+  margin-left: auto; /* spinge l'icona all'estremità destra */
   text-decoration: none;
   margin-top: 2px;
-  margin-right: 50px;
+  margin-right: 0; /* spazio riservato da padding della riga */
 }
 
 .sub-meta-form {
