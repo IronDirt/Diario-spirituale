@@ -293,10 +293,10 @@ if ($total_main_goals > 0) {
                     }
                 ?>
                 <div class="meta-progress-container">
+                    <span class="meta-progress-text"><?php echo $meta_percent; ?>%</span>
                     <div class="meta-progress-track">
                         <div class="meta-progress-bar" style="width:<?php echo $meta_percent; ?>%;"></div>
                     </div>
-                    <span class="meta-progress-text"><?php echo $meta_percent; ?>%</span>
                 </div>
             </div>
 
@@ -370,10 +370,5 @@ if ($total_main_goals > 0) {
 </div>
 
 <script src="script.js"></script>
-
-    <!-- elemento di copyright semplice situato sotto il container principale -->
-    <div class="page-footer">
-        &copy; 2026 Diario Spirituale
-    </div>
 </body>
 </html>

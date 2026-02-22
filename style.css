@@ -38,9 +38,6 @@ a {
   margin: 10px auto;
   text-align: center;
   position: relative;
-  /* estende il contenitore per riempire la finestra quando poco contenuto
-     così il footer rimane più in basso, sulla parte grigia */
-  min-height: calc(100vh - 160px);
 }
 
 /* --- SEZIONE HOME (GRID) --- */
@@ -299,18 +296,17 @@ table td:first-child {
 /* barre progressione delle singole mete */
 .meta-progress-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 100%; /* occuperà tutta la larghezza disponibile */
   background: transparent; /* nessun sfondo, solo la traccia interna sarà grigia */
   margin-top: 4px;
 }
 
 .meta-progress-track {
-  flex: 1;
+  width: 100%;
   background: #eee; /* track grigio visibile solo sotto la barra verde */
   border-radius: 2px;
   overflow: hidden;
-  margin-right: 8px; /* spazio tra barra e percentuale */
 }
 
 .meta-progress-bar {
@@ -323,7 +319,8 @@ table td:first-child {
 .meta-progress-text {
   font-size: 0.75em;
   color: #888;
-  white-space: nowrap;
+  align-self: flex-end; /* posiziona a destra */
+  margin-bottom: 2px;
 }
 
 /* --- STILE PULSANTE TORNA ALLA DASHBOARD --- */
@@ -368,19 +365,6 @@ table td:first-child {
   opacity: 0.5;
   z-index: 10;
 }
-
-/* stile semplice per il footer */
-.page-footer {
-  font-size: 0.75em;
-  color: #999;
-  text-align: center;
-  padding: 8px 0;
-  margin-top: 20px;
-  width: 100%;
-  background: transparent; /* lascia vedere lo sfondo grigio della pagina */
-}
-
-/* footer ora segue il flusso del documento; scorre via con la pagina */
 
 .toggle-password:hover {
   opacity: 1;
