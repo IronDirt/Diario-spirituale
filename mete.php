@@ -97,12 +97,22 @@ if (isset($_GET['azione']) && $_GET['azione'] === 'invia_mete') {
     $headers = "From: Diario Spirituale <no-reply@tuosito.it>\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    $redirect = "mete.php?filtro=" . urlencode($filtro) . "&invio=";
-    if (mail($email_utente, "Mete - $nome_utente", $corpo, $headers)) {
-        header($redirect . "ok");
+    // PREPARA REDIRECT IMMEDIATO CON CONFERMA GENERICA
+    $redirect = "mete.php?filtro=" . urlencode($filtro) . "&invio=ok";
+    header("Location: $redirect");
+
+    // chiude la connessione lato client il prima possibile
+    if (function_exists('fastcgi_finish_request')) {
+        fastcgi_finish_request();
     } else {
-        header($redirect . "errore");
+        ignore_user_abort(true);
+        @ob_end_flush();
+        @ob_flush();
+        flush();
     }
+
+    // invio sul server in background (non blocca il client)
+    @mail($email_utente, "Mete - $nome_utente", $corpo, $headers);
     exit;
 }
 
