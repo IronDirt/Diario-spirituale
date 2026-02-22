@@ -16,6 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (typeof aggiornaBarraProgressiva === "function") {
       aggiornaBarraProgressiva();
     }
+
+    // permetti di toccare/cliccare sul testo della meta per leggere il contenuto intero
+    const texts = document.querySelectorAll(".meta-text");
+    texts.forEach((el) => {
+      el.style.cursor = "pointer"; // suggerisce che è interattivo
+      el.addEventListener("click", () => {
+        // fallback semplice: alert con il testo completo
+        alert(el.textContent.trim());
+      });
+    });
   }
 });
 
