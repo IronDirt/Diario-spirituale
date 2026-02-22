@@ -58,6 +58,53 @@ if (isset($_GET['azione']) && $_GET['azione'] === 'toggle_sub' && isset($_GET['a
     exit; // BLOCCA il resto del file, fondamentale!
 }
 
+// --- AZIONE INVIO EMAIL METE ---
+if (isset($_GET['azione']) && $_GET['azione'] === 'invia_mete') {
+    $email_utente = $_SESSION['utente'] ?? '';
+    $nome_utente = $_SESSION['nome_completo'] ?? 'Utente';
+    $filtro = $_GET['filtro'] ?? 'tutte'; // valori: tutte, completate, noncompletate
+
+    $mete_email = file_exists($file_mete) ? json_decode(file_get_contents($file_mete), true) : [];
+
+    $testo_filtro = 'Tutte';
+    if ($filtro === 'completate') $testo_filtro = 'Solo completate';
+    if ($filtro === 'noncompletate') $testo_filtro = 'Solo non completate';
+
+    $corpo = "Mete per $nome_utente\n";
+    $corpo .= "Filtro: $testo_filtro\n";
+    $corpo .= "----------------------------\n";
+
+    foreach ($mete_email as $m) {
+        $include_m = true;
+        if ($filtro === 'completate' && empty($m['completata'])) $include_m = false;
+        if ($filtro === 'noncompletate' && !empty($m['completata'])) $include_m = false;
+        if (!$include_m) continue;
+
+        $statoM = !empty($m['completata']) ? '✅' : '❌';
+        $corpo .= "- {$m['testo']} ($statoM)\n";
+
+        if (isset($m['sotto_mete']) && is_array($m['sotto_mete'])) {
+            foreach ($m['sotto_mete'] as $sm) {
+                // ogni sotto-meta viene mostrata con stato, indipendentemente dal filtro
+                $statoSm = !empty($sm['completata']) ? '✅' : '❌';
+                $corpo .= "    • {$sm['testo']} ($statoSm)\n";
+            }
+        }
+        $corpo .= "\n";
+    }
+
+    $headers = "From: Diario Spirituale <no-reply@tuosito.it>\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $redirect = "mete.php?filtro=" . urlencode($filtro) . "&invio=";
+    if (mail($email_utente, "Mete - $nome_utente", $corpo, $headers)) {
+        header($redirect . "ok");
+    } else {
+        header($redirect . "errore");
+    }
+    exit;
+}
+
 // Caricamento per la visualizzazione pagina
 $mete = file_exists($file_mete) ? json_decode(file_get_contents($file_mete), true) : [];
 
@@ -353,11 +400,39 @@ if ($total_main_goals > 0) {
             </div>
 </div>
 
-<div id="overlay" class="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
-    <div class="settings-card" style="background:white; padding:20px; border-radius:10px; text-align:center;">
+<div id="overlay" class="overlay" style="<?php echo (isset($_GET['invio']) || (isset($_GET['azione']) && $_GET['azione'] === 'invia_mete')) ? 'display:flex;' : 'display:none;'; ?> position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+    <div class="settings-card" style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:400px; width:90%;">
         <h3>Impostazioni Mete</h3>
-        <p>Configurazioni future disponibili qui.</p>
-        <button type="button" onclick="document.getElementById('overlay').style.display='none'" class="btn" style="background:#bbb;">Chiudi</button>
+        <form method="get">
+            <input type="hidden" name="azione" value="invia_mete">
+            <div class="setting-group-block">
+                <p class="setting-title">Inviati Mete</p>
+                <div class="setting-inline-row" style="gap:8px;">
+                    <select id="filtro_email_mete" name="filtro" style="padding:8px;border-radius:8px;flex:1;">
+                        <option value="tutte" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'tutte') ? 'selected' : ''; ?>>Tutte</option>
+                        <option value="completate" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'completate') ? 'selected' : ''; ?>>Solo completate</option>
+                        <option value="noncompletate" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'noncompletate') ? 'selected' : ''; ?>>Solo non completate</option>
+                    </select>
+                    <a href="#" id="btnInviaMete" onclick="inviaMete(event)" class="btn-email-link-small">
+                        <span id="btn-icon">✉️</span>
+                        <span id="btn-text">Invia</span>
+                    </a>
+                </div>
+                <?php if(isset($_GET['invio'])): ?>
+                    <div class="<?php echo $_GET['invio'] == 'ok' ? 'status-msg-ok' : 'status-msg-error'; ?>" style="margin-top:10px;">
+                        <?php if($_GET['invio'] == 'ok'): ?>
+                            <span>✅</span> Email inviata con successo!
+                        <?php else: ?>
+                            <span>❌</span> Errore durante l'invio.
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="settings-footer">
+                <button type="button" onclick="document.getElementById('overlay').style.display='none'" class="btn btn-close">CHIUDI</button>
+            </div>
+        </form>
     </div>
 </div>
 

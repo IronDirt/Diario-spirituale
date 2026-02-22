@@ -513,6 +513,16 @@ function inviaRapporto() {
   }, 600);
 }
 
+function inviaMete(event) {
+  event.preventDefault();
+  const btn = document.getElementById("btnInviaMete");
+  const filtro = document.getElementById("filtro_email_mete").value;
+  btn.innerHTML = "⏳ Invio...";
+  setTimeout(() => {
+    window.location.href = `mete.php?azione=invia_mete&filtro=${encodeURIComponent(filtro)}`;
+  }, 600);
+}
+
 function aggiornaBarraProgressiva() {
   const meteCard = document.querySelectorAll(".meta-wrapper");
   let totalProgress = 0;
