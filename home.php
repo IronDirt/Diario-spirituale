@@ -47,7 +47,7 @@ if (!is_dir($path)) {
 
 $path = $_SESSION['user_dir'] . '/';
 $config_file = $path . 'config.json';
-$default_config = ['servizio' => true, 'visite' => false, 'lettura' => false, 'mete' => true];
+$default_config = ['servizio' => true, 'visite' => false, 'lettura' => false, 'mete' => true, 'studio_familiare' => true, 'studio_personale' => true];
 $config = file_exists($config_file) ? json_decode(file_get_contents($config_file), true) : $default_config;
 $config = array_merge($default_config, (array)$config);
 
@@ -280,6 +280,20 @@ if (file_exists($mete_file)) {
                     <?php endif; ?>
                 </a>
             <?php endif; ?>
+
+            <?php if ($config['studio_familiare']): ?>
+                <a href="studio_familiare.php" class="widget">
+                    <img src="img/familiare.png" alt="Studio Familiare" class="icona-svg-widget">
+                    <span>Studio Familiare</span>
+                </a>
+            <?php endif; ?>
+
+            <?php if ($config['studio_personale']): ?>
+                <a href="studio_personale.php" class="widget">
+                    <img src="img/personale.png" alt="Studio Personale" class="icona-svg-widget">
+                    <span>Studio Personale</span>
+                </a>
+            <?php endif; ?>
         </div>
 
         <div class="footer-home">
@@ -310,6 +324,16 @@ if (file_exists($mete_file)) {
                     <label class="settings-option">
                         <input type="checkbox" name="w_mete" <?php echo $config['mete'] ? 'checked' : ''; ?>> 
                         <span>Mete</span>
+                    </label>
+                    
+                    <label class="settings-option">
+                        <input type="checkbox" name="w_studio_familiare" <?php echo $config['studio_familiare'] ? 'checked' : ''; ?>> 
+                        <span>Studio Familiare</span>
+                    </label>
+                    
+                    <label class="settings-option">
+                        <input type="checkbox" name="w_studio_personale" <?php echo $config['studio_personale'] ? 'checked' : ''; ?>> 
+                        <span>Studio Personale</span>
                     </label>
                     
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
