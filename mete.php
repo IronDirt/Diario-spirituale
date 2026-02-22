@@ -269,7 +269,7 @@ if ($total_main_goals > 0) {
             </div>
 
             <div style="flex: 1; text-align: left;">
-                <div class="meta-text" style="margin-bottom: 4px; font-size: 1.05em; <?php echo $m['completata'] ? 'text-decoration:line-through;color:#888;' : ''; ?>">
+                <div class="meta-text" title="<?php echo htmlspecialchars($m['testo'], ENT_QUOTES); ?>" style="margin-bottom: 4px; font-size: 1.05em; <?php echo $m['completata'] ? 'text-decoration:line-through;color:#888;' : ''; ?>">
                     <?php echo $m['testo']; ?>
                 </div>
                 
