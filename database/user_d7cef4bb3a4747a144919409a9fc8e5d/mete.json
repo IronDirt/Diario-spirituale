@@ -4,7 +4,8 @@
         "testo": "Anziano",
         "categoria": "Lungo termine",
         "completata": false,
-        "data_creazione": 1771579373
+        "data_creazione": 1771579373,
+        "data_completamento": 1771746511
     },
     {
         "id": "699aa7bc6b6eb",
@@ -16,9 +17,8 @@
             {
                 "id": "699aa7c4957c4",
                 "testo": "ccccc",
-                "completata": true,
-                "data_creazione": 1771743172,
-                "data_completamento": 1771744516
+                "completata": false,
+                "data_creazione": 1771743172
             },
             {
                 "id": "699aa7c2895b2",
@@ -35,7 +35,7 @@
                 "data_completamento": 1771743549
             }
         ],
-        "data_completamento": 1771744269
+        "data_completamento": 1771746512
     },
     {
         "id": "699aab47221d9",
