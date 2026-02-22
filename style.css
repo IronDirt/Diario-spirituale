@@ -285,6 +285,17 @@ table td:first-child {
   border: 1px solid #f0f0f0;
 }
 
+/* testo della meta principale: evita che si allarghi troppo su schermi piccoli */
+.meta-text {
+  display: block;
+  flex: 1 1 auto; /* può ridursi in un flex container */
+  min-width: 0; /* permette al flex item di ridursi oltre il contenuto */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default; /* mostra che non è cliccabile ma può avere tooltip */
+}
+
 /* barre progressione delle singole mete */
 .meta-progress-container {
   display: flex;
