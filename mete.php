@@ -80,14 +80,15 @@ if (isset($_GET['azione']) && $_GET['azione'] === 'invia_mete') {
         if ($filtro === 'noncompletate' && !empty($m['completata'])) $include_m = false;
         if (!$include_m) continue;
 
-        $statoM = !empty($m['completata']) ? '✅' : '❌';
-        $corpo .= "- {$m['testo']} ($statoM)\n";
+        // simbolo principale: ✔ oppure ✖
+        $simboloM = !empty($m['completata']) ? '✔' : '✖';
+        $corpo .= "{$simboloM} {$m['testo']}\n";
 
         if (isset($m['sotto_mete']) && is_array($m['sotto_mete'])) {
             foreach ($m['sotto_mete'] as $sm) {
-                // ogni sotto-meta viene mostrata con stato, indipendentemente dal filtro
-                $statoSm = !empty($sm['completata']) ? '✅' : '❌';
-                $corpo .= "    • {$sm['testo']} ($statoSm)\n";
+                // sotto-meta usa identazione e simbolo
+                $simboloSm = !empty($sm['completata']) ? '✔' : '✖';
+                $corpo .= "    {$simboloSm} {$sm['testo']}\n";
             }
         }
         $corpo .= "\n";
