@@ -538,14 +538,21 @@ function aggiornaBarraProgressiva() {
 
     // --- manteniamo la logica globale già esistente ---
     let goalVal = 0;
-    if (sottoMete.length > 0) {
-      if (isMainChecked) goalVal += 1 / 3;
-      const completate = card.querySelectorAll(
-        ".btn-check-small.checked",
-      ).length;
-      goalVal += (completate / sottoMete.length) * (2 / 3);
+    // Se la meta principale è segnata come completata la consideriamo
+    // totalmente chiusa: così la barra globale resta al 100% anche se
+    // ci sono sotto‑mete non finite, esattamente come in PHP.
+    if (isMainChecked) {
+      goalVal = 1;
     } else {
-      goalVal = isMainChecked ? 1 : 0;
+      // meta principale non completata, pesiamo solo le sotto‑mete (max 2/3)
+      if (sottoMete.length > 0) {
+        const completate = card.querySelectorAll(
+          ".btn-check-small.checked",
+        ).length;
+        goalVal += (completate / sottoMete.length) * (2 / 3);
+      }
+      // se non ci sono sotto‑mete rimane 0 finché non metti il visto sul
+      // genitore, in linea con il calcolo server-side
     }
     totalProgress += goalVal;
   });

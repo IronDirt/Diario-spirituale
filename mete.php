@@ -195,25 +195,28 @@ if ($total_main_goals > 0) {
     foreach ($mete as $m) {
         $goal_val = 0;
         
-        // 1. Valore della Meta Principale (pesa 1/3)
-        if ($m['completata']) {
-            $goal_val += (1 / 3);
-        }
-
-        // 2. Valore delle Sotto-mete (pesano 2/3 in totale)
-        if (isset($m['sotto_mete']) && !empty($m['sotto_mete'])) {
-            $sub_count = count($m['sotto_mete']);
-            $sub_completed = 0;
-            foreach ($m['sotto_mete'] as $sm) {
-                if ($sm['completata']) $sub_completed++;
+        // Se la meta principale è stata segnata come completata consideriamo
+        // l'intero obiettivo come concluso: questo evita incongruenze tra la
+        // barra della singola meta (che mostra sempre 100% in quel caso) e
+        // la percentuale generale della pagina.
+        if (!empty($m['completata'])) {
+            $goal_val = 1;
+        } else {
+            // Meta principale non completata: pesiamo solo in base alle
+            // sotto-mete (se ce ne sono). Il massimo possibile in questo
+            // stato rimane 2/3, mentre il restante 1/3 sarà guadagnato solo
+            // quando si mette il visto sulla meta.
+            if (isset($m['sotto_mete']) && !empty($m['sotto_mete'])) {
+                $sub_count = count($m['sotto_mete']);
+                $sub_completed = 0;
+                foreach ($m['sotto_mete'] as $sm) {
+                    if (!empty($sm['completata'])) $sub_completed++;
+                }
+                $goal_val += ($sub_completed / $sub_count) * (2 / 3);
             }
-            // Aggiunge la frazione dei 2/3 in base alle sotto-mete fatte
-            $goal_val += ($sub_completed / $sub_count) * (2 / 3);
-        } elseif (!$m['completata']) {
-            // Se non ci sono sotto-mete, la meta principale dovrebbe valere 1 intero? 
-            // Seguendo la tua logica: se non ci sono sotto-mete, il "2/3" non esiste, 
-            // quindi la meta principale torna a valere l'intero (1) per non bloccare la barra.
-            $goal_val = ($m['completata']) ? 1 : 0;
+            // se non ci sono sotto-mete rimane 0 finché non si completa la
+            // meta principale (che poi attribuirà 1 intero). Questo evita che
+            // metas "vuote" contino come completate al 90%.
         }
 
         $total_progress += $goal_val;
