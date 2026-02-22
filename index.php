@@ -65,6 +65,58 @@ if (isset($_POST['register'])) {
             'cognome' => $cognome
         ];
         file_put_contents($file_utenti, json_encode($utenti));
+        
+        // Invio email di benvenuto
+        $subject = "Benvenuto nel Diario Spirituale!";
+        $headers = "From: Diario Spirituale <no-reply@tuosito.it>\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        
+        $corpo_email = "
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <style>
+                body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+                .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; }
+                .header h1 { color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; }
+                .content { padding: 40px 30px; color: #333333; line-height: 1.6; }
+                .content h2 { color: #667eea; font-size: 22px; margin-top: 0; }
+                .content p { font-size: 16px; margin: 15px 0; }
+                .button { display: inline-block; padding: 14px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: 600; }
+                .footer { background-color: #f8f9fa; padding: 20px; text-align: center; color: #6c757d; font-size: 14px; }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <h1>✨ Benvenuto!</h1>
+                </div>
+                <div class='content'>
+                    <h2>Ciao $nome,</h2>
+                    <p>Siamo felici di darti il benvenuto nel <strong>Diario Spirituale</strong>!</p>
+                    <p>Il tuo account è stato creato con successo. Ora puoi iniziare a:</p>
+                    <ul>
+                        <li>📖 Tenere traccia del tuo percorso spirituale</li>
+                        <li>🎯 Gestire le tue mete personali</li>
+                        <li>⏰ Registrare le tue ore di servizio</li>
+                    </ul>
+                    <p>Accedi al tuo account per iniziare:</p>
+                    <a href='http://localhost/Diario-spirituale/index.php' class='button'>Accedi Ora</a>
+                    <p>Grazie per esserti unito a noi!</p>
+                </div>
+                <div class='footer'>
+                    <p>&copy; " . date('Y') . " Diario Spirituale. Tutti i diritti riservati.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        ";
+        
+        mail($email, $subject, $corpo_email, $headers);
+        
         $messaggio = "<span style='color:#2ecc71;'>Registrato con successo! Accedi ora.</span>";
     }
 }
