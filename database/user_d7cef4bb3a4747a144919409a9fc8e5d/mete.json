@@ -17,15 +17,15 @@
             {
                 "id": "699aa7c4957c4",
                 "testo": "ccccc",
-                "completata": false,
-                "data_creazione": 1771743172
+                "completata": true,
+                "data_creazione": 1771743172,
+                "data_completamento": 1771749237
             },
             {
                 "id": "699aa7c2895b2",
                 "testo": "bbbbb",
-                "completata": true,
-                "data_creazione": 1771743170,
-                "data_completamento": 1771744515
+                "completata": false,
+                "data_creazione": 1771743170
             },
             {
                 "id": "699aa7bfe729a",
@@ -35,13 +35,13 @@
                 "data_completamento": 1771743549
             }
         ],
-        "data_completamento": 1771746512
+        "data_completamento": 1771749233
     },
     {
         "id": "699aab47221d9",
         "testo": "Pioniere ausiliario continuato (30h)",
         "categoria": "Breve termine",
-        "completata": false,
+        "completata": true,
         "data_creazione": 1771744071,
         "sotto_mete": [
             {
@@ -50,6 +50,7 @@
                 "completata": false,
                 "data_creazione": 1771744412
             }
-        ]
+        ],
+        "data_completamento": 1771747363
     }
 ]

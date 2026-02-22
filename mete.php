@@ -268,7 +268,7 @@ if ($total_main_goals > 0) {
                  onclick="toggleMainAjax('<?php echo $m['id']; ?>', this)">
             </div>
 
-            <div style="flex: 1; text-align: left;">
+            <div class="meta-content">
                 <div class="meta-text" title="<?php echo htmlspecialchars($m['testo'], ENT_QUOTES); ?>" style="margin-bottom: 4px; font-size: 1.05em; <?php echo $m['completata'] ? 'text-decoration:line-through;color:#888;' : ''; ?>">
                     <?php echo $m['testo']; ?>
                 </div>
@@ -293,10 +293,10 @@ if ($total_main_goals > 0) {
                     }
                 ?>
                 <div class="meta-progress-container">
-                    <span class="meta-progress-text"><?php echo $meta_percent; ?>%</span>
                     <div class="meta-progress-track">
                         <div class="meta-progress-bar" style="width:<?php echo $meta_percent; ?>%;"></div>
                     </div>
+                    <span class="meta-progress-text"><?php echo $meta_percent; ?>%</span>
                 </div>
             </div>
 
