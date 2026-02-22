@@ -1,5 +1,13 @@
 <?php
 // Rimuoviamo ogni possibile spazio bianco prima di <?php
+// Configura i parametri del cookie di sessione PRIMA di session_start()
+session_set_cookie_params([
+    'lifetime' => 2592000,  // 30 giorni
+    'path' => '/',
+    'secure' => false,      // Metti true se usi HTTPS
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 ini_set('session.gc_maxlifetime', 2592000);
 ini_set('session.cookie_lifetime', 2592000);
 session_start();
