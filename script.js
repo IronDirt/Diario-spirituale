@@ -270,9 +270,19 @@ function pauseTimer() {
 
 // 1. Modifica lo stopTimer per usare AJAX
 function stopTimer() {
+  // ferma immediatamente l'intervallo e disattiva lo stato "running"
   clearInterval(tInterval);
+
   let totalMs = savedTime;
   if (running) totalMs += new Date().getTime() - startTime;
+
+  // aggiorna stato e pulsanti subito così l'utente vede il timer fermo
+  running = false;
+  toggleButtons(false);
+  // rimuoviamo lo stato dal localStorage in modo che un eventuale refresh non riparta il timer
+  localStorage.setItem("timerRunning", "false");
+  localStorage.removeItem("timerStartTime");
+  // il savedTime rimane in memoria per il calcolo ma non lo scriviamo più nel storage
 
   let ore = Math.floor(totalMs / 3600000);
   let minuti = Math.floor((totalMs % 3600000) / 60000);
@@ -325,6 +335,10 @@ function stopTimer() {
             aggiornaUI(data.totali);
           }
         });
+    },
+    function () {
+      // l'utente ha scelto NO: cancelliamo il tempo accumulato
+      resetTimer();
     },
   );
 }
@@ -585,20 +599,30 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnCancel = document.getElementById("confirmCancel");
 
   let actionToExecute = null;
+  let cancelAction = null; // callback da chiamare quando si annulla
 
-  // 1. FUNZIONE UNIVERSALE
-  window.chiediConferma = function (titolo, messaggio, callback) {
+  // 1. FUNZIONE UNIVERSALE (ora supporta anche la callback di cancel)
+  window.chiediConferma = function (titolo, messaggio, callback, cancelCb) {
     mTitle.innerText = titolo;
     mText.innerHTML = messaggio;
     modal.style.display = "flex";
     actionToExecute = callback;
+    cancelAction = cancelCb || null;
   };
 
-  btnCancel.onclick = () => (modal.style.display = "none");
+  btnCancel.onclick = () => {
+    modal.style.display = "none";
+    if (cancelAction) {
+      cancelAction();
+      cancelAction = null;
+    }
+  };
 
   btnOk.onclick = () => {
     if (actionToExecute) actionToExecute();
     modal.style.display = "none";
+    actionToExecute = null;
+    cancelAction = null;
   };
 
   window.onclick = (event) => {
