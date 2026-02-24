@@ -1,0 +1,47 @@
+{
+  "name": "Diario Spirituale",
+  "short_name": "Diario",
+  "description": "Diario per il tracciamento spirituale e gli obiettivi personali",
+  "start_url": "/home.php",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "icona_diario_personale.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icona_diario_personale.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icona_diario_personale.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Inserisci Ore Servizio",
+      "short_name": "Servizio",
+      "description": "Accedi direttamente alla pagina di registrazione delle ore",
+      "url": "/servizio.php",
+      "icons": []
+    },
+    {
+      "name": "Visualizza Mete",
+      "short_name": "Mete",
+      "description": "Visualizza i tuoi obiettivi e progressi",
+      "url": "/mete.php",
+      "icons": []
+    }
+  ]
+}

@@ -173,6 +173,7 @@ if (file_exists($mete_file)) {
     <link rel="icon" type="image/png" href="icona_diario_personale.png">
 
     <link rel="apple-touch-icon" href="icona_diario_personale.png">
+    <link rel="manifest" href="manifest.json">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Diario">
@@ -303,6 +304,10 @@ if (file_exists($mete_file)) {
                 <img src="img/exit.png" alt="Esci" class="exit-icon">
             </a>
             
+            <div class="install-btn-wrapper" id="install-btn-wrapper" style="display: none;">
+                <button id="install-btn" class="install-icon" title="Installa come App">Installa come APP</button>
+            </div>
+            
             <div class="settings-icon" onclick="document.getElementById('overlay').style.display='flex'">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.03-1.58zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
@@ -358,5 +363,37 @@ if (file_exists($mete_file)) {
     <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
+    
+    <script>
+    // PWA Install Button Logic
+    let deferredPrompt;
+    const installBtnWrapper = document.getElementById('install-btn-wrapper');
+    const installBtn = document.getElementById('install-btn');
+    
+    // Ascolta l'evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtnWrapper.style.display = 'flex';
+    });
+    
+    // Gestisci il click del pulsante install
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installBtnWrapper.style.display = 'none';
+            }
+        });
+    }
+    
+    // Ascolta l'evento appinstalled
+    window.addEventListener('appinstalled', () => {
+        installBtnWrapper.style.display = 'none';
+        deferredPrompt = null;
+    });
+    </script>
 </body>
 </html>
