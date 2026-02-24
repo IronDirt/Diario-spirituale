@@ -2,14 +2,16 @@
 // Rimuoviamo ogni possibile spazio bianco prima di <?php
 // Configura i parametri del cookie di sessione PRIMA di session_start()
 session_set_cookie_params([
-    'lifetime' => 2592000,  // 30 giorni
+    'lifetime' => 259200,   // 3 giorni (la sessione non dura mai più del gc_maxlifetime)
     'path' => '/',
     'secure' => false,      // Metti true se usi HTTPS
     'httponly' => true,
     'samesite' => 'Lax'
 ]);
-ini_set('session.gc_maxlifetime', 2592000);
-ini_set('session.cookie_lifetime', 2592000);
+ini_set('session.gc_maxlifetime', 259200);    // 3 giorni - IMPORTANTE: deve corrispondere al cookie lifetime
+ini_set('session.cookie_lifetime', 259200);   // 3 giorni
+ini_set('session.gc_probability', 1);          // Forza il garbage collection
+ini_set('session.gc_divisor', 100);            // Ogni 100 richieste
 session_start();
 
 $cartella_db = 'database';
