@@ -117,7 +117,15 @@ if (isset($_POST['register'])) {
         
         mail($email, $subject, $corpo_email, $headers);
         
-        $messaggio = "<span style='color:#2ecc71;'>Registrato con successo! Accedi ora.</span>";
+        // Accesso automatico dopo la registrazione
+        session_regenerate_id(true);
+        $_SESSION['autenticato'] = true;
+        $_SESSION['utente'] = $email;
+        $_SESSION['nome_completo'] = $nome . " " . $cognome;
+        $_SESSION['user_dir'] = $cartella_db . '/user_' . md5($email);
+        if (!is_dir($_SESSION['user_dir'])) mkdir($_SESSION['user_dir'], 0755, true);
+        header("Location: home.php");
+        exit;
     }
 }
 
