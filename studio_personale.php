@@ -34,22 +34,15 @@ if (!is_dir($path)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Personale - Diario Spirituale</title>
-    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
-    <link rel="icon" type="image/png" href="icona_diario_personale.png">
-    <link rel="apple-touch-icon" href="icona_diario_personale.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Diario">
+    <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
+    <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <a href="home.php" class="back-button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-            </a>
-            <h1>Studio Personale</h1>
-        </div>
+<body id="studio-personale-page">
+    <div class="box">
+        <h2 class="titolo-centrato">
+            <img src="img/personale.png" alt="Studio Personale">
+            Studio Personale
+        </h2>
 
         <div class="content-placeholder">
             <div style="text-align: center; padding: 50px 20px; color: #999;">
@@ -63,10 +56,39 @@ if (!is_dir($path)) {
                 <p style="font-size: 0.9em; margin-top: 10px;">Questa sezione sarà presto disponibile</p>
             </div>
         </div>
+
+        <div class="footer-actions">
+            <div style="flex: 1;"></div> 
+
+            <a href="home.php" class="back" style="margin: 0;">← Dashboard</a>
+            
+            <div style="flex: 1; display: flex; justify-content: flex-end;">
+                <div class="settings-icon-inline" onclick="document.getElementById('overlay').style.display='flex'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.03-1.58zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+            <div class="settings-card" style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:400px; width:90%;">
+                <h3>Impostazioni Studio Personale</h3>
+                <form method="post">
+                    <div class="setting-group-block">
+                        <p class="setting-title">Nessuna impostazione disponibile</p>
+                        <p style="color: #999; font-size: 0.9em;">Le opzioni di configurazione verranno aggiunte a breve.</p>
+                    </div>
+
+                    <div class="settings-footer">
+                        <button type="button" onclick="document.getElementById('overlay').style.display='none'" class="btn btn-close">CHIUDI</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>
 </html>
