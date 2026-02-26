@@ -379,13 +379,7 @@ usort($studi, function ($a, $b) {
     <div id="studioModal" class="modal-overlay">
         <div class="modal-content studio-modal-content">
             <div class="studio-modal-header">
-                <h3>Studio Familiare</h3>
-                <button type="button" id="studioEditToggle" class="studio-icon-btn" title="Modifica">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20h9"></path>
-                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
-                    </svg>
-                </button>
+                <img src="img/familiare.png" alt="Studio Familiare" class="studio-modal-icon">
             </div>
             <form id="studioModalForm" method="post">
                 <input type="hidden" name="studio_id" id="studioModalId">
@@ -400,21 +394,26 @@ usort($studi, function ($a, $b) {
                 <textarea id="studioModalAppunti" name="appunti_modifica" rows="3" data-studio-field readonly></textarea>
 
                 <label for="studioModalLinkInput">Link</label>
-                <input type="text" id="studioModalLinkInput" name="link_modifica" data-studio-field readonly>
+                <div class="studio-link-input-group">
+                    <input type="text" id="studioModalLinkInput" name="link_modifica" data-studio-field readonly>
+                    <a href="#" id="studioModalLink" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" style="display:none;" title="Apri link">
+                        <img src="img/link.png" alt="Apri link" style="width: 16px; height: 16px;">
+                    </a>
+                </div>
 
                 <div class="studio-form-row">
                     <div>
                         <label for="studioModalData">Data</label>
-                        <input type="date" id="studioModalData" name="data_modifica" data-studio-field readonly>
+                        <input type="date" id="studioModalData" name="data_modifica" data-studio-field>
                     </div>
                     <div>
                         <label for="studioModalOrario">Orario</label>
-                        <input type="time" id="studioModalOrario" name="orario_modifica" data-studio-field readonly>
+                        <input type="time" id="studioModalOrario" name="orario_modifica" data-studio-field>
                     </div>
                 </div>
 
                 <div class="studio-modal-actions">
-                    <a href="#" id="studioModalLink" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" style="display:none;">Apri link</a>
+                    <button type="button" id="studioEditToggle" class="btn btn-edit">Modifica</button>
                     <button type="submit" name="aggiorna_studio" id="studioSaveBtn" class="btn btn-save" style="display:none;">Salva</button>
                     <button type="button" id="studioModalClose" class="btn btn-close">Chiudi</button>
                 </div>

@@ -357,6 +357,16 @@ select:focus {
   background: #27ae60; /* darker green on hover */
 }
 
+/* edit button styled blue */
+.btn-edit {
+  background: #3498db; /* blue */
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #2980b9; /* darker blue on hover */
+}
+
 /* --- TABELLE --- */
 table {
   width: 100%;
@@ -1782,6 +1792,8 @@ html {
 .studio-form-row {
   display: flex;
   gap: 10px;
+  align-items: flex-start;
+  margin-top: 15px;
 }
 
 .studio-form-row > * {
@@ -1987,8 +1999,13 @@ html {
 .studio-modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.studio-modal-icon {
+  width: 40px;
+  height: 40px;
 }
 
 .studio-modal-actions {
@@ -1996,6 +2013,22 @@ html {
   justify-content: flex-end;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.studio-link-input-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.studio-link-input-group input {
+  flex: 1;
+}
+
+.studio-link-input-group .studio-icon-btn {
+  flex-shrink: 0;
+  padding: 6px;
 }
 
 .studio-modal-actions .btn {
@@ -2004,6 +2037,31 @@ html {
 
 .is-readonly {
   background: #f7f7f7;
+  border-color: #ddd;
+}
+
+/* Campo in modalità modifica */
+#studioModalForm.is-editing [data-studio-field]:not([readonly]) {
+  border: 1px solid #3498db;
+  background: white;
+}
+
+#studioModalForm.is-editing [data-studio-field]:not([readonly]):focus {
+  border: 1px solid #3498db;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Campo modificato */
+#studioModalForm [data-studio-field].is-modified {
+  border: 1px solid #2ecc71 !important;
+  background: white !important;
+}
+
+#studioModalForm [data-studio-field].is-modified:focus {
+  border: 1px solid #2ecc71 !important;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Overlay che copre tutto lo schermo */
@@ -2051,6 +2109,80 @@ html {
   margin-bottom: 20px;
 }
 
+.modal-content textarea {
+  resize: none;
+}
+
+.modal-content [data-studio-field] {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+#studioModalForm [data-studio-field].is-readonly {
+  pointer-events: none;
+  cursor: default;
+}
+
+#studioModalForm [data-studio-field][readonly]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.formatted-date-display {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  background: #f7f7f7;
+  color: #333;
+  min-height: 48px;
+  text-align: left;
+}
+
+#studioModalForm label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+}
+
+.studio-form-row label {
+  margin-top: 0 !important;
+  min-height: 24px;
+  line-height: 1.5;
+}
+
+.studio-form-row input,
+.studio-form-row .formatted-date-display {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Stili per i campi data e orario con controlli nativi sempre visibili */
+#studioModalData,
+#studioModalOrario {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  background: #f7f7f7;
+  color: #333;
+  min-height: 48px;
+}
+
+/* Quando non in modalità modifica, impedisci interazione ma mantieni visibili i controlli */
+#studioModalForm:not(.is-editing) #studioModalData.is-readonly,
+#studioModalForm:not(.is-editing) #studioModalOrario.is-readonly {
+  pointer-events: none;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
 /* Bottoni del modal */
 .modal-buttons {
   display: flex;
@@ -2064,6 +2196,20 @@ html {
   padding: 8px 20px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.btn-cancel {
+  background: #ff6b6b !important;
+  color: white !important;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #ff5252 !important;
   font-weight: 600;
 }
 

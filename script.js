@@ -80,28 +80,84 @@ document.addEventListener("DOMContentLoaded", function () {
   const editBtn = document.getElementById("studioEditToggle");
   const saveBtn = document.getElementById("studioSaveBtn");
   const form = document.getElementById("studioModalForm");
-  const linkBtn = document.getElementById("studioModalLink");
 
-  if (!modal || !form) return;
+  if (!modal || !form || !editBtn || !saveBtn) return;
 
   const fields = form.querySelectorAll("[data-studio-field]");
+  let hasChanges = false;
+  let originalValues = {};
+
+  const autoResizeTextarea = (textarea) => {
+    if (!textarea) return;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const resizeAllTextareas = () => {
+    form
+      .querySelectorAll("textarea[data-studio-field]")
+      .forEach((textarea) => autoResizeTextarea(textarea));
+  };
 
   const setEditing = (isEditing) => {
     fields.forEach((field) => {
-      field.readOnly = !isEditing;
-      field.classList.toggle("is-readonly", !isEditing);
+      // Per i campi date e time, non uso disabled ma gestisco con CSS
       if (field.type === "date" || field.type === "time") {
-        field.disabled = !isEditing;
+        field.readOnly = false; // Mai readonly per mantenere i controlli nativi
+        field.classList.toggle("is-readonly", !isEditing);
+      } else {
+        field.readOnly = !isEditing;
+        field.classList.toggle("is-readonly", !isEditing);
+      }
+      
+      if (!isEditing) {
+        field.classList.remove("is-modified");
       }
     });
+    
     form.classList.toggle("is-editing", isEditing);
-    if (saveBtn) saveBtn.style.display = isEditing ? "inline-block" : "none";
+    
+    if (isEditing) {
+      // Salva i valori originali quando inizia la modifica
+      fields.forEach((field) => {
+        originalValues[field.id] = field.value;
+      });
+      editBtn.style.display = "none";
+      saveBtn.style.display = "inline-block";
+      saveBtn.textContent = "Salva";
+      closeBtn.textContent = "Annulla";
+      closeBtn.classList.remove("btn-close");
+      closeBtn.classList.add("btn-cancel");
+      hasChanges = false;
+    } else {
+      editBtn.style.display = "inline-block";
+      saveBtn.style.display = "none";
+      closeBtn.textContent = "Chiudi";
+      closeBtn.classList.remove("btn-cancel");
+      closeBtn.classList.add("btn-close");
+      hasChanges = false;
+      originalValues = {};
+    }
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString + "T00:00:00");
+    const days = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+    const months = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
+    const dayName = days[date.getDay()];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    return `${dayName} ${day} ${month}`;
   };
 
   const openModal = (data) => {
     const setValue = (id, value) => {
       const el = document.getElementById(id);
-      if (el) el.value = value || "";
+      if (el) {
+        el.value = value || "";
+        el.classList.remove("is-modified");
+      }
     };
 
     setValue("studioModalId", data.id);
@@ -112,19 +168,41 @@ document.addEventListener("DOMContentLoaded", function () {
     setValue("studioModalData", data.data);
     setValue("studioModalOrario", data.orario);
 
-    if (linkBtn) {
-      if (data.link) {
-        linkBtn.href = data.link;
-        linkBtn.style.display = "inline-flex";
-      } else {
-        linkBtn.href = "#";
-        linkBtn.style.display = "none";
-      }
-    }
-
     setEditing(false);
     modal.style.display = "flex";
+    
+    // Ridimensiona i textareas dopo che il modal è visibile
+    requestAnimationFrame(() => {
+      resizeAllTextareas();
+    });
   };
+
+  // Monitora i cambiamenti nei campi
+  fields.forEach((field) => {
+    const checkModified = () => {
+      if (form.classList.contains("is-editing")) {
+        const isModified = originalValues[field.id] !== undefined && field.value !== originalValues[field.id];
+        field.classList.toggle("is-modified", isModified);
+        hasChanges = Array.from(fields).some(f => f.classList.contains("is-modified"));
+      }
+    };
+
+    field.addEventListener("input", checkModified);
+    field.addEventListener("change", checkModified);
+
+    if (field.tagName === "TEXTAREA") {
+      field.addEventListener("input", () => autoResizeTextarea(field));
+    }
+  });
+
+  // Click sul pulsante Modifica
+  if (editBtn) {
+    editBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Modifica cliccato");
+      setEditing(true);
+    });
+  }
 
   document.querySelectorAll(".studio-open-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -349,6 +427,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const formData = new FormData(form);
       formData.append("ajax", "1");
+      formData.append("aggiorna_studio", "1"); // Aggiungi il parametro del button
 
       fetch("studio_familiare.php", {
         method: "POST",
@@ -357,8 +436,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            modal.style.display = "none";
+            // Torna in modalità visualizzazione senza chiudere il modal
             setEditing(false);
+            resizeAllTextareas();
             ricaricaListaStudi();
           }
         })
@@ -366,16 +446,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  if (editBtn) {
-    editBtn.addEventListener("click", () => {
-      setEditing(!form.classList.contains("is-editing"));
-    });
-  }
-
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-      setEditing(false);
+      // Se siamo in modalità modifica, ripristina i valori originali
+      if (form.classList.contains("is-editing")) {
+        fields.forEach((field) => {
+          if (originalValues[field.id] !== undefined) {
+            field.value = originalValues[field.id];
+          }
+        });
+        setEditing(false);
+        resizeAllTextareas();
+      } else {
+        // Altrimenti chiudi semplicemente il modal
+        modal.style.display = "none";
+        setEditing(false);
+      }
     });
   }
 
