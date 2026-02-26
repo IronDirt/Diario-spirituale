@@ -57,7 +57,7 @@ function formatta_data($data) {
     return $dt ? $dt->format('d/m/Y') : $data;
 }
 
-function formatta_data_orario($data, $orario) {
+function formatta_data_orario($data, $orario, $separatore = ' - ') {
     $giorni = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
     $mesi = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
     
@@ -76,7 +76,7 @@ function formatta_data_orario($data, $orario) {
     
     if (!empty($orario)) {
         if (!empty($risultato)) {
-            $risultato .= " - $orario";
+            $risultato .= "$separatore$orario";
         } else {
             $risultato = $orario;
         }
@@ -98,13 +98,9 @@ function crea_testo_share($studio) {
 
     $data = trim($studio['data'] ?? '');
     $orario = trim($studio['orario'] ?? '');
-    if ($data !== '' || $orario !== '') {
-        $data_format = $data !== '' ? formatta_data($data) : '';
-        if ($data_format !== '' && $orario !== '') {
-            $parti[] = $data_format . ' ' . $orario;
-        } else {
-            $parti[] = $data_format !== '' ? $data_format : $orario;
-        }
+    $data_orario = formatta_data_orario($data, $orario, ' ore ');
+    if ($data_orario !== '') {
+        $parti[] = $data_orario;
     }
 
     return implode("\n\n", $parti);
@@ -238,9 +234,9 @@ usort($studi, function ($a, $b) {
         return $b_has_data <=> $a_has_data; // inverte per avere true (con data) prima
     }
 
-    // Entrambe hanno data: ordina per data decrescente (più recenti prima)
+    // Entrambe hanno data: ordina per data crescente (più vicine prima)
     if ($a_has_data && $b_has_data) {
-        return strcmp($b['data'], $a['data']);
+        return strcmp($a['data'], $b['data']);
     }
 
     // Nessuna ha data: ordina per data_creazione decrescente

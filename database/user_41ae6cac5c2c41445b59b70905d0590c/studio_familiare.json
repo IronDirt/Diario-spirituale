@@ -39,7 +39,7 @@
         "descrizione": "",
         "appunti": "",
         "link": "",
-        "data": "",
+        "data": "2026-02-28",
         "orario": "",
         "completata": false,
         "data_creazione": 1772109367
@@ -91,27 +91,5 @@
         "completata": true,
         "data_creazione": 1772109378,
         "data_completamento": 1772109675
-    },
-    {
-        "id": "69a04d6cd3f75",
-        "titolo": "new",
-        "descrizione": "",
-        "appunti": "",
-        "link": "",
-        "data": "",
-        "orario": "",
-        "completata": false,
-        "data_creazione": 1772113260
-    },
-    {
-        "id": "69a04e464e943",
-        "titolo": "aaaaaa aaaaaaaa aaaaaaa",
-        "descrizione": "",
-        "appunti": "",
-        "link": "",
-        "data": "",
-        "orario": "",
-        "completata": false,
-        "data_creazione": 1772113478
     }
 ]
