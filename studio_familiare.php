@@ -308,18 +308,31 @@ usort($studi, function ($a, $b) {
                             <?php echo $studio['titolo']; ?>
                         </div>
                         <div class="studio-actions">
-                            <button type="button" class="studio-icon-btn studio-open-btn" data-studio="<?php echo htmlspecialchars(json_encode($payload), ENT_QUOTES); ?>" title="Apri">
-                                <img src="img/note.png" alt="Apri" style="width: 16px; height: 16px;">
+                            <!-- Freccia menu mobile -->
+                            <button type="button" class="studio-menu-toggle" title="Menu">
+                                <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <svg class="icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
                             </button>
-                            <?php if (!empty($studio['link'])): ?>
-                                <a href="<?php echo $studio['link']; ?>" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" title="Apri link">
-                                    <img src="img/link.png" alt="Link" style="width: 16px; height: 16px;">
-                                </a>
-                            <?php endif; ?>
-                            <button type="button" class="studio-icon-btn studio-share-btn" data-share-text="<?php echo htmlspecialchars($share_text, ENT_QUOTES) ?>" title="Condividi">
-                                <img src="img/share.png" alt="Condividi" style="width: 16px; height: 16px;">
-                            </button>
-                            <a href="#" class="btn-delete delete-studio-btn" data-id="<?php echo $studio['id']; ?>" title="Elimina">🗑️</a>
+                            <!-- Icone (nascoste su mobile) -->
+                            <div class="studio-actions-menu">
+                                <button type="button" class="studio-icon-btn studio-open-btn" data-studio="<?php echo htmlspecialchars(json_encode($payload), ENT_QUOTES); ?>" title="Apri">
+                                    <img src="img/note.png" alt="Apri" style="width: 16px; height: 16px;">
+                                </button>
+                                <?php if (!empty($studio['link'])): ?>
+                                    <a href="<?php echo $studio['link']; ?>" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" title="Apri link">
+                                        <img src="img/link.png" alt="Link" style="width: 16px; height: 16px;">
+                                    </a>
+                                <?php endif; ?>
+                                <button type="button" class="studio-icon-btn studio-share-btn" data-share-text="<?php echo htmlspecialchars($share_text, ENT_QUOTES) ?>" title="Condividi">
+                                    <img src="img/share.png" alt="Condividi" style="width: 16px; height: 16px;">
+                                </button>
+                                <a href="#" class="btn-delete delete-studio-btn" data-id="<?php echo $studio['id']; ?>" title="Elimina">🗑️</a>
+                            </div>
                         </div>
                         <?php if (!empty($studio['data']) || !empty($studio['orario'])): ?>
                             <div class="studio-datetime" style="font-size: 0.75em; color: #999; display: flex; align-items: center; gap: 6px;">

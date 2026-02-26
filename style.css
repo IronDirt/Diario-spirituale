@@ -1833,6 +1833,94 @@ html {
   display: flex;
   gap: 10px;
   align-items: center;
+  position: relative;
+}
+
+/* Pulsante freccia menu (visibile solo su mobile) */
+.studio-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  background: #f4f7f9;
+  border: none;
+  cursor: pointer;
+  color: #444;
+  transition: all 0.2s;
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.studio-menu-toggle svg {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.studio-menu-toggle .icon-arrow {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.studio-menu-toggle .icon-close {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.studio-menu-toggle.active .icon-arrow {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.studio-menu-toggle.active .icon-close {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.studio-menu-toggle:active {
+  background: #e9eef3;
+}
+
+/* Contenitore icone */
+.studio-actions-menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Stili mobile */
+@media (max-width: 600px) {
+  .studio-actions {
+    gap: 0;
+  }
+  
+  .studio-menu-toggle {
+    display: inline-flex;
+  }
+  
+  .studio-actions-menu {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateX(10px) translateY(-50%);
+    margin-right: 8px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    gap: 8px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+  }
+  
+  .studio-actions-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) translateY(-50%);
+  }
 }
 
 .studio-datetime {
