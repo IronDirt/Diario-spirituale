@@ -1804,6 +1804,7 @@ html {
   margin: 10px 0;
   border-radius: 12px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   border: 1px solid #f0f0f0;
@@ -1832,6 +1833,11 @@ html {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.studio-datetime {
+  width: 100%;
+  flex-basis: 100%;
 }
 
 .studio-icon-btn {

@@ -48,6 +48,34 @@ function formatta_data($data) {
     return $dt ? $dt->format('d/m/Y') : $data;
 }
 
+function formatta_data_orario($data, $orario) {
+    $giorni = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+    $mesi = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+    
+    if (empty($data) && empty($orario)) return '';
+    
+    $risultato = '';
+    if (!empty($data)) {
+        $dt = DateTime::createFromFormat('Y-m-d', $data);
+        if ($dt) {
+            $giorno_settimana = $giorni[(int)$dt->format('w')];
+            $giorno = (int)$dt->format('d');
+            $mese = $mesi[(int)$dt->format('m') - 1];
+            $risultato = "$giorno_settimana $giorno $mese";
+        }
+    }
+    
+    if (!empty($orario)) {
+        if (!empty($risultato)) {
+            $risultato .= " - $orario";
+        } else {
+            $risultato = $orario;
+        }
+    }
+    
+    return $risultato;
+}
+
 function crea_testo_share($studio) {
     $parti = [];
     $titolo = trim(htmlspecialchars_decode($studio['titolo'] ?? '', ENT_QUOTES));
@@ -228,7 +256,7 @@ usort($studi, function ($a, $b) {
                 ?>
                     <div class="studio-item <?php echo !empty($studio['completata']) ? 'completed' : ''; ?>" id="studio-<?php echo $studio['id']; ?>">
                         <div class="btn-check <?php echo !empty($studio['completata']) ? 'checked' : ''; ?>" onclick="toggleStudioFamiliare('<?php echo $studio['id']; ?>')"></div>
-                        <div class="studio-title" title="<?php echo $studio['titolo']; ?>">
+                        <div class="studio-title" title="<?php echo $studio['titolo']; ?>" style="font-weight: normal;">
                             <?php echo $studio['titolo']; ?>
                         </div>
                         <div class="studio-actions">
@@ -245,6 +273,12 @@ usort($studi, function ($a, $b) {
                             </button>
                             <a href="#" class="btn-delete delete-studio-btn" data-id="<?php echo $studio['id']; ?>" title="Elimina">🗑️</a>
                         </div>
+                        <?php if (!empty($studio['data']) || !empty($studio['orario'])): ?>
+                            <div class="studio-datetime" style="font-size: 0.75em; color: #999; display: flex; align-items: center; gap: 6px;">
+                                <img src="img/clock-line-icon.svg" alt="Data/Ora" class="icona-orologio-meta">
+                                <?php echo formatta_data_orario($studio['data'] ?? '', $studio['orario'] ?? ''); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

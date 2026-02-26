@@ -18,8 +18,9 @@
         "link": "",
         "data": "",
         "orario": "",
-        "completata": false,
-        "data_creazione": 1772098883
+        "completata": true,
+        "data_creazione": 1772098883,
+        "data_completamento": 1772107084
     },
     {
         "id": "69a01547437f1",
