@@ -470,6 +470,5 @@ if ($total_main_goals > 0) {
     </div>
 </div>
 
-<script src="script.js"></script>
 </body>
 </html>

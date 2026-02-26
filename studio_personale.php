@@ -89,6 +89,5 @@ if (!is_dir($path)) {
     </div>
 
     <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
-    <script src="script.js"></script>
 </body>
 </html>

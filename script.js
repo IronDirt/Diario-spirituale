@@ -1085,6 +1085,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnOk = document.getElementById("confirmOk");
   const btnCancel = document.getElementById("confirmCancel");
 
+  if (!modal || !mTitle || !mText || !btnOk || !btnCancel) {
+    return;
+  }
+
   let actionToExecute = null;
   let cancelAction = null; // callback da chiamare quando si annulla
 
