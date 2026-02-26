@@ -1734,6 +1734,43 @@ html {
   margin-bottom: 20px;
 }
 
+.studio-title-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.studio-title-row input {
+  flex: 1;
+}
+
+.studio-expand-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+  background: #f7f7f7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.studio-expand-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+.studio-expand-btn.open svg {
+  transform: rotate(180deg);
+}
+
+.studio-extra-fields {
+  margin-top: 10px;
+}
+
 .studio-form-row {
   display: flex;
   gap: 10px;

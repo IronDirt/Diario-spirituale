@@ -139,6 +139,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  const toggleBtn = document.getElementById("studioFormToggle");
+  const extraFields = document.getElementById("studioExtraFields");
+
+  if (toggleBtn && extraFields) {
+    toggleBtn.addEventListener("click", () => {
+      const isOpen = extraFields.style.display === "block";
+      extraFields.style.display = isOpen ? "none" : "block";
+      toggleBtn.classList.toggle("open", !isOpen);
+    });
+  }
+
   document.querySelectorAll(".delete-studio-btn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
       event.preventDefault();

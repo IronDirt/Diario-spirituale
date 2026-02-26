@@ -192,13 +192,22 @@ usort($studi, function ($a, $b) {
         </h2>
 
         <form method="post" class="studio-form">
-            <input type="text" name="titolo" placeholder="Titolo studio familiare..." required>
-            <textarea name="descrizione" rows="2" placeholder="Descrizione (opzionale)"></textarea>
-            <textarea name="appunti" rows="2" placeholder="Appunti (opzionale)"></textarea>
-            <input type="text" name="link" placeholder="Link (opzionale)">
-            <div class="studio-form-row">
-                <input type="date" name="data" placeholder="Data (opzionale)">
-                <input type="time" name="orario" placeholder="Orario (opzionale)">
+            <div class="studio-title-row">
+                <input type="text" name="titolo" placeholder="Titolo studio familiare..." required>
+                <button type="button" class="studio-expand-btn" id="studioFormToggle" title="Mostra dettagli">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="studio-extra-fields" id="studioExtraFields" style="display:none;">
+                <textarea name="descrizione" rows="2" placeholder="Descrizione (opzionale)"></textarea>
+                <textarea name="appunti" rows="2" placeholder="Appunti (opzionale)"></textarea>
+                <input type="text" name="link" placeholder="Link (opzionale)">
+                <div class="studio-form-row">
+                    <input type="date" name="data" placeholder="Data (opzionale)">
+                    <input type="time" name="orario" placeholder="Orario (opzionale)">
+                </div>
             </div>
             <button type="submit" name="aggiungi_studio" class="btn btn-save">Aggiungi</button>
         </form>
