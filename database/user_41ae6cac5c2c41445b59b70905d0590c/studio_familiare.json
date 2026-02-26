@@ -41,8 +41,9 @@
         "link": "",
         "data": "2026-02-28",
         "orario": "",
-        "completata": false,
-        "data_creazione": 1772109367
+        "completata": true,
+        "data_creazione": 1772109367,
+        "data_completamento": 1772131757
     },
     {
         "id": "69a03e3b4997a",

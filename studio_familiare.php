@@ -105,6 +105,29 @@ if (isset($_GET['get_lista'])) {
     if (!is_array($studi)) $studi = [];
 }
 
+// Gestisci richiesta AJAX per le statistiche
+if (isset($_GET['get_stats'])) {
+    $studi_attuali = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
+    if (!is_array($studi_attuali)) $studi_attuali = [];
+    
+    $studi_aperti = 0;
+    $studi_chiusi = 0;
+    foreach ($studi_attuali as $studio) {
+        if (empty($studio['completata'])) {
+            $studi_aperti++;
+        } else {
+            $studi_chiusi++;
+        }
+    }
+    
+    header('Content-Type: application/json');
+    echo json_encode([
+        'aperti' => $studi_aperti,
+        'chiusi' => $studi_chiusi
+    ]);
+    exit;
+}
+
 function pulisci_testo($val) {
     return htmlspecialchars(trim($val), ENT_QUOTES);
 }
@@ -348,6 +371,30 @@ usort($studi, function ($a, $b) {
             </div>
             <button type="submit" name="aggiungi_studio" class="btn btn-save">Aggiungi</button>
         </form>
+
+        <!-- Statistiche -->
+        <?php
+            $studi_aperti = 0;
+            $studi_chiusi = 0;
+            foreach ($studi as $studio) {
+                if (empty($studio['completata'])) {
+                    $studi_aperti++;
+                } else {
+                    $studi_chiusi++;
+                }
+            }
+        ?>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number"><?php echo $studi_aperti; ?></div>
+                <div class="stat-label">Aperti</div>
+            </div>
+            <div class="stat-separator"></div>
+            <div class="stat-item">
+                <div class="stat-number"><?php echo $studi_chiusi; ?></div>
+                <div class="stat-label">Chiusi</div>
+            </div>
+        </div>
 
         <div class="studio-list">
             <?php if (empty($studi)): ?>

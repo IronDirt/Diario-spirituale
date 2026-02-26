@@ -397,6 +397,9 @@ document.addEventListener("DOMContentLoaded", function () {
               showStudioTitlePopup(fullText);
             });
           });
+
+          // Aggiorna le statistiche
+          aggiornaStatisticheStudio();
         }
       })
       .catch((error) => console.error("Errore ricarica lista:", error));
@@ -1172,6 +1175,22 @@ function confermaEliminazione(id, elemento) {
   );
 }
 
+function aggiornaStatisticheStudio() {
+  fetch('studio_familiare.php?get_stats=1')
+    .then((response) => response.json())
+    .then((data) => {
+      const statsContainer = document.querySelector('.stats-container');
+      if (statsContainer) {
+        const items = statsContainer.querySelectorAll('.stat-item');
+        if (items.length >= 2) {
+          items[0].querySelector('.stat-number').textContent = data.aperti;
+          items[1].querySelector('.stat-number').textContent = data.chiusi;
+        }
+      }
+    })
+    .catch((error) => console.error("Errore aggiornamento statistiche:", error));
+}
+
 function toggleStudioFamiliare(id) {
   if (!id) return;
 
@@ -1186,6 +1205,7 @@ function toggleStudioFamiliare(id) {
         if (item && checkbox) {
           item.classList.toggle("completed");
           checkbox.classList.toggle("checked");
+          aggiornaStatisticheStudio();
         }
       }
     })
@@ -1204,7 +1224,10 @@ function confermaEliminaStudio(id, elemento) {
         if (row) {
           row.style.opacity = "0";
           row.style.transform = "scale(0.96)";
-          setTimeout(() => row.remove(), 300);
+          setTimeout(() => {
+            row.remove();
+            aggiornaStatisticheStudio();
+          }, 300);
         }
       });
     },
