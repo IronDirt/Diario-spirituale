@@ -201,12 +201,12 @@ usort($studi, function ($a, $b) {
                 </button>
             </div>
             <div class="studio-extra-fields" id="studioExtraFields" style="display:none;">
-                <textarea name="descrizione" rows="2" placeholder="Descrizione (opzionale)"></textarea>
-                <textarea name="appunti" rows="2" placeholder="Appunti (opzionale)"></textarea>
-                <input type="text" name="link" placeholder="Link (opzionale)">
+                <textarea name="descrizione" rows="2" placeholder="Descrizione"></textarea>
+                <textarea name="appunti" rows="2" placeholder="Appunti..."></textarea>
+                <input type="text" name="link" placeholder="Link...">
                 <div class="studio-form-row">
-                    <input type="date" name="data" placeholder="Data (opzionale)">
-                    <input type="time" name="orario" placeholder="Orario (opzionale)">
+                    <input type="date" name="data" placeholder="Data">
+                    <input type="time" name="orario" placeholder="Orario">
                 </div>
             </div>
             <button type="submit" name="aggiungi_studio" class="btn btn-save">Aggiungi</button>

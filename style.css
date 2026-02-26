@@ -1771,6 +1771,14 @@ html {
   margin-top: 10px;
 }
 
+.studio-extra-fields input,
+.studio-extra-fields textarea {
+  font-size: 13px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  font-weight: 500;
+}
+
 .studio-form-row {
   display: flex;
   gap: 10px;
