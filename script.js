@@ -949,6 +949,9 @@ function toggleButtons(isRunning) {
   const pauseBtn = document.getElementById("pauseBtn");
   const stopBtn = document.getElementById("stopBtn");
 
+  // Se i pulsanti non esistono (es. non siamo su study_personale), esci
+  if (!startBtn || !pauseBtn || !stopBtn) return;
+
   if (isRunning) {
     startBtn.style.display = "none";
     pauseBtn.style.display = "flex";
@@ -981,6 +984,16 @@ function inviaMete(event) {
   btn.innerHTML = "⏳ Invio...";
   setTimeout(() => {
     window.location.href = `mete.php?azione=invia_mete&filtro=${encodeURIComponent(filtro)}`;
+  }, 600);
+}
+
+function inviaStudi(event) {
+  event.preventDefault();
+  const btn = document.getElementById("btnInviaStudi");
+  const filtro = document.getElementById("filtro_email_studi").value;
+  btn.innerHTML = "⏳ Invio...";
+  setTimeout(() => {
+    window.location.href = `studio_familiare.php?azione=invia_studi&filtro=${encodeURIComponent(filtro)}`;
   }, 600);
 }
 

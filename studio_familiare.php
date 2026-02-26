@@ -31,6 +31,73 @@ $file_studio = $path . 'studio_familiare.json';
 $studi = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
 if (!is_array($studi)) $studi = [];
 
+// --- AZIONE INVIO EMAIL STUDI ---
+if (isset($_GET['azione']) && $_GET['azione'] === 'invia_studi') {
+    $email_utente = $_SESSION['utente'] ?? '';
+    $nome_utente = $_SESSION['nome_completo'] ?? 'Utente';
+    $filtro = $_GET['filtro'] ?? 'tutti'; // valori: tutti, completati, noncompletati
+
+    $studi_email = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
+
+    $testo_filtro = 'Tutti';
+    if ($filtro === 'completati') $testo_filtro = 'Solo completati';
+    if ($filtro === 'noncompletati') $testo_filtro = 'Solo non completati';
+
+    $corpo = "Studi Familiari per $nome_utente\n";
+    $corpo .= "Filtro: $testo_filtro\n";
+    $corpo .= "----------------------------\n\n";
+
+    foreach ($studi_email as $s) {
+        $include_s = true;
+        if ($filtro === 'completati' && empty($s['completata'])) $include_s = false;
+        if ($filtro === 'noncompletati' && !empty($s['completata'])) $include_s = false;
+        if (!$include_s) continue;
+
+        $simbolo = !empty($s['completata']) ? '✔' : '✖';
+        $corpo .= "$simbolo {$s['titolo']}\n";
+        
+        if (!empty($s['descrizione'])) {
+            $corpo .= "   Descrizione: {$s['descrizione']}\n";
+        }
+        
+        if (!empty($s['appunti'])) {
+            $corpo .= "   Appunti: {$s['appunti']}\n";
+        }
+        
+        if (!empty($s['link'])) {
+            $corpo .= "   Link: {$s['link']}\n";
+        }
+        
+        $data_str = formatta_data_orario($s['data'] ?? '', $s['orario'] ?? '', ' ore ');
+        if (!empty($data_str)) {
+            $corpo .= "   Data/Ora: $data_str\n";
+        }
+        
+        $corpo .= "\n";
+    }
+
+    $headers = "From: Diario Spirituale <no-reply@tuosito.it>\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    // PREPARA REDIRECT IMMEDIATO CON CONFERMA GENERICA
+    $redirect = "studio_familiare.php?filtro=" . urlencode($filtro) . "&invio=ok";
+    header("Location: $redirect");
+
+    // chiude la connessione lato client il prima possibile
+    if (function_exists('fastcgi_finish_request')) {
+        fastcgi_finish_request();
+    } else {
+        ignore_user_abort(true);
+        @ob_end_flush();
+        @ob_flush();
+        flush();
+    }
+
+    // invio sul server in background (non blocca il client)
+    @mail($email_utente, "Studi Familiari - $nome_utente", $corpo, $headers);
+    exit;
+}
+
 // Gestisci richiesta AJAX per ricaricare solo la lista
 if (isset($_GET['get_lista'])) {
     // Ricarica i dati freschi dal JSON
@@ -355,13 +422,33 @@ usort($studi, function ($a, $b) {
             </div>
         </div>
 
-        <div id="overlay" class="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+        <div id="overlay" class="overlay" style="<?php echo (isset($_GET['invio']) || (isset($_GET['azione']) && $_GET['azione'] === 'invia_studi')) ? 'display:flex;' : 'display:none;'; ?> position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
             <div class="settings-card" style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:400px; width:90%;">
                 <h3>Impostazioni Studio Familiare</h3>
-                <form method="post">
+                <form method="get">
+                    <input type="hidden" name="azione" value="invia_studi">
                     <div class="setting-group-block">
-                        <p class="setting-title">Nessuna impostazione disponibile</p>
-                        <p style="color: #999; font-size: 0.9em;">Le opzioni di configurazione verranno aggiunte a breve.</p>
+                        <p class="setting-title">Invia Studi</p>
+                        <div class="setting-inline-row" style="gap:8px;">
+                            <select id="filtro_email_studi" name="filtro" style="padding:8px;border-radius:8px;flex:1;">
+                                <option value="tutti" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'tutti') ? 'selected' : ''; ?>>Tutti</option>
+                                <option value="completati" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'completati') ? 'selected' : ''; ?>>Solo completati</option>
+                                <option value="noncompletati" <?php echo (isset($_GET['filtro']) && $_GET['filtro'] === 'noncompletati') ? 'selected' : ''; ?>>Solo non completati</option>
+                            </select>
+                            <a href="#" id="btnInviaStudi" onclick="inviaStudi(event)" class="btn-email-link-small">
+                                <span id="btn-icon">✉️</span>
+                                <span id="btn-text" style="color: white;">Invia</span>
+                            </a>
+                        </div>
+                        <?php if(isset($_GET['invio'])): ?>
+                            <div class="<?php echo $_GET['invio'] == 'ok' ? 'status-msg-ok' : 'status-msg-error'; ?>" style="margin-top:10px;">
+                                <?php if($_GET['invio'] == 'ok'): ?>
+                                    <span>✅</span> Email inviata con successo!
+                                <?php else: ?>
+                                    <span>❌</span> Errore durante l'invio.
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="settings-footer">
@@ -429,6 +516,5 @@ usort($studi, function ($a, $b) {
     </div>
 
     <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
-    <script src="script.js"></script>
 </body>
 </html>
