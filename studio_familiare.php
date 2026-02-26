@@ -233,15 +233,11 @@ usort($studi, function ($a, $b) {
                         </div>
                         <div class="studio-actions">
                             <button type="button" class="studio-icon-btn studio-open-btn" data-studio="<?php echo htmlspecialchars(json_encode($payload), ENT_QUOTES); ?>" title="Apri">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12" y2="8"></line>
-                                </svg>
+                                <img src="img/note.png" alt="Apri" style="width: 16px; height: 16px;">
                             </button>
                             <?php if (!empty($studio['link'])): ?>
                                 <a href="<?php echo $studio['link']; ?>" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" title="Apri link">
-                                    🔗
+                                    <img src="img/link.png" alt="Link" style="width: 16px; height: 16px;">
                                 </a>
                             <?php endif; ?>
                             <button type="button" class="studio-icon-btn studio-share-btn" data-share-text="<?php echo htmlspecialchars($share_text, ENT_QUOTES) ?>" title="Condividi">
