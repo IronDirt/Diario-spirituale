@@ -871,3 +871,38 @@ function confermaEliminaStudio(id, elemento) {
     },
   );
 }
+
+function condividiStudio(event) {
+  event.preventDefault();
+  const shareText = this.getAttribute("data-share-text");
+  
+  if (!shareText) {
+    alert("Nessun contenuto da condividere");
+    return;
+  }
+
+  // Usa la Web Share API se disponibile
+  if (navigator.share) {
+    navigator.share({
+      text: shareText,
+      title: "Studio Familiare"
+    }).catch(() => {
+      // Se l'utente cancella il dialog nativo, non fare niente
+    });
+  } else {
+    // Fallback: copia il testo negli appunti e mostra un messaggio
+    navigator.clipboard.writeText(shareText).then(() => {
+      alert("Testo copiato negli appunti!");
+    }).catch(() => {
+      alert("Impossibile copiare il testo");
+    });
+  }
+}
+
+// Aggancia i listener ai pulsanti di condivisione
+document.addEventListener("DOMContentLoaded", function () {
+  const shareButtons = document.querySelectorAll(".studio-share-btn");
+  shareButtons.forEach((btn) => {
+    btn.addEventListener("click", condividiStudio);
+  });
+});

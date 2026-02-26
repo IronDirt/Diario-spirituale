@@ -51,7 +51,7 @@ function formatta_data($data) {
 function crea_testo_share($studio) {
     $parti = [];
     $titolo = trim(htmlspecialchars_decode($studio['titolo'] ?? '', ENT_QUOTES));
-    if ($titolo !== '') $parti[] = "Studio: " . $titolo;
+    if ($titolo !== '') $parti[] = $titolo;
 
     $descrizione = trim(htmlspecialchars_decode($studio['descrizione'] ?? '', ENT_QUOTES));
     if ($descrizione !== '') $parti[] = $descrizione;
@@ -63,16 +63,14 @@ function crea_testo_share($studio) {
     $orario = trim($studio['orario'] ?? '');
     if ($data !== '' || $orario !== '') {
         $data_format = $data !== '' ? formatta_data($data) : '';
-        $quando = 'Quando: ';
         if ($data_format !== '' && $orario !== '') {
-            $quando .= $data_format . ' ' . $orario;
+            $parti[] = $data_format . ' ' . $orario;
         } else {
-            $quando .= $data_format !== '' ? $data_format : $orario;
+            $parti[] = $data_format !== '' ? $data_format : $orario;
         }
-        $parti[] = $quando;
     }
 
-    return implode("\n", $parti);
+    return implode("\n\n", $parti);
 }
 
 if (isset($_POST['aggiungi_studio'])) {
@@ -227,7 +225,6 @@ usort($studi, function ($a, $b) {
                         'orario' => $studio['orario'] ?? ''
                     ];
                     $share_text = crea_testo_share($studio);
-                    $share_link = 'https://wa.me/?text=' . urlencode($share_text);
                 ?>
                     <div class="studio-item <?php echo !empty($studio['completata']) ? 'completed' : ''; ?>" id="studio-<?php echo $studio['id']; ?>">
                         <div class="btn-check <?php echo !empty($studio['completata']) ? 'checked' : ''; ?>" onclick="toggleStudioFamiliare('<?php echo $studio['id']; ?>')"></div>
@@ -247,9 +244,9 @@ usort($studi, function ($a, $b) {
                                     🔗
                                 </a>
                             <?php endif; ?>
-                            <a href="<?php echo $share_link; ?>" class="studio-icon-btn studio-share-btn" target="_blank" rel="noopener" title="Condividi su WhatsApp">
-                                📤
-                            </a>
+                            <button type="button" class="studio-icon-btn studio-share-btn" data-share-text="<?php echo htmlspecialchars($share_text, ENT_QUOTES) ?>" title="Condividi">
+                                <img src="img/share.png" alt="Condividi" style="width: 16px; height: 16px;">
+                            </button>
                             <a href="#" class="btn-delete delete-studio-btn" data-id="<?php echo $studio['id']; ?>" title="Elimina">🗑️</a>
                         </div>
                     </div>
