@@ -1176,19 +1176,21 @@ function confermaEliminazione(id, elemento) {
 }
 
 function aggiornaStatisticheStudio() {
-  fetch('studio_familiare.php?get_stats=1')
+  fetch("studio_familiare.php?get_stats=1")
     .then((response) => response.json())
     .then((data) => {
-      const statsContainer = document.querySelector('.stats-container');
+      const statsContainer = document.querySelector(".stats-container");
       if (statsContainer) {
-        const items = statsContainer.querySelectorAll('.stat-item');
+        const items = statsContainer.querySelectorAll(".stat-item");
         if (items.length >= 2) {
-          items[0].querySelector('.stat-number').textContent = data.aperti;
-          items[1].querySelector('.stat-number').textContent = data.chiusi;
+          items[0].querySelector(".stat-number").textContent = data.aperti;
+          items[1].querySelector(".stat-number").textContent = data.chiusi;
         }
       }
     })
-    .catch((error) => console.error("Errore aggiornamento statistiche:", error));
+    .catch((error) =>
+      console.error("Errore aggiornamento statistiche:", error),
+    );
 }
 
 function toggleStudioFamiliare(id) {
