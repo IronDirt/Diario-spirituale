@@ -1872,9 +1872,9 @@ html {
 
 .studio-modal-content {
   width: 95%;
-  max-width: 560px;
+  max-width: 1000px;
   text-align: left;
-  max-height: 80vh;
+  max-height: 85vh;
   overflow: auto;
 }
 

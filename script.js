@@ -208,18 +208,29 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const formData = new FormData(studioForm);
       formData.append('ajax', '1');
+      formData.append('aggiungi_studio', '1'); // Aggiungi il parametro del button
       
       fetch('studio_familiare.php', {
         method: 'POST',
         body: formData
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          studioForm.reset();
-          const extraFields = document.getElementById('studioExtraFields');
-          if (extraFields) extraFields.style.display = 'none';
-          ricaricaListaStudi();
+      .then(response => {
+        console.log('Response status:', response.status);
+        return response.text();
+      })
+      .then(text => {
+        console.log('Response text:', text);
+        try {
+          const data = JSON.parse(text);
+          if (data.success) {
+            studioForm.reset();
+            const extraFields = document.getElementById('studioExtraFields');
+            if (extraFields) extraFields.style.display = 'none';
+            ricaricaListaStudi();
+          }
+        } catch (e) {
+          console.error('Errore parsing JSON:', e);
+          console.error('Testo ricevuto:', text);
         }
       })
       .catch(error => console.error('Errore aggiunta studio:', error));

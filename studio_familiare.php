@@ -1,4 +1,6 @@
 <?php
+ob_start(); // Cattura output non desiderato
+
 // Configura i parametri del cookie di sessione PRIMA di session_start()
 session_set_cookie_params([
     'lifetime' => 259200,   // 3 giorni (la sessione non dura mai più del gc_maxlifetime)
@@ -28,6 +30,13 @@ if (!is_dir($path)) {
 $file_studio = $path . 'studio_familiare.json';
 $studi = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
 if (!is_array($studi)) $studi = [];
+
+// Gestisci richiesta AJAX per ricaricare solo la lista
+if (isset($_GET['get_lista'])) {
+    // Ricarica i dati freschi dal JSON
+    $studi = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
+    if (!is_array($studi)) $studi = [];
+}
 
 function pulisci_testo($val) {
     return htmlspecialchars(trim($val), ENT_QUOTES);
@@ -108,6 +117,9 @@ if (isset($_POST['aggiungi_studio'])) {
     $link = pulisci_testo(normalizza_link($_POST['link'] ?? ''));
     $data = trim($_POST['data'] ?? '');
     $orario = trim($_POST['orario'] ?? '');
+    
+    $isAjax = isset($_POST['ajax']) || isset($_GET['ajax']);
+    $success = false;
 
     if ($titolo !== '') {
         $studi[] = [
@@ -122,11 +134,13 @@ if (isset($_POST['aggiungi_studio'])) {
             'data_creazione' => time()
         ];
         file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
+        $success = true;
     }
     
-    if (isset($_POST['ajax']) || isset($_GET['ajax'])) {
+    if ($isAjax) {
+        ob_clean(); // Pulisce qualsiasi output prima del JSON
         header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => $success]);
         exit;
     }
     
@@ -155,6 +169,7 @@ if (isset($_POST['aggiorna_studio'])) {
     file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
     
     if (isset($_POST['ajax']) || isset($_GET['ajax'])) {
+        ob_clean(); // Pulisce qualsiasi output prima del JSON
         header('Content-Type: application/json');
         echo json_encode(['success' => true]);
         exit;
