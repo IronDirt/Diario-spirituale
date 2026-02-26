@@ -1824,6 +1824,22 @@ html {
   white-space: nowrap;
 }
 
+.studio-title-text {
+  flex: 1;
+  text-align: left;
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.studio-item.completed .studio-title-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
 .studio-item.completed .studio-title {
   text-decoration: line-through;
   color: #888;

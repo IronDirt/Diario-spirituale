@@ -304,7 +304,7 @@ usort($studi, function ($a, $b) {
                 ?>
                     <div class="studio-item <?php echo !empty($studio['completata']) ? 'completed' : ''; ?>" id="studio-<?php echo $studio['id']; ?>">
                         <div class="btn-check <?php echo !empty($studio['completata']) ? 'checked' : ''; ?>" onclick="toggleStudioFamiliare('<?php echo $studio['id']; ?>')"></div>
-                        <div class="studio-title" title="<?php echo $studio['titolo']; ?>" style="font-weight: normal;">
+                        <div class="studio-title-text" title="<?php echo htmlspecialchars($studio['titolo'], ENT_QUOTES); ?>">
                             <?php echo $studio['titolo']; ?>
                         </div>
                         <div class="studio-actions">

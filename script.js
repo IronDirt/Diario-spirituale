@@ -183,6 +183,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Aggiungi popup per titoli lunghi
+  const isTextTruncated = (element) =>
+    element.scrollWidth > element.clientWidth;
+
+  const showStudioTitlePopup = (fullText) => {
+    const confirmModal = document.getElementById("customConfirm");
+    if (typeof window.chiediConferma !== "function" || !confirmModal) {
+      alert(fullText);
+      return;
+    }
+
+    const btnOk = document.getElementById("confirmOk");
+    const btnCancel = document.getElementById("confirmCancel");
+    const originalOkText = btnOk.textContent;
+    const originalCancelDisplay = btnCancel.style.display;
+
+    const restoreModal = () => {
+      btnCancel.style.display = originalCancelDisplay || "";
+      btnOk.textContent = originalOkText;
+      confirmModal.removeEventListener("click", onOverlayClick);
+      btnOk.removeEventListener("click", restoreModal);
+    };
+
+    const onOverlayClick = (event) => {
+      if (event.target === confirmModal) restoreModal();
+    };
+
+    btnCancel.style.display = "none";
+    btnOk.textContent = "Chiudi";
+    confirmModal.addEventListener("click", onOverlayClick);
+    btnOk.addEventListener("click", restoreModal, { once: true });
+
+    window.chiediConferma("Studio Familiare", fullText, () => {});
+  };
+
+  document.querySelectorAll(".studio-title-text").forEach((titleEl) => {
+    titleEl.addEventListener("click", () => {
+      const fullText = titleEl.textContent.trim();
+      if (!fullText) return;
+      showStudioTitlePopup(fullText);
+    });
+  });
+
   document.querySelectorAll(".delete-studio-btn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
       event.preventDefault();
@@ -248,6 +291,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
               menu.classList.toggle("active");
               btn.classList.toggle("active");
+            });
+          });
+
+          // Ri-attacca listener titoli lunghi
+          document.querySelectorAll(".studio-title-text").forEach((titleEl) => {
+            titleEl.addEventListener("click", () => {
+              const fullText = titleEl.textContent.trim();
+              if (!fullText) return;
+              showStudioTitlePopup(fullText);
             });
           });
         }
