@@ -199,7 +199,7 @@ usort($studi, function ($a, $b) {
                 </button>
             </div>
             <div class="studio-extra-fields" id="studioExtraFields" style="display:none;">
-                <textarea name="descrizione" rows="2" placeholder="Descrizione"></textarea>
+                <textarea name="descrizione" rows="2" placeholder="Descrizione..."></textarea>
                 <textarea name="appunti" rows="2" placeholder="Appunti..."></textarea>
                 <input type="text" name="link" placeholder="Link...">
                 <div class="studio-form-row">
