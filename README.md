@@ -1,6 +1,2 @@
 # Diario-spirituale
-
-#test
-#test 2
-#asdfasdfasdfasdf
-#dafasdfsfasdfads
+Creato da Loris Salerno
