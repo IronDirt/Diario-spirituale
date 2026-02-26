@@ -72,6 +72,102 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  if (!document.getElementById("studio-familiare-page")) return;
+
+  const modal = document.getElementById("studioModal");
+  const closeBtn = document.getElementById("studioModalClose");
+  const editBtn = document.getElementById("studioEditToggle");
+  const saveBtn = document.getElementById("studioSaveBtn");
+  const form = document.getElementById("studioModalForm");
+  const linkBtn = document.getElementById("studioModalLink");
+
+  if (!modal || !form) return;
+
+  const fields = form.querySelectorAll("[data-studio-field]");
+
+  const setEditing = (isEditing) => {
+    fields.forEach((field) => {
+      field.readOnly = !isEditing;
+      field.classList.toggle("is-readonly", !isEditing);
+      if (field.type === "date" || field.type === "time") {
+        field.disabled = !isEditing;
+      }
+    });
+    form.classList.toggle("is-editing", isEditing);
+    if (saveBtn) saveBtn.style.display = isEditing ? "inline-block" : "none";
+  };
+
+  const openModal = (data) => {
+    const setValue = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.value = value || "";
+    };
+
+    setValue("studioModalId", data.id);
+    setValue("studioModalTitolo", data.titolo);
+    setValue("studioModalDescrizione", data.descrizione);
+    setValue("studioModalAppunti", data.appunti);
+    setValue("studioModalLinkInput", data.link);
+    setValue("studioModalData", data.data);
+    setValue("studioModalOrario", data.orario);
+
+    if (linkBtn) {
+      if (data.link) {
+        linkBtn.href = data.link;
+        linkBtn.style.display = "inline-flex";
+      } else {
+        linkBtn.href = "#";
+        linkBtn.style.display = "none";
+      }
+    }
+
+    setEditing(false);
+    modal.style.display = "flex";
+  };
+
+  document.querySelectorAll(".studio-open-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const payload = btn.dataset.studio;
+      if (!payload) return;
+      try {
+        const data = JSON.parse(payload);
+        openModal(data);
+      } catch (error) {
+        console.error("Errore parsing studio:", error);
+      }
+    });
+  });
+
+  document.querySelectorAll(".delete-studio-btn").forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const id = btn.getAttribute("data-id");
+      if (id) confermaEliminaStudio(id, btn);
+    });
+  });
+
+  if (editBtn) {
+    editBtn.addEventListener("click", () => {
+      setEditing(!form.classList.contains("is-editing"));
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+      setEditing(false);
+    });
+  }
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+      setEditing(false);
+    }
+  });
+});
+
 // --- FUNZIONI METE ---
 
 function toggleSubMete(id) {
@@ -735,6 +831,30 @@ function confermaEliminazione(id, elemento) {
             if (typeof aggiornaBarraProgressiva === "function")
               aggiornaBarraProgressiva();
           }, 300);
+        }
+      });
+    },
+  );
+}
+
+function toggleStudioFamiliare(id) {
+  if (!id) return;
+  window.location.href = `studio_familiare.php?azione=toggle&id=${encodeURIComponent(id)}`;
+}
+
+function confermaEliminaStudio(id, elemento) {
+  if (!window.chiediConferma) return;
+
+  window.chiediConferma(
+    "Elimina",
+    "Sei sicuro di eliminare lo studio familiare?",
+    function () {
+      fetch(`studio_familiare.php?azione=elimina&id=${id}&ajax=1`).then(() => {
+        const row = elemento.closest(".studio-item");
+        if (row) {
+          row.style.opacity = "0";
+          row.style.transform = "scale(0.96)";
+          setTimeout(() => row.remove(), 300);
         }
       });
     },

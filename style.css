@@ -1728,6 +1728,127 @@ html {
   color: #888 !important;
 }
 
+/* --- STUDIO FAMILIARE --- */
+.studio-form {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.studio-form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.studio-form-row > * {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .studio-form-row {
+    flex-direction: column;
+  }
+}
+
+.studio-list {
+  margin-top: 10px;
+}
+
+.studio-item {
+  background: #fdfdfd;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #f0f0f0;
+}
+
+.studio-item.completed {
+  opacity: 0.7;
+  filter: grayscale(30%);
+}
+
+.studio-title {
+  flex: 1;
+  text-align: left;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-item.completed .studio-title {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.studio-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.studio-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: #f4f7f9;
+  border: none;
+  cursor: pointer;
+  color: #444;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-size: 0.9em;
+}
+
+.studio-icon-btn:hover {
+  background: #e9eef3;
+  transform: scale(1.05);
+}
+
+.studio-icon-btn svg {
+  display: block;
+}
+
+.studio-link-btn,
+.studio-share-btn {
+  text-decoration: none;
+}
+
+.studio-modal-content {
+  width: 95%;
+  max-width: 560px;
+  text-align: left;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.studio-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.studio-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.studio-modal-actions .btn {
+  width: auto;
+}
+
+.is-readonly {
+  background: #f7f7f7;
+}
+
 /* Overlay che copre tutto lo schermo */
 .modal-overlay {
   display: none; /* Nascosto di default */

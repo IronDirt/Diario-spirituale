@@ -13,20 +13,167 @@ ini_set('session.gc_probability', 1);          // Forza il garbage collection
 ini_set('session.gc_divisor', 100);            // Ogni 100 richieste
 session_start();
 
-// 1. Definiamo la cartella base
 $cartella_db = 'database';
 
-// 2. Controllo sicurezza: se non sei loggato, torni al login
-if (!isset($_SESSION['autenticato'])) { 
-    header("Location: index.php"); 
-    exit; 
+if (!isset($_SESSION['autenticato'])) {
+    header("Location: index.php");
+    exit;
 }
 
-// 3. Impostiamo il percorso della cartella dell'utente
 $path = $_SESSION['user_dir'] . '/';
 if (!is_dir($path)) {
     mkdir($path, 0777, true);
 }
+
+$file_studio = $path . 'studio_familiare.json';
+$studi = file_exists($file_studio) ? json_decode(file_get_contents($file_studio), true) : [];
+if (!is_array($studi)) $studi = [];
+
+function pulisci_testo($val) {
+    return htmlspecialchars(trim($val), ENT_QUOTES);
+}
+
+function normalizza_link($link) {
+    $link = trim($link);
+    if ($link === '') return '';
+    if (!preg_match('#^https?://#i', $link)) {
+        $link = 'https://' . $link;
+    }
+    return $link;
+}
+
+function formatta_data($data) {
+    if (empty($data)) return '';
+    $dt = DateTime::createFromFormat('Y-m-d', $data);
+    return $dt ? $dt->format('d/m/Y') : $data;
+}
+
+function crea_testo_share($studio) {
+    $parti = [];
+    $titolo = trim(htmlspecialchars_decode($studio['titolo'] ?? '', ENT_QUOTES));
+    if ($titolo !== '') $parti[] = "Studio: " . $titolo;
+
+    $descrizione = trim(htmlspecialchars_decode($studio['descrizione'] ?? '', ENT_QUOTES));
+    if ($descrizione !== '') $parti[] = $descrizione;
+
+    $link = trim(htmlspecialchars_decode($studio['link'] ?? '', ENT_QUOTES));
+    if ($link !== '') $parti[] = $link;
+
+    $data = trim($studio['data'] ?? '');
+    $orario = trim($studio['orario'] ?? '');
+    if ($data !== '' || $orario !== '') {
+        $data_format = $data !== '' ? formatta_data($data) : '';
+        $quando = 'Quando: ';
+        if ($data_format !== '' && $orario !== '') {
+            $quando .= $data_format . ' ' . $orario;
+        } else {
+            $quando .= $data_format !== '' ? $data_format : $orario;
+        }
+        $parti[] = $quando;
+    }
+
+    return implode("\n", $parti);
+}
+
+if (isset($_POST['aggiungi_studio'])) {
+    $titolo = pulisci_testo($_POST['titolo'] ?? '');
+    $descrizione = pulisci_testo($_POST['descrizione'] ?? '');
+    $appunti = pulisci_testo($_POST['appunti'] ?? '');
+    $link = pulisci_testo(normalizza_link($_POST['link'] ?? ''));
+    $data = trim($_POST['data'] ?? '');
+    $orario = trim($_POST['orario'] ?? '');
+
+    if ($titolo !== '') {
+        $studi[] = [
+            'id' => uniqid(),
+            'titolo' => $titolo,
+            'descrizione' => $descrizione,
+            'appunti' => $appunti,
+            'link' => $link,
+            'data' => $data,
+            'orario' => $orario,
+            'completata' => false,
+            'data_creazione' => time()
+        ];
+        file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
+    }
+    header("Location: studio_familiare.php");
+    exit;
+}
+
+if (isset($_POST['aggiorna_studio'])) {
+    $id = $_POST['studio_id'] ?? '';
+    foreach ($studi as &$studio) {
+        if ($studio['id'] === $id) {
+            $titolo_modifica = pulisci_testo($_POST['titolo_modifica'] ?? '');
+            if ($titolo_modifica === '') {
+                $titolo_modifica = $studio['titolo'] ?? '';
+            }
+            $studio['titolo'] = $titolo_modifica;
+            $studio['descrizione'] = pulisci_testo($_POST['descrizione_modifica'] ?? '');
+            $studio['appunti'] = pulisci_testo($_POST['appunti_modifica'] ?? '');
+            $studio['link'] = pulisci_testo(normalizza_link($_POST['link_modifica'] ?? ''));
+            $studio['data'] = trim($_POST['data_modifica'] ?? '');
+            $studio['orario'] = trim($_POST['orario_modifica'] ?? '');
+            break;
+        }
+    }
+    unset($studio);
+    file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
+    header("Location: studio_familiare.php");
+    exit;
+}
+
+if (isset($_GET['azione'])) {
+    $id_da_gestire = $_GET['id'] ?? '';
+
+    if ($_GET['azione'] === 'toggle') {
+        foreach ($studi as &$studio) {
+            if ($studio['id'] === $id_da_gestire) {
+                $studio['completata'] = empty($studio['completata']);
+                if ($studio['completata']) {
+                    $studio['data_completamento'] = time();
+                } else {
+                    unset($studio['data_completamento']);
+                }
+                break;
+            }
+        }
+        unset($studio);
+    } elseif ($_GET['azione'] === 'elimina') {
+        $studi = array_filter($studi, function ($studio) use ($id_da_gestire) {
+            return $studio['id'] !== $id_da_gestire;
+        });
+    }
+
+    file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
+
+    if (isset($_GET['ajax'])) {
+        exit;
+    }
+
+    header("Location: studio_familiare.php");
+    exit;
+}
+
+usort($studi, function ($a, $b) {
+    $a_completed = !empty($a['completata']);
+    $b_completed = !empty($b['completata']);
+
+    if ($a_completed !== $b_completed) {
+        return $a_completed <=> $b_completed;
+    }
+
+    if ($a_completed && $b_completed) {
+        $a_time = $a['data_completamento'] ?? 0;
+        $b_time = $b['data_completamento'] ?? 0;
+        return $b_time <=> $a_time;
+    }
+
+    $a_time = $a['data_creazione'] ?? 0;
+    $b_time = $b['data_creazione'] ?? 0;
+    return $b_time <=> $a_time;
+});
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -44,24 +191,68 @@ if (!is_dir($path)) {
             Studio Familiare
         </h2>
 
-        <div class="content-placeholder">
-            <div style="text-align: center; padding: 50px 20px; color: #999;">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin: 0 auto 20px;">
-                    <circle cx="9" cy="6" r="3"/>
-                    <ellipse cx="9" cy="16" rx="6" ry="4"/>
-                    <circle cx="17" cy="7" r="2"/>
-                    <path d="M21 15C21 16.6569 19.2091 18 17 18C14.7909 18 13 16.6569 13 15C13 13.3431 14.7909 12 17 12C19.2091 12 21 13.3431 21 15Z"/>
-                </svg>
-                <p style="font-size: 1.1em; margin: 0;">Contenuto in arrivo</p>
-                <p style="font-size: 0.9em; margin-top: 10px;">Questa sezione sarà presto disponibile</p>
+        <form method="post" class="studio-form">
+            <input type="text" name="titolo" placeholder="Titolo studio familiare..." required>
+            <textarea name="descrizione" rows="2" placeholder="Descrizione (opzionale)"></textarea>
+            <textarea name="appunti" rows="2" placeholder="Appunti (opzionale)"></textarea>
+            <input type="text" name="link" placeholder="Link (opzionale)">
+            <div class="studio-form-row">
+                <input type="date" name="data" placeholder="Data (opzionale)">
+                <input type="time" name="orario" placeholder="Orario (opzionale)">
             </div>
+            <button type="submit" name="aggiungi_studio" class="btn btn-save">Aggiungi</button>
+        </form>
+
+        <div class="studio-list">
+            <?php if (empty($studi)): ?>
+                <p style="color:#888; font-size:0.95em;">Nessuno studio familiare ancora.</p>
+            <?php else: ?>
+                <?php foreach ($studi as $studio):
+                    $payload = [
+                        'id' => $studio['id'],
+                        'titolo' => htmlspecialchars_decode($studio['titolo'] ?? '', ENT_QUOTES),
+                        'descrizione' => htmlspecialchars_decode($studio['descrizione'] ?? '', ENT_QUOTES),
+                        'appunti' => htmlspecialchars_decode($studio['appunti'] ?? '', ENT_QUOTES),
+                        'link' => htmlspecialchars_decode($studio['link'] ?? '', ENT_QUOTES),
+                        'data' => $studio['data'] ?? '',
+                        'orario' => $studio['orario'] ?? ''
+                    ];
+                    $share_text = crea_testo_share($studio);
+                    $share_link = 'https://wa.me/?text=' . urlencode($share_text);
+                ?>
+                    <div class="studio-item <?php echo !empty($studio['completata']) ? 'completed' : ''; ?>" id="studio-<?php echo $studio['id']; ?>">
+                        <div class="btn-check <?php echo !empty($studio['completata']) ? 'checked' : ''; ?>" onclick="toggleStudioFamiliare('<?php echo $studio['id']; ?>')"></div>
+                        <div class="studio-title" title="<?php echo $studio['titolo']; ?>">
+                            <?php echo $studio['titolo']; ?>
+                        </div>
+                        <div class="studio-actions">
+                            <button type="button" class="studio-icon-btn studio-open-btn" data-studio="<?php echo htmlspecialchars(json_encode($payload), ENT_QUOTES); ?>" title="Apri">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12" y2="8"></line>
+                                </svg>
+                            </button>
+                            <?php if (!empty($studio['link'])): ?>
+                                <a href="<?php echo $studio['link']; ?>" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" title="Apri link">
+                                    🔗
+                                </a>
+                            <?php endif; ?>
+                            <a href="<?php echo $share_link; ?>" class="studio-icon-btn studio-share-btn" target="_blank" rel="noopener" title="Condividi su WhatsApp">
+                                📤
+                            </a>
+                            <a href="#" class="btn-delete delete-studio-btn" data-id="<?php echo $studio['id']; ?>" title="Elimina">🗑️</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
 
         <div class="footer-actions">
-            <div style="flex: 1;"></div> 
+            <div style="flex: 1;"></div>
 
             <a href="home.php" class="back" style="margin: 0;">← Dashboard</a>
-            
+
             <div style="flex: 1; display: flex; justify-content: flex-end;">
                 <div class="settings-icon-inline" onclick="document.getElementById('overlay').style.display='flex'">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -84,6 +275,63 @@ if (!is_dir($path)) {
                         <button type="button" onclick="document.getElementById('overlay').style.display='none'" class="btn btn-close">CHIUDI</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="studioModal" class="modal-overlay">
+        <div class="modal-content studio-modal-content">
+            <div class="studio-modal-header">
+                <h3>Studio Familiare</h3>
+                <button type="button" id="studioEditToggle" class="studio-icon-btn" title="Modifica">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="studioModalForm" method="post">
+                <input type="hidden" name="studio_id" id="studioModalId">
+
+                <label for="studioModalTitolo">Titolo</label>
+                <input type="text" id="studioModalTitolo" name="titolo_modifica" data-studio-field readonly>
+
+                <label for="studioModalDescrizione">Descrizione</label>
+                <textarea id="studioModalDescrizione" name="descrizione_modifica" rows="3" data-studio-field readonly></textarea>
+
+                <label for="studioModalAppunti">Appunti</label>
+                <textarea id="studioModalAppunti" name="appunti_modifica" rows="3" data-studio-field readonly></textarea>
+
+                <label for="studioModalLinkInput">Link</label>
+                <input type="text" id="studioModalLinkInput" name="link_modifica" data-studio-field readonly>
+
+                <div class="studio-form-row">
+                    <div>
+                        <label for="studioModalData">Data</label>
+                        <input type="date" id="studioModalData" name="data_modifica" data-studio-field readonly>
+                    </div>
+                    <div>
+                        <label for="studioModalOrario">Orario</label>
+                        <input type="time" id="studioModalOrario" name="orario_modifica" data-studio-field readonly>
+                    </div>
+                </div>
+
+                <div class="studio-modal-actions">
+                    <a href="#" id="studioModalLink" class="studio-icon-btn studio-link-btn" target="_blank" rel="noopener" style="display:none;">Apri link</a>
+                    <button type="submit" name="aggiorna_studio" id="studioSaveBtn" class="btn btn-save" style="display:none;">Salva</button>
+                    <button type="button" id="studioModalClose" class="btn btn-close">Chiudi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="customConfirm" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalTitle">Conferma</h3>
+            <p id="modalText">Vuoi procedere con questa operazione?</p>
+            <div class="modal-buttons">
+                <button id="confirmCancel" class="btn-modal-secondary">Annulla</button>
+                <button id="confirmOk" class="btn-modal-primary">Procedi</button>
             </div>
         </div>
     </div>
