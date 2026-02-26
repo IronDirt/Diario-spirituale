@@ -1,4 +1,9 @@
 <?php
+// Configura il percorso di salvataggio delle sessioni
+$session_path = __DIR__ . '/sessions';
+if (!is_dir($session_path)) mkdir($session_path, 0777, true);
+session_save_path($session_path);
+
 // Configura i parametri del cookie di sessione PRIMA di session_start()
 session_set_cookie_params([
     'lifetime' => 259200,   // 3 giorni (la sessione non dura mai più del gc_maxlifetime)
