@@ -123,6 +123,13 @@ if (isset($_POST['aggiungi_studio'])) {
         ];
         file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
     }
+    
+    if (isset($_POST['ajax']) || isset($_GET['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+        exit;
+    }
+    
     header("Location: studio_familiare.php");
     exit;
 }
@@ -146,6 +153,13 @@ if (isset($_POST['aggiorna_studio'])) {
     }
     unset($studio);
     file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
+    
+    if (isset($_POST['ajax']) || isset($_GET['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+        exit;
+    }
+    
     header("Location: studio_familiare.php");
     exit;
 }
@@ -175,6 +189,8 @@ if (isset($_GET['azione'])) {
     file_put_contents($file_studio, json_encode(array_values($studi), JSON_PRETTY_PRINT));
 
     if (isset($_GET['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
         exit;
     }
 
@@ -186,16 +202,33 @@ usort($studi, function ($a, $b) {
     $a_completed = !empty($a['completata']);
     $b_completed = !empty($b['completata']);
 
+    // Non completate vanno prima delle completate
     if ($a_completed !== $b_completed) {
         return $a_completed <=> $b_completed;
     }
 
+    // Se entrambe completate, ordina per data di completamento (decrescente)
     if ($a_completed && $b_completed) {
         $a_time = $a['data_completamento'] ?? 0;
         $b_time = $b['data_completamento'] ?? 0;
         return $b_time <=> $a_time;
     }
 
+    // Se entrambe non completate
+    $a_has_data = !empty($a['data']);
+    $b_has_data = !empty($b['data']);
+
+    // Quelle con data vanno prima di quelle senza data
+    if ($a_has_data !== $b_has_data) {
+        return $b_has_data <=> $a_has_data; // inverte per avere true (con data) prima
+    }
+
+    // Entrambe hanno data: ordina per data decrescente (più recenti prima)
+    if ($a_has_data && $b_has_data) {
+        return strcmp($b['data'], $a['data']);
+    }
+
+    // Nessuna ha data: ordina per data_creazione decrescente
     $a_time = $a['data_creazione'] ?? 0;
     $b_time = $b['data_creazione'] ?? 0;
     return $b_time <=> $a_time;

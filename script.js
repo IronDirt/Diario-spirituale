@@ -158,6 +158,97 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Funzione per ricaricare la lista studi
+  const ricaricaListaStudi = () => {
+    fetch('studio_familiare.php?get_lista=1')
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const nuovaLista = doc.querySelector('.studio-list');
+        const listaCorrente = document.querySelector('.studio-list');
+        
+        if (nuovaLista && listaCorrente) {
+          listaCorrente.innerHTML = nuovaLista.innerHTML;
+          
+          // Ri-attacca gli event listeners
+          document.querySelectorAll('.studio-open-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const payload = btn.dataset.studio;
+              if (!payload) return;
+              try {
+                const data = JSON.parse(payload);
+                openModal(data);
+              } catch (error) {
+                console.error('Errore parsing studio:', error);
+              }
+            });
+          });
+          
+          document.querySelectorAll('.delete-studio-btn').forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+              event.preventDefault();
+              const id = btn.getAttribute('data-id');
+              if (id) confermaEliminaStudio(id, btn);
+            });
+          });
+          
+          document.querySelectorAll('.studio-share-btn').forEach((btn) => {
+            btn.addEventListener('click', condividiStudio);
+          });
+        }
+      })
+      .catch(error => console.error('Errore ricarica lista:', error));
+  };
+
+  // Form di aggiunta studio - AJAX
+  const studioForm = document.querySelector('.studio-form');
+  if (studioForm) {
+    studioForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(studioForm);
+      formData.append('ajax', '1');
+      
+      fetch('studio_familiare.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          studioForm.reset();
+          const extraFields = document.getElementById('studioExtraFields');
+          if (extraFields) extraFields.style.display = 'none';
+          ricaricaListaStudi();
+        }
+      })
+      .catch(error => console.error('Errore aggiunta studio:', error));
+    });
+  }
+
+  // Form di modifica studio - AJAX
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      formData.append('ajax', '1');
+      
+      fetch('studio_familiare.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          modal.style.display = 'none';
+          setEditing(false);
+          ricaricaListaStudi();
+        }
+      })
+      .catch(error => console.error('Errore modifica studio:', error));
+    });
+  }
+
   if (editBtn) {
     editBtn.addEventListener("click", () => {
       setEditing(!form.classList.contains("is-editing"));
@@ -850,7 +941,20 @@ function confermaEliminazione(id, elemento) {
 
 function toggleStudioFamiliare(id) {
   if (!id) return;
-  window.location.href = `studio_familiare.php?azione=toggle&id=${encodeURIComponent(id)}`;
+  
+  fetch(`studio_familiare.php?azione=toggle&id=${encodeURIComponent(id)}&ajax=1`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const item = document.getElementById(`studio-${id}`);
+        const checkbox = item?.querySelector('.btn-check');
+        if (item && checkbox) {
+          item.classList.toggle('completed');
+          checkbox.classList.toggle('checked');
+        }
+      }
+    })
+    .catch(error => console.error('Errore toggle studio:', error));
 }
 
 function confermaEliminaStudio(id, elemento) {
