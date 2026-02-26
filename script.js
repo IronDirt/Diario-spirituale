@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       el.style.cursor = "pointer"; // suggerisce che è interattivo
       el.addEventListener("click", () => {
         const fullText = el.textContent.trim();
-        if (!fullText || !isTextTruncated(el)) return;
+        if (!fullText) return;
 
         if (showMetaPopup(fullText)) return;
         alert(fullText);
