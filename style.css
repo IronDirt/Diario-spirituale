@@ -1918,11 +1918,21 @@ html {
 /* La scatola del messaggio */
 .modal-content {
   background: white;
-  padding: 25px;
+  padding: 30px;
   border-radius: 20px; /* Coerente con il tuo stile */
-  width: 300px;
+  width: 90%;
+  max-width: 550px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Adatta il modal su mobile */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 92%;
+    max-width: 420px;
+    padding: 25px 20px;
+  }
 }
 
 .modal-content h3 {
