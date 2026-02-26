@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.stopPropagation();
       const menu = btn.nextElementSibling;
       const isOpen = menu.classList.contains("active");
-      
+
       // Chiudi tutti gli altri menu aperti
       document.querySelectorAll(".studio-actions-menu.active").forEach((m) => {
         if (m !== menu) {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
           m.previousElementSibling.classList.remove("active");
         }
       });
-      
+
       // Toggle menu corrente
       menu.classList.toggle("active");
       btn.classList.toggle("active");
@@ -174,10 +174,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Chiudi menu quando si clicca fuori
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".studio-actions")) {
-      document.querySelectorAll(".studio-actions-menu.active").forEach((menu) => {
-        menu.classList.remove("active");
-        menu.previousElementSibling.classList.remove("active");
-      });
+      document
+        .querySelectorAll(".studio-actions-menu.active")
+        .forEach((menu) => {
+          menu.classList.remove("active");
+          menu.previousElementSibling.classList.remove("active");
+        });
     }
   });
 
@@ -234,14 +236,16 @@ document.addEventListener("DOMContentLoaded", function () {
               e.stopPropagation();
               const menu = btn.nextElementSibling;
               const isOpen = menu.classList.contains("active");
-              
-              document.querySelectorAll(".studio-actions-menu.active").forEach((m) => {
-                if (m !== menu) {
-                  m.classList.remove("active");
-                  m.previousElementSibling.classList.remove("active");
-                }
-              });
-              
+
+              document
+                .querySelectorAll(".studio-actions-menu.active")
+                .forEach((m) => {
+                  if (m !== menu) {
+                    m.classList.remove("active");
+                    m.previousElementSibling.classList.remove("active");
+                  }
+                });
+
               menu.classList.toggle("active");
               btn.classList.toggle("active");
             });

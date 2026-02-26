@@ -1855,7 +1855,9 @@ html {
 
 .studio-menu-toggle svg {
   position: absolute;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .studio-menu-toggle .icon-arrow {
@@ -1894,11 +1896,11 @@ html {
   .studio-actions {
     gap: 0;
   }
-  
+
   .studio-menu-toggle {
     display: inline-flex;
   }
-  
+
   .studio-actions-menu {
     position: absolute;
     right: 100%;
@@ -1915,7 +1917,7 @@ html {
     visibility: hidden;
     transition: all 0.25s ease;
   }
-  
+
   .studio-actions-menu.active {
     opacity: 1;
     visibility: visible;
