@@ -2090,6 +2090,11 @@ html {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* Modal specifico per il popup del titolo */
+#customConfirm .modal-content {
+  max-width: 300px;
+}
+
 /* Adatta il modal su mobile */
 @media (max-width: 600px) {
   .modal-content {
@@ -2107,6 +2112,13 @@ html {
   color: #666;
   font-size: 0.9em;
   margin-bottom: 20px;
+}
+
+/* Wrapping testo solo per il popup del titolo */
+#customConfirm .modal-content p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .modal-content textarea {

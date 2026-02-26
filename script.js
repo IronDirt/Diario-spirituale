@@ -109,14 +109,14 @@ document.addEventListener("DOMContentLoaded", function () {
         field.readOnly = !isEditing;
         field.classList.toggle("is-readonly", !isEditing);
       }
-      
+
       if (!isEditing) {
         field.classList.remove("is-modified");
       }
     });
-    
+
     form.classList.toggle("is-editing", isEditing);
-    
+
     if (isEditing) {
       // Salva i valori originali quando inizia la modifica
       fields.forEach((field) => {
@@ -144,7 +144,20 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!dateString) return "";
     const date = new Date(dateString + "T00:00:00");
     const days = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
-    const months = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
+    const months = [
+      "gen",
+      "feb",
+      "mar",
+      "apr",
+      "mag",
+      "giu",
+      "lug",
+      "ago",
+      "set",
+      "ott",
+      "nov",
+      "dic",
+    ];
     const dayName = days[date.getDay()];
     const day = date.getDate();
     const month = months[date.getMonth()];
@@ -170,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setEditing(false);
     modal.style.display = "flex";
-    
+
     // Ridimensiona i textareas dopo che il modal è visibile
     requestAnimationFrame(() => {
       resizeAllTextareas();
@@ -181,9 +194,13 @@ document.addEventListener("DOMContentLoaded", function () {
   fields.forEach((field) => {
     const checkModified = () => {
       if (form.classList.contains("is-editing")) {
-        const isModified = originalValues[field.id] !== undefined && field.value !== originalValues[field.id];
+        const isModified =
+          originalValues[field.id] !== undefined &&
+          field.value !== originalValues[field.id];
         field.classList.toggle("is-modified", isModified);
-        hasChanges = Array.from(fields).some(f => f.classList.contains("is-modified"));
+        hasChanges = Array.from(fields).some((f) =>
+          f.classList.contains("is-modified"),
+        );
       }
     };
 
