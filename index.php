@@ -140,6 +140,7 @@ if (isset($_POST['register'])) {
 if (isset($_POST['login'])) {
     $email = strtolower(trim($_POST['email']));
     if (isset($utenti[$email]) && password_verify($_POST['password'], $utenti[$email]['password'])) {
+        session_regenerate_id(true);
         $_SESSION['autenticato'] = true;
         $_SESSION['utente'] = $email;
         $_SESSION['nome_completo'] = $utenti[$email]['nome'] . " " . $utenti[$email]['cognome'];
@@ -155,6 +156,7 @@ if (isset($_POST['login'])) {
             setcookie('remember_me', $email . ':' . $token, time() + (86400 * 30), "/"); // Scade in 30 giorni
         }
 
+        session_write_close();
         header("Location: home.php"); 
         exit;
     } else { 
