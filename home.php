@@ -120,11 +120,61 @@ $studi_fam_aperti = 0;
 $studi_fam_chiusi = 0;
 $total_studi_fam = 0;
 $studi_fam_pct_chiusi = 0;
+$prossimo_studio = null;
+$prossimo_data_formattata = '';
 
 if (file_exists($studi_fam_file)) {
     $studi_fam_data = json_decode(file_get_contents($studi_fam_file), true);
     $studi_fam_array = (array)$studi_fam_data;
     $total_studi_fam = count($studi_fam_array);
+    
+    // Filtra solo studi NON completati con data
+    $studi_con_data = [];
+    foreach ($studi_fam_array as $studio) {
+        if ((!isset($studio['completata']) || !$studio['completata']) && !empty($studio['data'])) {
+            $studi_con_data[] = $studio;
+        }
+    }
+    
+    // Ordina per data (cronologicamente)
+    usort($studi_con_data, function($a, $b) {
+        return strcmp($a['data'], $b['data']);
+    });
+    
+    // Prendi il primo (date più vicina)
+    if (!empty($studi_con_data)) {
+        $prossimo_studio = $studi_con_data[0];
+        $data_obj = DateTime::createFromFormat('Y-m-d', $prossimo_studio['data']);
+        if ($data_obj) {
+            $giorni = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
+            $mesi = ['', 'gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+            
+            $giorno_abbr = $giorni[(int)$data_obj->format('w')];
+            $giorno = $data_obj->format('d');
+            $mese_abbr = $mesi[(int)$data_obj->format('m')];
+            
+            $prossimo_data_formattata = ucfirst($giorno_abbr) . ' ' . $giorno . ' ' . $mese_abbr;
+        }
+    }
+    
+    // Se nessuno NON completato ha data, prendi il primo NON completato della lista, ma il più recente
+    if (!$prossimo_studio && !empty($studi_fam_array)) {
+        $studi_senza_data = [];
+        foreach ($studi_fam_array as $studio) {
+            if ((!isset($studio['completata']) || !$studio['completata']) && empty($studio['data'])) {
+                $studi_senza_data[] = $studio;
+            }
+        }
+        
+        // Ordina per data_creazione decrescente (più recenti prima)
+        usort($studi_senza_data, function($a, $b) {
+            return (int)$b['data_creazione'] - (int)$a['data_creazione'];
+        });
+        
+        if (!empty($studi_senza_data)) {
+            $prossimo_studio = $studi_senza_data[0];
+        }
+    }
     
     foreach ($studi_fam_array as $studio) {
         if (isset($studio['completata']) && $studio['completata'] == true) {
@@ -326,6 +376,23 @@ if (file_exists($mete_file)) {
                             <div class="info-progress-bar-bg info-small-bar">
                                 <div class="info-progress-bar" style="width: 0%; background-color: #ddd;"></div>
                             </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($prossimo_studio): ?>
+                        <div class="info-line-wrapper">
+                            <div class="info-line-text">
+                                <span class="info-line-label">Prossimo</span>
+                                <?php if ($prossimo_data_formattata): ?>
+                                    <span class="info-line-value" style="font-size: 0.85em;"><i><?= $prossimo_data_formattata ?></i></span>
+                                <?php endif; ?>
+                            </div>
+                            <div class="info-progress-bar-bg info-small-bar">
+                                <div class="info-progress-bar" style="width: 0%; background-color: #ddd;"></div>
+                            </div>
+                        </div>
+                        <div style="padding: 5px 0; font-size: 0.6em; font-weight: normal; color: #20679a; word-break: break-word; text-align: left; width: 100%; display: block;">
+                            ↳ <?= htmlspecialchars($prossimo_studio['titolo']) ?>
                         </div>
                     <?php endif; ?>
                 </a>
