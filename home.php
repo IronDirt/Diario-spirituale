@@ -114,7 +114,30 @@ $ore_h = floor($tot_min_mese / 60);
 $min_h = $tot_min_mese % 60;
 $ore_tot_anno = floor($tot_min_anno / 60);
 
-// 6. Calcolo Mete (rimane uguale)
+// 6. Calcolo Studio Familiare
+$studi_fam_file = $path . 'studio_familiare.json';
+$studi_fam_aperti = 0;
+$studi_fam_chiusi = 0;
+$total_studi_fam = 0;
+$studi_fam_pct_chiusi = 0;
+
+if (file_exists($studi_fam_file)) {
+    $studi_fam_data = json_decode(file_get_contents($studi_fam_file), true);
+    $studi_fam_array = (array)$studi_fam_data;
+    $total_studi_fam = count($studi_fam_array);
+    
+    foreach ($studi_fam_array as $studio) {
+        if (isset($studio['completata']) && $studio['completata'] == true) {
+            $studi_fam_chiusi++;
+        } else {
+            $studi_fam_aperti++;
+        }
+    }
+    
+    $studi_fam_pct_chiusi = $total_studi_fam > 0 ? round(($studi_fam_chiusi / $total_studi_fam) * 100) : 0;
+}
+
+// 7. Calcolo Mete (rimane uguale)
 $perc_mete = 0;
 $mete_file = $path . 'mete.json';
 if (file_exists($mete_file)) {
@@ -293,6 +316,18 @@ if (file_exists($mete_file)) {
                 <a href="studio_familiare.php" class="widget">
                     <img src="img/familiare.png" alt="Studio Familiare" class="icona-svg-widget">
                     <span>Studio Familiare</span>
+                    
+                    <?php if ($studi_fam_aperti > 0): ?>
+                        <div class="info-line-wrapper">
+                            <div class="info-line-text">
+                                <span class="info-line-label">Aperti</span>
+                                <span class="info-line-value"><?= $studi_fam_aperti ?></span>
+                            </div>
+                            <div class="info-progress-bar-bg info-small-bar">
+                                <div class="info-progress-bar" style="width: 0%; background-color: #ddd;"></div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </a>
             <?php endif; ?>
 
