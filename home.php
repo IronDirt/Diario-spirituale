@@ -247,6 +247,7 @@ if (file_exists($mete_file)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Diario Spirituale</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="dark-mode.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link rel="icon" type="image/png" href="icona_diario_personale.png">
 
@@ -413,6 +414,23 @@ if (file_exists($mete_file)) {
             
             <div class="install-btn-wrapper" id="install-btn-wrapper" style="display: none;">
                 <button id="install-btn" class="install-icon" title="Installa come App">Installa come APP</button>
+            </div>
+            
+            <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Attiva tema scuro">
+                <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+                </svg>
+                <svg class="theme-icon-moon" style="display: none;" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
             </div>
             
             <div class="settings-icon" onclick="document.getElementById('overlay').style.display='flex'">

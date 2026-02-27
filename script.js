@@ -1,3 +1,52 @@
+// --- GESTIONE TEMA SCURO ---
+function toggleTheme() {
+  const body = document.body;
+  const themeToggle = document.getElementById("theme-toggle");
+  const sunIcon = document.querySelector(".theme-icon-sun");
+  const moonIcon = document.querySelector(".theme-icon-moon");
+
+  // Alterna la classe dark-mode
+  body.classList.toggle("dark-mode");
+
+  // Aggiorna gli iconi
+  if (body.classList.contains("dark-mode")) {
+    sunIcon.style.display = "none";
+    moonIcon.style.display = "block";
+    localStorage.setItem("theme", "dark");
+    themeToggle.title = "Attiva tema chiaro";
+  } else {
+    sunIcon.style.display = "block";
+    moonIcon.style.display = "none";
+    localStorage.setItem("theme", "light");
+    themeToggle.title = "Attiva tema scuro";
+  }
+}
+
+// Carica il tema salvato al caricamento della pagina
+function loadTheme() {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  const body = document.body;
+  const sunIcon = document.querySelector(".theme-icon-sun");
+  const moonIcon = document.querySelector(".theme-icon-moon");
+
+  if (savedTheme === "dark") {
+    body.classList.add("dark-mode");
+    if (sunIcon && moonIcon) {
+      sunIcon.style.display = "none";
+      moonIcon.style.display = "block";
+    }
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) themeToggle.title = "Attiva tema chiaro";
+  }
+}
+
+// Carica il tema quando il DOM è pronto
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", loadTheme);
+} else {
+  loadTheme();
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Sistema pronto");
 

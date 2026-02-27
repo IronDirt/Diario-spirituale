@@ -40,6 +40,7 @@ if (!is_dir($path)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Personale - Diario Spirituale</title>
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
+    <link rel="stylesheet" href="dark-mode.css?v=<?php echo filemtime('dark-mode.css'); ?>">
     <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
 </head>
 <body id="studio-personale-page">

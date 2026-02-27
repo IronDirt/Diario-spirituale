@@ -306,6 +306,7 @@ if ($total_main_goals > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mete</title>
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
+    <link rel="stylesheet" href="dark-mode.css?v=<?php echo filemtime('dark-mode.css'); ?>">
     <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css">
 </head>

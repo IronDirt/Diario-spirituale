@@ -1,0 +1,175 @@
+/* --- DARK MODE STYLES --- */
+/* Questo file definisce il tema scuro e ha priorità su style.css */
+
+body.dark-mode {
+  --bg-primary: #2a2a2a;
+  --bg-secondary: #3a3a3a;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b8b8b8;
+  --border-color: #444;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --input-bg: #424242;
+  --button-bg: #5a7fc1;
+  --widget-shadow: rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .page-copyright {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .theme-toggle {
+  color: #a8a8a8;
+}
+
+body.dark-mode .theme-toggle:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode .settings-icon {
+  color: #a8a8a8;
+}
+
+body.dark-mode .settings-icon:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode #overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23b8b8b8' d='M6 8L0 0h12z'/></svg>");
+}
+
+body.dark-mode select:focus {
+  box-shadow: 0 0 0 2px rgba(90, 127, 193, 0.3);
+}
+
+body.dark-mode .btn-close {
+  background: #555;
+  color: #e8e8e8;
+}
+
+body.dark-mode .meta-card {
+  border: 1px solid #444;
+}
+
+body.dark-mode table tbody tr:hover {
+  background-color: #3a3a3a;
+}
+
+body.dark-mode .settings-option label {
+  color: #e8e8e8;
+}
+
+body.dark-mode .settings-card {
+  background: #3a3a3a;
+  color: #e8e8e8;
+}
+
+body.dark-mode hr {
+  border-color: #444;
+}
+
+body.dark-mode .msg {
+  color: #e8e8e8;
+}
+
+body.dark-mode .profile-link-new {
+  color: #e8e8e8;
+  border-color: #444;
+}
+
+body.dark-mode .profile-link-new:hover {
+  background-color: #444;
+}
+
+body.dark-mode .logout-link,
+body.dark-mode .exit-icon {
+  color: #a8a8a8;
+}
+
+body.dark-mode .logout-link:hover,
+body.dark-mode .exit-icon:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode .back {
+  color: #b8b8b8;
+  border-color: #444;
+}
+
+body.dark-mode .back:hover {
+  background-color: #3a3a3a;
+  color: #5a7fc1;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+  color: #e8e8e8;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a {
+  color: #b8b8b8;
+}
+
+body.dark-mode .citazione {
+  color: #a8a8a8;
+}
+
+body.dark-mode .citazione i {
+  color: #b8b8b8;
+}
+
+body.dark-mode .citazione span {
+  color: #8a8a8a;
+}
+
+body.dark-mode .info-line-separator {
+  background: #444;
+}
+
+body.dark-mode .info-line-text span {
+  color: #b8b8b8;
+}
+
+body.dark-mode .progress-bar {
+  background-color: #5a7fc1;
+}
+
+body.dark-mode .info-progress-bar {
+  background-color: #5a7fc1;
+}
+
+body.dark-mode .home-progress-bar-bg {
+  background-color: #444;
+}
+
+body.dark-mode .info-progress-bar-bg {
+  background-color: #444;
+}
+
+body.dark-mode .home-progress-bar-bg .progress-bar {
+  background: linear-gradient(90deg, #5a7fc1, #4a90e2);
+}
+
+body.dark-mode .info-line-wrapper {
+  background: transparent;
+}
+
+body.dark-mode .install-btn-wrapper {
+  color: #e8e8e8;
+}
+
+body.dark-mode .install-icon {
+  background: #5a7fc1;
+  color: white;
+  border-color: #5a7fc1;
+}
+
+body.dark-mode .install-icon:hover {
+  background: #4a6fa8;
+}

@@ -83,6 +83,7 @@ if (isset($_POST['aggiorna'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilo</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="dark-mode.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="card">
@@ -100,5 +101,6 @@ if (isset($_POST['aggiorna'])) {
         <a href="home.php" class="back">← Torna alla Home</a>
     </div>
     <div class="page-copyright">&copy; <?php echo date('Y'); ?> Diario Spirituale</div>
+    <script src="script.js"></script>
 </body>
 </html>
