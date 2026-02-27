@@ -317,10 +317,10 @@ if ($total_main_goals > 0) {
         Mete
     </h2>
 
-    <div class="progress-container" style="height: 12px; background: #eee; border-radius: 10px; overflow: hidden; margin: 15px 0;">
+    <div class="progress-container" style="height: 12px; border-radius: 10px; overflow: hidden; margin: 15px 0;">
         <div id="main-progress-bar" class="progress-bar" style="width:<?php echo $perc; ?>%; height: 100%; background: #2ecc71; transition: width 0.5s;"></div>
     </div>
-    <p style="font-size: 0.8em; color: #666; margin-top: 5px;">
+    <p style="font-size: 0.8em; margin-top: 5px;">
     Completate: <span id="progress-percentage"><?php echo $perc; ?>%</span>
     </p>
 

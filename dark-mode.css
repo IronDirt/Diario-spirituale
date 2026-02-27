@@ -11,6 +11,8 @@ body.dark-mode {
   --input-bg: #424242;
   --button-bg: #5a7fc1;
   --widget-shadow: rgba(0, 0, 0, 0.2);
+  background: #2a2a2a;
+  color: #e8e8e8;
 }
 
 body.dark-mode .page-copyright {
@@ -33,32 +35,80 @@ body.dark-mode .settings-icon:hover {
   color: #5a7fc1;
 }
 
+body.dark-mode .settings-icon-inline {
+  color: #a8a8a8;
+}
+
+body.dark-mode .settings-icon-inline:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode .footer-actions {
+  background: #2a2a2a;
+  border-top-color: #444;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
 body.dark-mode #overlay {
   background: rgba(0, 0, 0, 0.8);
+}
+
+/* --- INPUT & SELECT ELEMENTS --- */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #424242;
+  color: #e8e8e8;
+  border-color: #555;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #888;
 }
 
 body.dark-mode select {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23b8b8b8' d='M6 8L0 0h12z'/></svg>");
 }
 
-body.dark-mode select:focus {
+body.dark-mode select:focus,
+body.dark-mode input:focus,
+body.dark-mode textarea:focus {
+  border-color: #5a7fc1;
   box-shadow: 0 0 0 2px rgba(90, 127, 193, 0.3);
 }
 
+/* --- BUTTONS --- */
 body.dark-mode .btn-close {
   background: #555;
   color: #e8e8e8;
 }
 
+body.dark-mode .btn-close:hover {
+  background: #666;
+}
+
+body.dark-mode .btn-plus {
+  background: #5a7fc1;
+  color: white;
+}
+
+body.dark-mode .btn-plus:hover {
+  background: #4a6fa8;
+}
+
+/* --- CARDS & CONTAINERS --- */
+body.dark-mode .box,
+body.dark-mode .container {
+  background: #2a2a2a;
+}
+
 body.dark-mode .meta-card {
+  background: #3a3a3a;
   border: 1px solid #444;
 }
 
-body.dark-mode table tbody tr:hover {
-  background-color: #3a3a3a;
-}
-
-body.dark-mode .settings-option label {
+body.dark-mode .meta-text {
   color: #e8e8e8;
 }
 
@@ -67,10 +117,441 @@ body.dark-mode .settings-card {
   color: #e8e8e8;
 }
 
+/* --- TABLES --- */
+body.dark-mode table {
+  color: #e8e8e8;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+  border-bottom-color: #444;
+  color: #b8b8b8;
+}
+
+body.dark-mode table td:first-child {
+  color: #e8e8e8;
+}
+
+body.dark-mode table tbody tr:hover {
+  background-color: #3a3a3a;
+}
+
+body.dark-mode .vuoto {
+  color: #888;
+}
+
+body.dark-mode .del-btn {
+  opacity: 0.8;
+}
+
+/* --- SERVIZIO PAGE --- */
+body.dark-mode .nav-mesi a.btn-mese {
+  background-color: #424242;
+  color: #b8b8b8;
+  border-color: #555;
+}
+
+body.dark-mode .nav-mesi a.btn-mese:hover {
+  background-color: #4a4a4a;
+}
+
+body.dark-mode .totale-box {
+  background: #5a7fc1;
+}
+
+body.dark-mode .obiettivi-container {
+  background: transparent;
+}
+
+body.dark-mode .obiettivo-label {
+  color: #e8e8e8;
+}
+
+body.dark-mode .obiettivo-label span {
+  color: #b8b8b8;
+}
+
+body.dark-mode .progress-container,
+body.dark-mode div.progress-container,
+body.dark-mode .obiettivi-container .progress-container {
+  background: #444 !important;
+  background-color: #444 !important;
+}
+
+body.dark-mode .progress-bar-mensile,
+body.dark-mode .progress-bar-anno,
+body.dark-mode .progress-bar {
+  background: #5a7fc1;
+}
+
+body.dark-mode #timer-container {
+  background: #3a3a3a;
+  border-color: #444;
+}
+
+body.dark-mode #timer-container #display {
+  color: #e8e8e8;
+}
+
+body.dark-mode #timer-container #startBtn {
+  background: #2ecc71;
+}
+
+body.dark-mode #timer-container #startBtn:hover {
+  background: #27ae60;
+}
+
+body.dark-mode #timer-container #pauseBtn {
+  background: #f39c12;
+}
+
+body.dark-mode #timer-container #pauseBtn:hover {
+  background: #d68910;
+}
+
+body.dark-mode #timer-container #stopBtn {
+  background: #e74c3c;
+}
+
+body.dark-mode #timer-container #stopBtn:hover {
+  background: #c0392b;
+}
+
+body.dark-mode .obiettivo-label {
+  color: #e8e8e8;
+}
+
+body.dark-mode .obiettivo-label span:last-child {
+  color: #e8e8e8;
+}
+
+body.dark-mode .progress-bar-mensile {
+  background-color: #3498db !important;
+}
+
+body.dark-mode .progress-bar-annuale,
+body.dark-mode .progress-bar-anno {
+  background-color: #9b59b6 !important;
+}
+
+body.dark-mode .obiettivi-container {
+  color: #e8e8e8;
+}
+
+/* --- METE PAGE --- */
+body.dark-mode .meta-wrapper {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark-mode .badge-meta-elegante {
+  background: rgba(90, 127, 193, 0.2);
+  color: #b8b8b8;
+  border-color: #555;
+}
+
+body.dark-mode .badge-breve {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+body.dark-mode .badge-medio {
+  background-color: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+}
+
+body.dark-mode .badge-lungo {
+  background-color: rgba(155, 89, 182, 0.2);
+  color: #9b59b6;
+}
+
+body.dark-mode .icona-orologio-meta {
+  filter: brightness(0.8);
+}
+
+body.dark-mode .meta-progress-track {
+  background: #444;
+}
+
+body.dark-mode .meta-progress-bar {
+  background: #2ecc71;
+}
+
+body.dark-mode .meta-progress-text {
+  color: #888;
+}
+
+body.dark-mode #main-progress-bar {
+  background: #2ecc71 !important;
+}
+
+body.dark-mode #progress-percentage {
+  color: #b8b8b8;
+}
+
+/* Sovrascrivi il colore del testo "Completate: X%" */
+body.dark-mode .container p,
+body.dark-mode .box p {
+  color: #b8b8b8 !important;
+}
+
+body.dark-mode .btn-check {
+  background: #424242;
+  border-color: #555;
+}
+
+body.dark-mode .btn-check.checked {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+body.dark-mode .btn-expand {
+  color: #b8b8b8;
+  background-color: #424242;
+  border-color: #555;
+}
+
+body.dark-mode .btn-expand:hover {
+  background-color: #4a4a4a;
+  color: #5a7fc1;
+}
+
+body.dark-mode .btn-expand.active {
+  background-color: #4a4a4a;
+}
+
+body.dark-mode .btn-delete {
+  opacity: 0.8;
+}
+
+body.dark-mode .sub-container {
+  background: #333;
+  border-top-color: #444;
+}
+
+body.dark-mode .sub-mete-container {
+  background: #333;
+  border-top-color: #444;
+}
+
+body.dark-mode .sub-meta-item {
+  background: #3a3a3a;
+  border-color: #444;
+  color: #e8e8e8;
+}
+
+body.dark-mode .sub-meta-item.completed {
+  background: #2d2d2d;
+}
+
+body.dark-mode .sub-meta-text {
+  color: #e8e8e8;
+  border-bottom-color: #555;
+}
+
+body.dark-mode .btn-check-small {
+  background: #424242;
+  border-color: #555;
+}
+
+body.dark-mode .btn-check-small.checked {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+body.dark-mode .btn-delete-small {
+  opacity: 0.8;
+}
+
+body.dark-mode .sub-meta-form input {
+  background-color: #424242;
+  color: #e8e8e8;
+  border-color: #555;
+}
+
+/* --- STUDIO FAMILIARE PAGE --- */
+body.dark-mode .studio-form {
+  background: #3a3a3a;
+  border-color: #444;
+}
+
+body.dark-mode .studio-expand-btn {
+  background: transparent;
+  color: #b8b8b8;
+}
+
+body.dark-mode .studio-expand-btn:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode .stats-container {
+  background: #3a3a3a;
+  border-color: #444;
+}
+
+body.dark-mode .stat-number {
+  color: #e8e8e8;
+}
+
+body.dark-mode .stat-label {
+  color: #b8b8b8;
+}
+
+body.dark-mode .stat-separator {
+  background: #444;
+}
+
+body.dark-mode .studio-item {
+  background: #3a3a3a;
+  border-color: #444;
+}
+
+body.dark-mode .studio-item.completed {
+  background: #2d2d2d;
+  opacity: 0.7;
+}
+
+body.dark-mode .studio-title-text {
+  color: #e8e8e8;
+}
+
+body.dark-mode .studio-datetime {
+  color: #888;
+}
+
+body.dark-mode .studio-icon-btn {
+  background: transparent;
+  color: #b8b8b8;
+}
+
+body.dark-mode .studio-icon-btn:hover {
+  color: #5a7fc1;
+}
+
+body.dark-mode .delete-studio-btn {
+  opacity: 0.8;
+}
+
+body.dark-mode .studio-menu-toggle {
+  background: transparent;
+  color: #b8b8b8;
+}
+
+body.dark-mode .studio-menu-toggle:hover {
+  color: #5a7fc1;
+}
+
+/* --- STUDIO PERSONALE PAGE --- */
+body.dark-mode .content-placeholder {
+  background: #3a3a3a;
+}
+
+body.dark-mode .content-placeholder svg {
+  color: #666;
+}
+
+body.dark-mode .content-placeholder p {
+  color: #888;
+}
+
+/* --- MODALS --- */
+body.dark-mode .modal-overlay {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+body.dark-mode .modal-content {
+  background: #3a3a3a;
+  color: #e8e8e8;
+  border: 1px solid #444;
+}
+
+body.dark-mode .modal-content h3 {
+  color: #e8e8e8;
+}
+
+body.dark-mode .modal-content p {
+  color: #b8b8b8;
+}
+
+body.dark-mode .modal-content label {
+  color: #b8b8b8;
+}
+
+body.dark-mode .btn-modal-primary {
+  background: #5a7fc1;
+  color: white;
+}
+
+body.dark-mode .btn-modal-primary:hover {
+  background: #4a6fa8;
+}
+
+body.dark-mode .btn-modal-secondary {
+  background: #555;
+  color: #e8e8e8;
+}
+
+body.dark-mode .btn-modal-secondary:hover {
+  background: #666;
+}
+
+body.dark-mode .studio-modal-content {
+  background: #3a3a3a;
+  border-color: #444;
+}
+
+body.dark-mode .studio-modal-header {
+  background: #333;
+}
+
+/* --- SETTINGS --- */
+body.dark-mode .settings-option label {
+  color: #e8e8e8;
+}
+
+body.dark-mode .setting-group-block {
+  background: rgba(58, 58, 58, 0.3);
+  border-color: #444;
+}
+
+body.dark-mode .setting-title {
+  color: #e8e8e8;
+}
+
+body.dark-mode .setting-inline-row {
+  color: #b8b8b8;
+}
+
+body.dark-mode .setting-inline-row span {
+  color: #b8b8b8;
+}
+
 body.dark-mode hr {
   border-color: #444;
 }
 
+body.dark-mode .btn-email-link-small {
+  background: #5a7fc1;
+  color: white;
+}
+
+body.dark-mode .btn-email-link-small:hover {
+  background: #4a6fa8;
+}
+
+body.dark-mode .status-msg-ok {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+body.dark-mode .status-msg-error {
+  background: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* --- MISC --- */
 body.dark-mode .msg {
   color: #e8e8e8;
 }
@@ -78,6 +559,7 @@ body.dark-mode .msg {
 body.dark-mode .profile-link-new {
   color: #e8e8e8;
   border-color: #444;
+  background: #3a3a3a;
 }
 
 body.dark-mode .profile-link-new:hover {
@@ -97,10 +579,11 @@ body.dark-mode .exit-icon:hover {
 body.dark-mode .back {
   color: #b8b8b8;
   border-color: #444;
+  background: #3a3a3a;
 }
 
 body.dark-mode .back:hover {
-  background-color: #3a3a3a;
+  background-color: #444;
   color: #5a7fc1;
 }
 
@@ -134,10 +617,6 @@ body.dark-mode .info-line-separator {
 
 body.dark-mode .info-line-text span {
   color: #b8b8b8;
-}
-
-body.dark-mode .progress-bar {
-  background-color: #5a7fc1;
 }
 
 body.dark-mode .info-progress-bar {

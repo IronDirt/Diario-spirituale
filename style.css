@@ -25,7 +25,9 @@ body {
   align-items: center; /* Centra orizzontalmente */
   min-height: 100vh;
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Rimuove il contorno blu e l'evidenziazione al tocco su mobile */
