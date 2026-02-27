@@ -371,7 +371,7 @@ if (file_exists($mete_file)) {
                         <div class="info-line-wrapper">
                             <div class="info-line-text">
                                 <span class="info-line-label">Aperti</span>
-                                <span class="info-line-value"><?= $studi_fam_aperti ?></span>
+                                <span class="info-line-value"><?= $studi_fam_aperti ?>x</span>
                             </div>
                             <div class="info-progress-bar-bg info-small-bar">
                                 <div class="info-progress-bar" style="width: 0%; background-color: #ddd;"></div>
