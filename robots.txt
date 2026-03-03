@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /database/
+Disallow: /sessions/
+Disallow: /.vscode/
+
+Sitemap: https://diario-spirituale.salernohub.net/sitemap.xml

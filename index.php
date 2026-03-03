@@ -182,10 +182,65 @@ if (isset($_POST['recover'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accedi - Diario Spirituale</title>
+    <title>Diario Spirituale - App per Testimoni di Geova | Traccia Studio, Servizio e Mete</title>
+    <meta name="description" content="Diario Spirituale è l'app gratuita per Testimoni di Geova: tieni traccia delle ore di servizio, degli studi personali e familiari, e delle tue mete spirituali. Disponibile su diario-spirituale.salernohub.net">
+    <meta name="keywords" content="diario spirituale, testimoni di Geova, ore di servizio, studio biblico, mete spirituali, app testimoni, tracciamento servizio, studio familiare, studio personale, obiettivi spirituali">
+    <meta name="author" content="Loris Salerno">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://diario-spirituale.salernohub.net/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://diario-spirituale.salernohub.net/">
+    <meta property="og:title" content="Diario Spirituale - App per Testimoni di Geova">
+    <meta property="og:description" content="Tieni traccia del tuo percorso spirituale: ore di servizio, studi biblici, mete personali e familiari. L'app pensata per i Testimoni di Geova.">
+    <meta property="og:image" content="https://diario-spirituale.salernohub.net/icona_diario_personale.png">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="Diario Spirituale">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Diario Spirituale - App per Testimoni di Geova">
+    <meta name="twitter:description" content="Tieni traccia del tuo percorso spirituale: ore di servizio, studi biblici, mete personali e familiari.">
+    <meta name="twitter:image" content="https://diario-spirituale.salernohub.net/icona_diario_personale.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Diario Spirituale",
+      "url": "https://diario-spirituale.salernohub.net/",
+      "description": "Applicazione web gratuita per Testimoni di Geova per tracciare le ore di servizio, gli studi biblici personali e familiari, e le mete spirituali.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Loris Salerno"
+      },
+      "inLanguage": "it",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Testimoni di Geova"
+      },
+      "featureList": [
+        "Registrazione ore di servizio",
+        "Tracciamento studio personale",
+        "Tracciamento studio familiare",
+        "Gestione mete spirituali",
+        "Installabile come app (PWA)"
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link rel="icon" type="image/png" href="icona_diario_personale.png">
-
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icona_diario_personale.png">
 
     <meta name="mobile-web-app-capable" content="yes">
