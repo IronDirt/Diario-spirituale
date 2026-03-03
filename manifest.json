@@ -1,7 +1,7 @@
 {
-  "name": "Diario Spirituale",
-  "short_name": "Diario",
-  "description": "Diario per il tracciamento spirituale e gli obiettivi personali",
+  "name": "Diario Spirituale - App per Testimoni di Geova",
+  "short_name": "Diario Spirituale",
+  "description": "App gratuita per Testimoni di Geova: traccia ore di servizio, studi biblici personali e familiari, e mete spirituali.",
   "start_url": "/home.php",
   "scope": "/",
   "display": "standalone",
