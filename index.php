@@ -40,6 +40,9 @@ if (!is_dir($cartella_db)) mkdir($cartella_db, 0777, true);
 $file_utenti = $cartella_db . '/utenti.json';
 $utenti = file_exists($file_utenti) ? json_decode(file_get_contents($file_utenti), true) : [];
 $messaggio = "";
+$errore_email = "";
+$errore_password = "";
+$errore_reg_email = "";
 
 // --- 2.5 CONTROLLO COOKIE "RICORDAMI" ---
 if (!isset($_SESSION['autenticato']) && isset($_COOKIE['remember_me'])) {
@@ -62,9 +65,9 @@ if (isset($_POST['register'])) {
     $pass = $_POST['password'];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { 
-        $messaggio = "<span style='color:#e74c3c;'>Email non valida.</span>"; 
+        $errore_reg_email = "Email non valida"; 
     } elseif (isset($utenti[$email])) { 
-        $messaggio = "<span style='color:#e74c3c;'>Email già registrata.</span>"; 
+        $errore_reg_email = "Email già registrata"; 
     } else {
         $utenti[$email] = [
             'password' => password_hash($pass, PASSWORD_DEFAULT), 
@@ -139,7 +142,11 @@ if (isset($_POST['register'])) {
 // --- 5. LOGICA LOGIN ---
 if (isset($_POST['login'])) {
     $email = strtolower(trim($_POST['email']));
-    if (isset($utenti[$email]) && password_verify($_POST['password'], $utenti[$email]['password'])) {
+    if (!isset($utenti[$email])) {
+        $errore_email = "Email non registrata";
+    } elseif (!password_verify($_POST['password'], $utenti[$email]['password'])) {
+        $errore_password = "Password errata";
+    } else {
         session_regenerate_id(true);
         $_SESSION['autenticato'] = true;
         $_SESSION['utente'] = $email;
@@ -159,8 +166,6 @@ if (isset($_POST['login'])) {
         session_write_close();
         header("Location: home.php"); 
         exit;
-    } else { 
-        $messaggio = "<span style='color:#e74c3c;'>Credenziali errate.</span>"; 
     }
 }
 
@@ -245,73 +250,88 @@ if (isset($_POST['recover'])) {
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Diario">
-    <style>
-        /* Stili extra per rifinire la parte inferiore */
-        .links-container { margin-top: 25px; }
-        .toggle-link { display: inline-block; cursor: pointer; transition: opacity 0.3s; font-size: 0.95em; color: #4a90e2; text-decoration: none; }
-        .toggle-link:hover { opacity: 0.8; text-decoration: underline; }
-        .recover-link { color: #bbb !important; font-size: 0.85em !important; margin-top: 12px; }
-        .msg { margin-top: 20px; font-weight: 500; }
-    </style>
 </head>
 <body>
-    <div class="auth-card auth-container">
-        
-        <div id="login-box">
-            <h2>Accedi</h2>
-            <form method="post">
-                <input type="email" name="email" placeholder="Email" required>
-                
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="pass_login" placeholder="Password" required>
-                    <div class="toggle-password" onclick="togglePass('pass_login')">
-                        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    <div class="auth-shell">
+        <div class="auth-card auth-container auth-stack auth-switch-card" id="auth-stack" data-view="login">
+            <div class="auth-brand">
+                <img src="icona_diario_personale.png" alt="Diario Spirituale" class="auth-logo">
+                <div class="auth-brand-text">
+                    <h1>Diario Spirituale</h1>
+                    <p>Il tuo percorso quotidiano, con semplicità.</p>
+                </div>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Accesso o registrazione">
+                <span class="auth-tab-indicator" aria-hidden="true"></span>
+                <button type="button" class="auth-tab active" id="tab-login" data-target="login-box" aria-selected="true" onclick="showBox('login-box')">Login</button>
+                <button type="button" class="auth-tab" id="tab-register" data-target="register-box" aria-selected="false" onclick="showBox('register-box')">Registrazione</button>
+            </div>
+
+            <div class="auth-panels">
+                <div id="login-box" class="auth-panel" aria-hidden="false">
+                    <form method="post">
+                        <?php if ($errore_email): ?>
+                            <div class="error-message"><?php echo $errore_email; ?></div>
+                        <?php endif; ?>
+                        <input type="email" name="email" placeholder="Email" class="<?php echo $errore_email ? 'input-error' : ''; ?>" required>
+
+                        <?php if ($errore_password): ?>
+                            <div class="error-message"><?php echo $errore_password; ?></div>
+                        <?php endif; ?>
+                        <div class="password-wrapper">
+                            <input type="password" name="password" id="pass_login" placeholder="Password" class="<?php echo $errore_password ? 'input-error' : ''; ?>" required>
+                            <div class="toggle-password" onclick="togglePass('pass_login')">
+                                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            </div>
+                        </div>
+
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" name="remember">
+                            <span class="checkmark"></span>
+                            Ricordami su questo dispositivo
+                        </label>
+                        <button type="submit" name="login" class="btn">ACCEDI</button>
+                    </form>
+
+                    <div class="links-container">
+                        <span class="toggle-link recover-link" onclick="showBox('recover-box')">Password dimenticata?</span>
                     </div>
                 </div>
-                <label class="custom-checkbox-container">
-                    <input type="checkbox" name="remember">
-                    <span class="checkmark"></span>
-                    Ricordami su questo dispositivo
-                </label>
-                <button type="submit" name="login" class="btn">ACCEDI</button>
-            </form>
 
-            <div class="links-container">
-                <span class="toggle-link" onclick="showBox('register-box')">Non hai un account? <b>Registrati</b></span>
-                <br>
-                <span class="toggle-link recover-link" onclick="showBox('recover-box')">Password dimenticata?</span>
-            </div>
-        </div>
+                <div id="register-box" class="auth-panel" aria-hidden="true">
+                    <p class="auth-panel-note">Crea il tuo account e inizia subito.</p>
+                    <form method="post">
+                        <input type="text" name="nome" placeholder="Nome" required>
+                        <input type="text" name="cognome" placeholder="Cognome" required>
+                        
+                        <?php if ($errore_reg_email): ?>
+                            <div class="error-message"><?php echo $errore_reg_email; ?></div>
+                        <?php endif; ?>
+                        <input type="email" name="email" placeholder="Email" class="<?php echo $errore_reg_email ? 'input-error' : ''; ?>" required>
 
-        <div id="register-box" style="display:none;">
-            <h2>Registrazione</h2>
-            <form method="post">
-                <input type="text" name="nome" placeholder="Nome" required>
-                <input type="text" name="cognome" placeholder="Cognome" required>
-                <input type="email" name="email" placeholder="Email" required>
-                
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="pass_reg" placeholder="Crea Password" required>
-                    <div class="toggle-password" onclick="togglePass('pass_reg')">
-                        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <div class="password-wrapper">
+                            <input type="password" name="password" id="pass_reg" placeholder="Crea Password" required>
+                            <div class="toggle-password" onclick="togglePass('pass_reg')">
+                                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            </div>
+                        </div>
+
+                        <button type="submit" name="register" class="btn btn-register">REGISTRATI</button>
+                    </form>
+                </div>
+
+                <div id="recover-box" class="auth-panel" aria-hidden="true">
+                    <h2>Recupero Password</h2>
+                    <p class="auth-panel-note">Inserisci la tua email e riceverai una nuova password temporanea.</p>
+                    <form method="post">
+                        <input type="email" name="email" placeholder="Email dell'account" required>
+                        <button type="submit" name="recover" class="btn btn-recover">RECUPERA</button>
+                    </form>
+                    <div class="links-container">
+                        <span class="toggle-link" onclick="showBox('login-box')">Annulla</span>
                     </div>
                 </div>
-                
-                <button type="submit" name="register" class="btn" style="background:#2ecc71;">REGISTRATI</button>
-            </form>
-            <div class="links-container">
-                <span class="toggle-link" onclick="showBox('login-box')">Torna al Login</span>
-            </div>
-        </div>
-
-        <div id="recover-box" style="display:none;">
-            <h2>Recupero Password</h2>
-            <form method="post">
-                <input type="email" name="email" placeholder="Email dell'account" required>
-                <button type="submit" name="recover" class="btn" style="background:#f39c12;">RECUPERA</button>
-            </form>
-            <div class="links-container">
-                <span class="toggle-link" onclick="showBox('login-box')">Annulla</span>
             </div>
         </div>
 
@@ -337,10 +357,23 @@ if (isset($_POST['recover'])) {
         }
 
         function showBox(id) {
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('register-box').style.display = 'none';
-            document.getElementById('recover-box').style.display = 'none';
-            document.getElementById(id).style.display = 'block';
+            const stack = document.getElementById('auth-stack');
+            const viewMap = {
+                'login-box': 'login',
+                'register-box': 'register',
+                'recover-box': 'recover'
+            };
+            stack.setAttribute('data-view', viewMap[id] || 'login');
+
+            document.getElementById('login-box').setAttribute('aria-hidden', id !== 'login-box');
+            document.getElementById('register-box').setAttribute('aria-hidden', id !== 'register-box');
+            document.getElementById('recover-box').setAttribute('aria-hidden', id !== 'recover-box');
+
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach((tab) => {
+                tab.classList.toggle('active', tab.dataset.target === id);
+                tab.setAttribute('aria-selected', tab.dataset.target === id ? 'true' : 'false');
+            });
         }
     </script>
 </body>
