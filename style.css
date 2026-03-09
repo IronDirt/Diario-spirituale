@@ -666,7 +666,6 @@ table td:first-child {
 .auth-stack[data-view="login"] #tab-register,
 .auth-stack[data-view="register"] #tab-login {
   opacity: 0.78;
-  background: color-mix(in srgb, var(--input-bg) 58%, #cfd6de 42%);
   box-shadow: none;
 }
 
@@ -939,6 +938,7 @@ table td:first-child {
   font-weight: 500;
   text-transform: lowercase; /* Rende il testo meno impattante visivamente */
   opacity: 0.8;
+  background: transparent;
 }
 
 /* Dimensioni dell'icona orologio nelle mete */
@@ -2028,16 +2028,19 @@ html {
 .studio-form {
   text-align: left;
   margin-bottom: 20px;
+  background: transparent;
 }
 
 .studio-title-row {
   display: flex;
   gap: 10px;
   align-items: center;
+  background: transparent;
 }
 
 .studio-title-row input {
   flex: 1;
+  background: transparent;
 }
 
 .studio-expand-btn {
@@ -2045,7 +2048,7 @@ html {
   height: 38px;
   border-radius: 10px;
   border: 1px solid #e2e2e2;
-  background: #f7f7f7;
+  background: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;

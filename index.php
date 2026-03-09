@@ -244,6 +244,7 @@ if (isset($_POST['recover'])) {
     </script>
 
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="dark-mode.css?v=<?php echo time(); ?>">
     <link rel="icon" type="image/png" href="icona_diario_personale.png">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icona_diario_personale.png">
@@ -252,6 +253,15 @@ if (isset($_POST['recover'])) {
     <meta name="apple-mobile-web-app-title" content="Diario">
 </head>
 <body>
+    <script>
+        // Carica il tema salvato immediatamente per evitare flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        })();
+    </script>
     <div class="auth-shell">
         <div class="auth-card auth-container auth-stack auth-switch-card" id="auth-stack" data-view="login">
             <div class="auth-brand">

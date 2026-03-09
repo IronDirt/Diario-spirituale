@@ -104,7 +104,7 @@ body.dark-mode .container {
 }
 
 body.dark-mode .meta-card {
-  background: #3a3a3a;
+  background: #2a2a2a;
   border: 1px solid #444;
 }
 
@@ -245,7 +245,6 @@ body.dark-mode .meta-wrapper {
 }
 
 body.dark-mode .badge-meta-elegante {
-  background: rgba(90, 127, 193, 0.2);
   color: #b8b8b8;
   border-color: #555;
 }
@@ -325,8 +324,8 @@ body.dark-mode .btn-delete {
 }
 
 body.dark-mode .sub-container {
-  background: #333;
-  border-top-color: #444;
+  background: #3a3a3a !important;
+  border-top-color: #555 !important;
 }
 
 body.dark-mode .sub-mete-container {
@@ -371,7 +370,7 @@ body.dark-mode .sub-meta-form input {
 
 /* --- STUDIO FAMILIARE PAGE --- */
 body.dark-mode .studio-form {
-  background: #3a3a3a;
+  background: transparent;
   border-color: #444;
 }
 
@@ -402,12 +401,12 @@ body.dark-mode .stat-separator {
 }
 
 body.dark-mode .studio-item {
-  background: #3a3a3a;
+  background: #2a2a2a;
   border-color: #444;
 }
 
 body.dark-mode .studio-item.completed {
-  background: #2d2d2d;
+  background: #1f1f1f;
   opacity: 0.7;
 }
 
@@ -501,7 +500,50 @@ body.dark-mode .studio-modal-content {
 }
 
 body.dark-mode .studio-modal-header {
-  background: #333;
+  background: transparent;
+}
+
+body.dark-mode .studio-title-row {
+  background: transparent;
+}
+
+body.dark-mode .studio-title-row input {
+  background: transparent;
+}
+
+body.dark-mode .studio-actions-menu {
+  background: #3a3a3a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode #studioModalForm.is-editing [data-studio-field]:not([readonly]) {
+  background: #424242;
+  border-color: #5a7fc1;
+}
+
+body.dark-mode #studioModalForm.is-editing [data-studio-field]:not([readonly]):focus {
+  background: #424242;
+  border-color: #5a7fc1;
+}
+
+body.dark-mode #studioModalForm [data-studio-field].is-modified {
+  background: #424242 !important;
+  border-color: #2ecc71 !important;
+}
+
+body.dark-mode #studioModalForm label {
+  color: #e8e8e8;
+}
+
+body.dark-mode #studioModalData,
+body.dark-mode #studioModalOrario {
+  background: #424242 !important;
+  border-color: #555 !important;
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .formatted-date-display {
+  color: #e8e8e8;
 }
 
 /* --- SETTINGS --- */
@@ -524,6 +566,18 @@ body.dark-mode .setting-inline-row {
 
 body.dark-mode .setting-inline-row span {
   color: #b8b8b8;
+}
+
+body.dark-mode .settings-option input[type="checkbox"],
+body.dark-mode .setting-inline-row input[type="checkbox"] {
+  background: #555;
+  border-color: #666;
+}
+
+body.dark-mode .settings-option input[type="checkbox"]:checked,
+body.dark-mode .setting-inline-row input[type="checkbox"]:checked {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
 }
 
 body.dark-mode hr {
@@ -651,4 +705,87 @@ body.dark-mode .install-icon {
 
 body.dark-mode .install-icon:hover {
   background: #4a6fa8;
+}
+/* --- PAGINA LOGIN/REGISTRAZIONE --- */
+body.dark-mode .auth-container.auth-switch-card {
+  background: #3a3a3a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .auth-brand-text h1 {
+  color: #e8e8e8;
+}
+
+body.dark-mode .auth-brand-text p {
+  color: #b8b8b8;
+}
+
+body.dark-mode .auth-tabs {
+  border-bottom: 1px solid #555;
+}
+
+body.dark-mode .auth-tab {
+  background: #2e2e2e;
+  color: #b8b8b8;
+  border-color: #555;
+}
+
+body.dark-mode .auth-tab:hover {
+  color: #e8e8e8;
+}
+
+body.dark-mode .auth-tab.active {
+  background: #424242;
+  color: #5a7fc1;
+  border-color: #555;
+  border-bottom: 1px solid #424242;
+}
+
+body.dark-mode .auth-stack[data-view="login"] #tab-register,
+body.dark-mode .auth-stack[data-view="register"] #tab-login {
+  opacity: 0.75;
+}
+
+body.dark-mode .auth-panel {
+  background: #424242;
+  border-color: #555;
+}
+
+body.dark-mode .auth-panel-note {
+  color: #b8b8b8;
+}
+
+body.dark-mode .toggle-password {
+  opacity: 0.5;
+}
+
+body.dark-mode .toggle-password:hover {
+  opacity: 0.9;
+}
+
+body.dark-mode .toggle-password svg path {
+  fill: #b8b8b8;
+}
+
+body.dark-mode .recover-link {
+  color: #5a7fc1;
+}
+
+body.dark-mode .recover-link:hover {
+  color: #6a8fd1;
+}
+
+body.dark-mode .input-error {
+  border-color: #e74c3c !important;
+  background: color-mix(in srgb, #e74c3c 8%, #424242) !important;
+}
+
+body.dark-mode .custom-checkbox-container .checkmark {
+  background-color: #555;
+  border-color: #666;
+}
+
+body.dark-mode .custom-checkbox-container input:checked ~ .checkmark {
+  background-color: #5a7fc1;
+  border-color: #5a7fc1;
 }
