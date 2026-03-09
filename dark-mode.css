@@ -521,7 +521,9 @@ body.dark-mode #studioModalForm.is-editing [data-studio-field]:not([readonly]) {
   border-color: #5a7fc1;
 }
 
-body.dark-mode #studioModalForm.is-editing [data-studio-field]:not([readonly]):focus {
+body.dark-mode
+  #studioModalForm.is-editing
+  [data-studio-field]:not([readonly]):focus {
   background: #424242;
   border-color: #5a7fc1;
 }
