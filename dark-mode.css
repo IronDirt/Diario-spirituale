@@ -3,7 +3,7 @@
 
 body.dark-mode {
   --bg-primary: #2a2a2a;
-  --bg-secondary: #3a3a3a;
+  --bg-secondary: #2a2a2a;
   --text-primary: #e8e8e8;
   --text-secondary: #b8b8b8;
   --border-color: #444;
@@ -12,6 +12,14 @@ body.dark-mode {
   --button-bg: #5a7fc1;
   --widget-shadow: rgba(0, 0, 0, 0.2);
   background: #2a2a2a;
+  color: #e8e8e8;
+}
+
+body.dark-mode .studio-form-row {
+  background: transparent;
+}
+
+body.dark-mode .studio-form-row label {
   color: #e8e8e8;
 }
 
@@ -723,13 +731,13 @@ body.dark-mode .auth-brand-text p {
 }
 
 body.dark-mode .auth-tabs {
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #444;
 }
 
 body.dark-mode .auth-tab {
-  background: #2e2e2e;
+  background: #353535;
   color: #b8b8b8;
-  border-color: #555;
+  border-color: #444;
 }
 
 body.dark-mode .auth-tab:hover {
@@ -737,10 +745,10 @@ body.dark-mode .auth-tab:hover {
 }
 
 body.dark-mode .auth-tab.active {
-  background: #424242;
+  background: #2a2a2a;
   color: #5a7fc1;
-  border-color: #555;
-  border-bottom: 1px solid #424242;
+  border-color: #444;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 body.dark-mode .auth-stack[data-view="login"] #tab-register,
@@ -749,8 +757,8 @@ body.dark-mode .auth-stack[data-view="register"] #tab-login {
 }
 
 body.dark-mode .auth-panel {
-  background: #424242;
-  border-color: #555;
+  background: #2a2a2a;
+  border: none;
 }
 
 body.dark-mode .auth-panel-note {
