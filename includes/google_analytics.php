@@ -3,10 +3,10 @@
 define('GA_MEASUREMENT_ID', 'G-XXXXXXXXXX');
 ?>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo GA_MEASUREMENT_ID; ?>"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<?= htmlspecialchars(GA_MEASUREMENT_ID, ENT_QUOTES, 'UTF-8') ?>"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '<?php echo GA_MEASUREMENT_ID; ?>');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '<?= htmlspecialchars(GA_MEASUREMENT_ID, ENT_QUOTES, 'UTF-8') ?>');
 </script>
