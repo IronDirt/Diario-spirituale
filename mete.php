@@ -305,7 +305,7 @@ if ($total_main_goals > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mete</title>
-    <?php include 'includes/google_analytics.php'; ?>
+    <?php include 'includes/analytics.php'; ?>
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
     <link rel="stylesheet" href="dark-mode.css?v=<?php echo filemtime('dark-mode.css'); ?>">
     <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>

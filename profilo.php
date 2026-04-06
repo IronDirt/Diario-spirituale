@@ -82,7 +82,7 @@ if (isset($_POST['aggiorna'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilo</title>
-    <?php include 'includes/google_analytics.php'; ?>
+    <?php include 'includes/analytics.php'; ?>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="dark-mode.css?v=<?php echo time(); ?>">
 </head>

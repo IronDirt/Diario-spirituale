@@ -188,7 +188,7 @@ if (isset($_POST['recover'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diario Spirituale - App per Testimoni di Geova | Traccia Studio, Servizio e Mete</title>
-    <?php include 'includes/google_analytics.php'; ?>
+    <?php include 'includes/analytics.php'; ?>
     <meta name="description" content="Diario Spirituale è l'app gratuita per Testimoni di Geova: tieni traccia delle ore di servizio, degli studi personali e familiari, e delle tue mete spirituali. Disponibile su diario-spirituale.salernohub.net">
     <meta name="keywords" content="diario spirituale, testimoni di Geova, ore di servizio, studio biblico, mete spirituali, app testimoni, tracciamento servizio, studio familiare, studio personale, obiettivi spirituali">
     <meta name="author" content="Loris Salerno">
